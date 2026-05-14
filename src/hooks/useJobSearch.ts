@@ -24,6 +24,7 @@ export interface FormErrors {
 export interface Suggestion {
     id: string;
     text: string;
+    countryCode: string;
 }
 
 export const useJobSearch = () => {
@@ -55,6 +56,7 @@ export const useJobSearch = () => {
     const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
     const suggestionsRef = useRef<HTMLDivElement>(null);
+    const selectedCountryCodeRef = useRef<string>('');
 
     const TOMTOM_API_KEY = import.meta.env.VITE_TOMTOM_API;
     if (!TOMTOM_API_KEY) {
@@ -78,6 +80,7 @@ export const useJobSearch = () => {
                 if (!value.trim()) return 'Location is required';
                 if (value.length < 2) return 'Location must be at least 2 characters';
                 if (value.length > 100) return 'Location must be less than 100 characters';
+                if (!selectedCountryCodeRef.current) return 'Please select a location from the suggestions';
                 return undefined;
 
             case 'email':
@@ -200,7 +203,8 @@ export const useJobSearch = () => {
 
                     return {
                         id: result.id,
-                        text: text
+                        text: text,
+                        countryCode: result.address.countryCode ?? ''
                     };
                 })
                 .filter((suggestion: Suggestion, index: number, self: Suggestion[]) =>
@@ -241,6 +245,7 @@ export const useJobSearch = () => {
         }
 
         setFormData(prev => ({...prev, location: value}));
+        selectedCountryCodeRef.current = '';
 
         // Clear error if field is valid
         const error = validateField('location', value);
@@ -254,6 +259,7 @@ export const useJobSearch = () => {
 
     const handleSuggestionClick = (suggestion: Suggestion) => {
         setFormData(prev => ({...prev, location: suggestion.text}));
+        selectedCountryCodeRef.current = suggestion.countryCode;
         setShowSuggestions(false);
 
         // Clear location error when selecting a valid suggestion
@@ -297,7 +303,10 @@ export const useJobSearch = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({
+                    ...formData,
+                    countryCode: selectedCountryCodeRef.current
+                }),
             });
 
             if (!response.ok) {
