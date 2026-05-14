@@ -100,8 +100,8 @@ export const JobSearchForm: React.FC = () => {
               <div className="relative max-w-6xl mx-auto px-6 pt-24 pb-32 md:pb-40">
                   <div className="max-w-4xl animate-fade-in-up">
                       <h1 className="heading-xl text-gray-900">Job Search on Autopilot</h1>
-                      <p className="mt-10 subcopy max-w-2xl">Tell us what you want—skills, role, location. We'll spare
-                          your inbox and only send a single, relevant email when a job actually fits. No spam. Ever.</p>
+                      <p className="mt-10 subcopy max-w-2xl">Tell us what you want: skills, role, location. We only send
+                          one email when a job actually fits. No spam.</p>
                       <div className="mt-12 flex flex-wrap gap-4">
                           <button onClick={() => {
                               const el = document.getElementById('subscription-form');
@@ -315,10 +315,10 @@ export const JobSearchForm: React.FC = () => {
                           {/* Submit */}
                           <div className="md:col-span-2 flex flex-col md:flex-row md:items-center gap-6 pt-4">
                               <Button type="submit" isLoading={isSubmitting}
-                                      className="rounded-full !w-auto minimal-btn bg-gray-900 hover:bg-black px-10 py-3">
+                                      className="jsf-submit-btn">
                                   Start monitoring
                               </Button>
-                              <p className="text-xs text-gray-500">One concise email per day at most—only if a match
+                              <p className="text-xs text-gray-500">One email per day at most, only when a match
                                   exists.</p>
                           </div>
               </form>
@@ -331,15 +331,18 @@ export const JobSearchForm: React.FC = () => {
                                   <h2>How it works</h2>
                                   <div className="stack-line"/>
                                   <div className="stack-grid">
-                                      {[{t: 'You Define', d: 'Tell us your ideal role, location, and skills.'}, {
-                                          t: 'We Scan',
-                                          d: 'We constantly search hundreds of job sites for you.'
+                                      {[{
+                                          t: 'Set it once',
+                                          d: 'Define your role, location, and skills. No profile to maintain.'
                                       }, {
-                                          t: 'We Filter',
-                                          d: 'We use AI to find you a job that matches your profile.'
+                                          t: 'We do the scanning',
+                                          d: 'Hundreds of job sites, checked continuously. You don\'t open a single one.'
                                       }, {
-                                          t: 'You Get Notified',
-                                          d: 'You get a simple email only when there’s a perfect match.'
+                                          t: 'AI filters the noise',
+                                          d: 'Only listings that genuinely match your profile get through.'
+                                      }, {
+                                          t: 'One email, when it matters',
+                                          d: 'No daily digests. No filler. Just the match, when it exists.'
                                       }].map(s => (
                                   <div key={s.t} className="stack-grid-item">
                                       <h3>{s.t}</h3>
@@ -383,7 +386,8 @@ export const JobSearchForm: React.FC = () => {
                               <div className="stack-cta-left">
                                   <h2 className="stack-cta-title">Opportunities matched to your profile.</h2>
                                   <p className="stack-cta-sub">We monitor multiple sources and notify you only when
-                                      positions aligned with your skills, preferences are posted. Adjust or unsubscribe
+                                      positions aligned with your skills and preferences are posted. Adjust or
+                                      unsubscribe
                                       any time.</p>
                               </div>
                               <div className="stack-cta-right">
