@@ -7,6 +7,7 @@ import {ErrorPopup} from './ui/ErrorPopup';
 import {LocationInput} from './ui/LocationInput';
 import {useJobSearch} from '../hooks/useJobSearch';
 import {Footer} from './Footer';
+import {MatchingFlow} from './AiMatching';
 
 export const JobSearchForm: React.FC = () => {
   const {
@@ -330,26 +331,7 @@ export const JobSearchForm: React.FC = () => {
                               <article className="stack-card" style={{'--i': 1} as React.CSSProperties}>
                                   <h2>How it works</h2>
                                   <div className="stack-line"/>
-                                  <div className="stack-grid">
-                                      {[{
-                                          t: 'Set it once',
-                                          d: 'Define your role, location, and skills. No profile to maintain.'
-                                      }, {
-                                          t: 'We do the scanning',
-                                          d: 'Hundreds of job sites, checked continuously. You don\'t open a single one.'
-                                      }, {
-                                          t: 'AI filters the noise',
-                                          d: 'Only listings that genuinely match your profile get through.'
-                                      }, {
-                                          t: 'One email, when it matters',
-                                          d: 'No daily digests. No filler. Just the match, when it exists.'
-                                      }].map(s => (
-                                  <div key={s.t} className="stack-grid-item">
-                                      <h3>{s.t}</h3>
-                                      <p>{s.d}</p>
-                                  </div>
-                              ))}
-                                  </div>
+                                  <MatchingFlow/>
                               </article>
                               <article className="stack-card" style={{'--i': 2} as React.CSSProperties}>
                                   <h2>Why us</h2>
