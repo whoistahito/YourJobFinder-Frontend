@@ -8,6 +8,7 @@ import {LocationInput} from './ui/LocationInput';
 import {useJobSearch} from '../hooks/useJobSearch';
 import {Footer} from './Footer';
 import {MatchingFlow} from './AiMatching';
+import {WhyUsManifesto} from './WhyUsVariants';
 
 export const JobSearchForm: React.FC = () => {
   const {
@@ -334,31 +335,7 @@ export const JobSearchForm: React.FC = () => {
                                   <MatchingFlow/>
                               </article>
                               <article className="stack-card" style={{'--i': 2} as React.CSSProperties}>
-                                  <h2>Why us</h2>
-                                  <div className="stack-line"/>
-                                  <div className="stack-benefits">
-                                      {[{
-                                          title: 'Privacy First',
-                                          desc: 'Your data is yours. We never share or sell it to anyone.'
-                                      }, {
-                                          title: 'Smarter Matching',
-                                          desc: 'Our AI understands what you want, going beyond simple keywords to find the right fit.'
-                                      }, {
-                                          title: 'Zero Spam',
-                                          desc: 'You get one daily email at most, and only if there’s a match. No ads, ever.'
-                                      }, {
-                                          title: 'One-Click Unsubscribe',
-                                          desc: 'Leave anytime with a single click in any email. No questions asked.'
-                                      }].map((b, i) => (
-                                          <div key={b.title} className="stack-benefit">
-                                              <div className="stack-badge">{String(i + 1).padStart(2, '0')}</div>
-                                              <div>
-                                                  <h3>{b.title}</h3>
-                                                  <p>{b.desc}</p>
-                                              </div>
-                                          </div>
-                                      ))}
-                                  </div>
+                                  <WhyUsManifesto/>
                               </article>
                           </div>
                       </div>

@@ -805,6 +805,12 @@
         box-shadow: var(--card-shadow);
     }
 
+    /* Render a stack-card outside the scroll-stack (e.g. variant previews). */
+    .stack-card--static {
+        position: static;
+        transform: none;
+    }
+
     .stack-card h2 {
         font-family: 'Barlow Condensed', system-ui, sans-serif;
         font-weight: 800;

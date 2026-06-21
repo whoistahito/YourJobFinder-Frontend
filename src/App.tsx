@@ -10,6 +10,7 @@ import {EmailConfirmError} from "./pages/EmailConfirmError.tsx";
 import Blog from './pages/Blog';
 import Poster from './pages/Poster';
 import DesignSystem from './pages/DesignSystem';
+import WhyUsPreview from './pages/WhyUsPreview';
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/contact" element={<ContactUs/>}/>
             <Route path="/poster" element={<Poster/>}/>
             <Route path="/design-system" element={<DesignSystem/>}/>
+            <Route path="/why-us" element={<WhyUsPreview/>}/>
         </Routes>
     );
 }
