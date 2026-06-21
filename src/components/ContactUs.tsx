@@ -122,7 +122,7 @@ export const ContactUs: React.FC = () => {
 
                 <div className="mt-14">
                     <Link to="/">
-                        <Button variant="secondary" className="!w-auto rounded-full px-7">
+                        <Button variant="secondary" className="!w-auto px-7">
                             <ArrowLeft className="w-4 h-4"/>
                             <span>Return Home</span>
                         </Button>

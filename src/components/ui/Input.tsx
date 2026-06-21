@@ -18,9 +18,9 @@ export const Input: React.FC<InputProps> = ({
                                                 ...props
 }) => {
     const baseDefault = [
-        'w-full px-3 py-2 rounded-md border border-gray-200 bg-white/80 backdrop-blur-sm',
-        'text-sm placeholder:text-gray-400', 'transition-colors duration-150',
-        'focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20', 'hover:border-gray-300'
+        'w-full px-3 py-2.5 rounded-none border-2 border-[color:var(--clr-text)] bg-[color:var(--clr-float)]',
+        'text-sm placeholder:text-gray-400', 'transition-shadow duration-150',
+        'focus:outline-none focus:shadow-[3px_3px_0_var(--clr-amber)]'
     ];
     const baseMinimal = [
         'w-full bg-transparent px-0 py-2 text-base', 'border-0 border-b border-gray-400/60 rounded-none',
@@ -28,7 +28,7 @@ export const Input: React.FC<InputProps> = ({
     ];
     const errorClasses = variant === 'minimal'
         ? 'border-b-red-500 focus:border-red-600'
-        : 'border-red-500 focus:border-red-500 focus:ring-red-500/20';
+        : 'border-[color:var(--clr-danger)] focus:shadow-[3px_3px_0_var(--clr-danger)]';
 
   return (
       <div className={variant === 'minimal' ? 'minimal-field space-y-1.5' : 'space-y-1.5'}>
@@ -40,7 +40,7 @@ export const Input: React.FC<InputProps> = ({
           <div className={variant === 'minimal' ? 'relative' : 'relative group'}>
               {Icon && variant === 'default' && (
                   <div
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 transition-colors duration-200 group-focus-within:text-brand-600">
+                      className="absolute left-3 top-1/2 -translate-y-1/2 text-[color:var(--clr-faint)] transition-colors duration-200 group-focus-within:text-[color:var(--clr-amber)]">
                       <Icon className="h-[18px] w-[18px] stroke-[2px]"/>
                   </div>
         )}

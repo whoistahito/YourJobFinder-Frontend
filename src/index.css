@@ -18,6 +18,9 @@
     --clr-amber: oklch(52% 0.20 245);
     --clr-amber-d: oklch(42% 0.18 245);
     --clr-amber-l: oklch(94% 0.04 245);
+    /* Danger — reserved for destructive/error states only */
+    --clr-danger: oklch(52% 0.22 25);
+    --clr-danger-l: oklch(95% 0.03 25);
     /* Structural tokens */
     --card-border: 2px solid var(--clr-text);
     --card-shadow: 3px 3px 0 var(--clr-text);
@@ -376,6 +379,66 @@
     .minimal-btn:active {
         box-shadow: 0 0 0 var(--clr-text);
         transform: translate(4px, 4px);
+    }
+
+    /* ── Button system (brutalist, single source of truth) ───────────────── */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.875rem 2rem;
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        border-radius: 0;
+        border: 2px solid var(--clr-text);
+        box-shadow: 4px 4px 0 var(--clr-text);
+        transition: box-shadow 0.12s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        box-shadow: 2px 2px 0 var(--clr-text);
+        transform: translate(2px, 2px);
+    }
+
+    .btn:active {
+        box-shadow: 0 0 0 var(--clr-text);
+        transform: translate(4px, 4px);
+    }
+
+    .btn:focus-visible {
+        outline: 2px solid var(--clr-text);
+        outline-offset: 3px;
+    }
+
+    .btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        box-shadow: 4px 4px 0 var(--clr-text);
+        transform: none;
+    }
+
+    .btn--primary {
+        background: var(--clr-amber);
+        color: var(--clr-base);
+    }
+
+    .btn--secondary {
+        background: var(--clr-base);
+        color: var(--clr-text);
+    }
+
+    .btn--dark {
+        background: var(--clr-text);
+        color: var(--clr-base);
+    }
+
+    .btn--danger {
+        background: var(--clr-danger);
+        color: var(--clr-base);
     }
 
     /* ── Links ───────────────────────────────────────────────────────────── */

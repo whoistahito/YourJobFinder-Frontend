@@ -1,5 +1,7 @@
 import React from 'react';
-import {X} from 'lucide-react';
+import {Check, X} from 'lucide-react';
+import {Button} from './Button';
+import {IconTile} from './IconTile';
 
 interface SuccessPopupProps {
     show: boolean;
@@ -10,33 +12,26 @@ export const SuccessPopup: React.FC<SuccessPopupProps> = ({show, onClose}) => {
     if (!show) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm p-4">
-            <div className="w-full max-w-sm animate-fade-in-up">
-                <div className="surface-card relative p-7 md:p-8">
-                    <button
-                        onClick={onClose}
-                        aria-label="Close"
-                        className="absolute top-3.5 right-3.5 inline-flex h-7 w-7 items-center justify-center rounded-md border border-gray-200 text-gray-400 hover:text-gray-600 hover:bg-white/70 transition"
-                    >
-                        <X size={16}/>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[color:var(--clr-text)]/40 p-4"
+             onClick={onClose}>
+            <div className="w-full max-w-sm animate-fade-in-up" onClick={e => e.stopPropagation()}>
+                <div className="relative bg-[color:var(--clr-base)] border-2 border-[color:var(--clr-text)]
+                                shadow-[6px_6px_0_var(--clr-text)] p-8">
+                    <button onClick={onClose} aria-label="Close"
+                            className="absolute top-3 right-3 inline-flex h-7 w-7 items-center justify-center
+                                       border-2 border-[color:var(--clr-text)] text-[color:var(--clr-text)]
+                                       hover:bg-[color:var(--clr-amber)] hover:text-[color:var(--clr-base)] transition-colors">
+                        <X size={15} strokeWidth={2.5}/>
                     </button>
                     <div className="text-center space-y-5">
-                        <div
-                            className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-brand-50 to-white border border-brand-100 text-brand-600 shadow-sm">
-                            <span className="text-2xl leading-none">✓</span>
-                        </div>
+                        <IconTile icon={Check} tone="accent" className="mx-auto"/>
                         <div className="space-y-2">
-                            <h2 className="text-lg font-semibold tracking-tight text-gray-900">Subscription
-                                Confirmed</h2>
-                            <p className="text-sm text-gray-600 leading-relaxed">We will start sending you curated job
-                                matches. You can unsubscribe at any time.</p>
+                            <h2 className="section-heading" style={{fontSize: '1.6rem'}}>Subscription confirmed</h2>
+                            <p className="subcopy" style={{fontSize: '0.9rem'}}>
+                                We will start sending curated matches. Unsubscribe any time.
+                            </p>
                         </div>
-                        <button
-                            onClick={onClose}
-                            className="pill-btn bg-gray-900 text-white hover:bg-black transition-colors px-5 py-2.5 rounded-full text-sm font-medium"
-                        >
-                            Got it
-                        </button>
+                        <Button variant="dark" onClick={onClose}>Got it</Button>
                     </div>
                 </div>
             </div>

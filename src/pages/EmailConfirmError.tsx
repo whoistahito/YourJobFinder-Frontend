@@ -90,13 +90,13 @@ export const EmailConfirmError: React.FC = () => {
                         </div>
                         <div className="pt-2 flex flex-col sm:flex-row gap-3 justify-center">
                             <Link to="/">
-                                <Button variant="primary" className="!w-auto rounded-full px-8">
+                                <Button variant="primary" className="!w-auto px-8">
                                     <RefreshCw className="w-4 h-4"/>
                                     <span>Try Again</span>
                                 </Button>
                             </Link>
                             <Link to="/">
-                                <Button variant="secondary" className="!w-auto rounded-full px-6">
+                                <Button variant="secondary" className="!w-auto px-6">
                                     <ArrowLeft className="w-4 h-4"/>
                                     <span>Back to Home</span>
                                 </Button>

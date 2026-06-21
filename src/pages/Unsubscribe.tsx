@@ -31,7 +31,7 @@ export const Unsubscribe: React.FC = () => {
                         </div>
                         <div className="pt-2">
                             <Button variant="secondary" onClick={() => window.location.href = '/'}
-                                    className="!w-auto mx-auto rounded-full px-6">
+                                    className="!w-auto mx-auto px-6">
                                 <ArrowLeft className="w-4 h-4"/>
                                 <span>Return</span>
                             </Button>

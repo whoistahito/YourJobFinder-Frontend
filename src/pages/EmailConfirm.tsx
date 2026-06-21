@@ -82,7 +82,7 @@ export const EmailConfirm: React.FC = () => {
                         <Button
                             variant="primary"
                             onClick={() => window.location.href = '/'}
-                            className="!w-auto mx-auto rounded-full px-8"
+                            className="!w-auto mx-auto px-8"
                         >
                             <ArrowLeft className="w-4 h-4"/>
                             <span>Back to Home</span>

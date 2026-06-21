@@ -106,7 +106,7 @@ export const TermsOfUse: React.FC = () => {
                             </ul>
                             <div className="mt-6 pt-4 border-t border-gray-200/70">
                                 <Link to="/">
-                                    <Button variant="secondary" className="!w-full rounded-full text-[13px] py-2.5">Return
+                                    <Button variant="secondary" className="!w-full text-[13px] py-2.5">Return
                                         Home</Button>
                                 </Link>
                             </div>

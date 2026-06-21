@@ -9,6 +9,7 @@ import {EmailConfirm} from "./pages/EmailConfirm.tsx";
 import {EmailConfirmError} from "./pages/EmailConfirmError.tsx";
 import Blog from './pages/Blog';
 import Poster from './pages/Poster';
+import DesignSystem from './pages/DesignSystem';
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/terms" element={<TermsOfUse/>}/>
             <Route path="/contact" element={<ContactUs/>}/>
             <Route path="/poster" element={<Poster/>}/>
+            <Route path="/design-system" element={<DesignSystem/>}/>
         </Routes>
     );
 }

@@ -46,7 +46,7 @@ export const UnsubscribeError: React.FC = () => {
                         </div>
                         <div className="pt-2">
                             <Link to="/">
-                                <Button variant="secondary" className="!w-auto mx-auto rounded-full px-6">
+                                <Button variant="secondary" className="!w-auto mx-auto px-6">
                                     <ArrowLeft className="w-4 h-4"/>
                                     <span>Return</span>
                                 </Button>
