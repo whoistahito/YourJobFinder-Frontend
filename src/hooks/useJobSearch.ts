@@ -48,6 +48,8 @@ export const useJobSearch = () => {
         experience: false
     });
     const navigate = useNavigate();
+    const [acceptedTerms, setAcceptedTerms] = useState(false);
+    const [termsError, setTermsError] = useState<string | undefined>();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
@@ -287,7 +289,13 @@ export const useJobSearch = () => {
         });
 
         // Validate all fields before submission
-        if (!validateForm()) {
+        const fieldsValid = validateForm();
+
+        // Terms of Use must be accepted before submitting
+        const termsValid = acceptedTerms;
+        setTermsError(termsValid ? undefined : 'Please accept the Terms of Use to continue');
+
+        if (!fieldsValid || !termsValid) {
             return; // Don't submit if validation fails
         }
 
@@ -305,7 +313,8 @@ export const useJobSearch = () => {
                 },
                 body: JSON.stringify({
                     ...formData,
-                    countryCode: selectedCountryCodeRef.current
+                    countryCode: selectedCountryCodeRef.current,
+                    acceptedTerms: true
                 }),
             });
 
@@ -327,6 +336,8 @@ export const useJobSearch = () => {
                 experience: []
             });
             setFormErrors({});
+            setAcceptedTerms(false);
+            setTermsError(undefined);
             setTouched({
                 position: false,
                 jobType: false,
@@ -487,6 +498,12 @@ export const useJobSearch = () => {
         handleEducationKeyDown,
         addExperience,
         removeExperience,
-        handleExperienceKeyDown
+        handleExperienceKeyDown,
+        acceptedTerms,
+        termsError,
+        handleTermsChange: (checked: boolean) => {
+            setAcceptedTerms(checked);
+            if (checked) setTermsError(undefined);
+        }
     };
 };

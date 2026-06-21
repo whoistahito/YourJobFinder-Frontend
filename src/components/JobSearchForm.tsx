@@ -1,4 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
+import {Link} from 'react-router-dom';
+import {Check} from 'lucide-react';
 import {Input} from './ui/Input';
 import {Button} from './ui/Button';
 import {Select} from './ui/Select';
@@ -38,7 +40,10 @@ export const JobSearchForm: React.FC = () => {
       handleEducationKeyDown,
       addExperience,
       removeExperience,
-      handleExperienceKeyDown
+      handleExperienceKeyDown,
+      acceptedTerms,
+      termsError,
+      handleTermsChange
   } = useJobSearch();
 
     // Local UI only state for progressive disclosure of quick-add chips
@@ -313,6 +318,34 @@ export const JobSearchForm: React.FC = () => {
                                       })}
                                   </div>
                               )}
+                          </div>
+                          {/* Terms acceptance */}
+                          <div className="md:col-span-2">
+                              <label className="flex items-start gap-3 cursor-pointer select-none">
+                                  <span className="relative inline-flex mt-0.5 shrink-0">
+                                      <input
+                                          type="checkbox"
+                                          checked={acceptedTerms}
+                                          onChange={e => handleTermsChange(e.target.checked)}
+                                          aria-invalid={!!termsError}
+                                          aria-describedby="terms-error"
+                                          className="peer h-5 w-5 appearance-none border-2 border-[color:var(--clr-text)] bg-[color:var(--clr-base)] checked:bg-[color:var(--clr-amber)] cursor-pointer focus:outline-none focus-visible:shadow-[3px_3px_0_var(--clr-amber)]"
+                                      />
+                                      <Check
+                                          className="pointer-events-none absolute inset-0 m-auto h-3.5 w-3.5 text-[color:var(--clr-base)] opacity-0 peer-checked:opacity-100"
+                                          strokeWidth={3}/>
+                                  </span>
+                                  <span className="text-sm text-gray-600 leading-snug">
+                                      I have read and agree to the{' '}
+                                      <Link to="/terms"
+                                            className="font-medium text-gray-900 underline decoration-dotted underline-offset-2">Terms of Use</Link>
+                                      {' '}and the{' '}
+                                      <Link to="/privacy"
+                                            className="font-medium text-gray-900 underline decoration-dotted underline-offset-2">Privacy Policy</Link>.
+                                  </span>
+                              </label>
+                              {termsError &&
+                                  <p id="terms-error" className="text-[11px] text-red-500 mt-1.5">{termsError}</p>}
                           </div>
                           {/* Submit */}
                           <div className="md:col-span-2 flex flex-col md:flex-row md:items-center gap-6 pt-4">

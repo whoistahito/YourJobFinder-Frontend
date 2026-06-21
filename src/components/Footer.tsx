@@ -11,6 +11,8 @@ export const Footer: React.FC = () => {
                     <nav className="flex flex-wrap items-center gap-x-8 gap-y-2 order-1 md:order-2">
                         <Link to="/blog" className="hover:text-gray-900 transition-colors">Blog</Link>
                         <Link to="/terms" className="hover:text-gray-900 transition-colors">Terms & Conditions</Link>
+                        <Link to="/privacy" className="hover:text-gray-900 transition-colors">Privacy</Link>
+                        <Link to="/imprint" className="hover:text-gray-900 transition-colors">Imprint</Link>
                         <Link to="/contact" className="hover:text-gray-900 transition-colors">Contact</Link>
                     </nav>
                 </div>
