@@ -151,26 +151,83 @@ export const JobSearchForm: React.FC = () => {
           <section className="relative border-b border-gray-300/60 dot-grid-bg overflow-hidden">
               <div className="dot-cluster"/>
               <div className="relative max-w-6xl mx-auto px-6 pt-16 pb-16 md:pt-24 md:pb-24">
-                  <div className="max-w-4xl animate-fade-in-up">
-                      <h1 className="heading-xl text-gray-900">Job Search on Autopilot</h1>
-                      <p className="mt-6 md:mt-10 subcopy max-w-2xl">Tell us what you want: skills, role, location. We
-                          only send
-                          one email when a job actually fits. No spam.</p>
-                      <div className="mt-8 md:mt-12 flex flex-wrap gap-4">
-                          <button onClick={() => {
-                              const el = document.getElementById('subscription-form');
-                              if (el) el.scrollIntoView({behavior: 'smooth'});
-                          }} className="minimal-btn">
-                              <span className="text-xs">↗</span> Get matches
-                          </button>
-                          <a href="#how" className="link-quiet">
-                              <span>How it works</span>
-                              <span className="arrow">↗</span>
-                          </a>
+                  <div className="hero-grid">
+                      <div className="max-w-4xl animate-fade-in-up">
+                          <h1 className="heading-xl text-gray-900">Job Search on Autopilot</h1>
+                          <p className="mt-6 md:mt-10 subcopy max-w-2xl">Tell us what you want: skills, role, location.
+                              We
+                              only send
+                              one email when a job actually fits. No spam.</p>
+                          <div className="mt-8 md:mt-12 flex flex-wrap gap-4">
+                              <button onClick={() => {
+                                  const el = document.getElementById('subscription-form');
+                                  if (el) el.scrollIntoView({behavior: 'smooth'});
+                              }} className="minimal-btn">
+                                  <span className="text-xs">↗</span> Get matches
+                              </button>
+                              <a href="#how" className="link-quiet">
+                                  <span>How it works</span>
+                                  <span className="arrow">↗</span>
+                              </a>
+                          </div>
+                      </div>
+                      {/* Signature visual: the noise funnel — N listings scanned, one match survives. */}
+                      <div className="funnel reveal-row" aria-hidden="true">
+                          <div className="funnel-cap">
+                              <span><span className="big">247</span> listings scanned today</span>
+                              <span>→ 1 match</span>
+                          </div>
+                          <div className="fun-stack">
+                              <div className="fun-row redact" style={{['--o' as any]: '.42', animationDelay: '.05s'}}>
+                                  <span className="dot"/>
+                                  <span className="bar" style={{width: '62%'}}/>
+                              </div>
+                              <div className="fun-row" style={{['--o' as any]: '.55', animationDelay: '.1s'}}>
+                                  <span className="dot"/>
+                                  <span className="bar" style={{width: '48%'}}/>
+                                  <span className="bar b2" style={{width: '22%'}}/>
+                              </div>
+                              <div className="fun-row redact" style={{['--o' as any]: '.4', animationDelay: '.15s'}}>
+                                  <span className="dot"/>
+                                  <span className="bar" style={{width: '70%'}}/>
+                              </div>
+                              <div className="fun-arrow">
+                                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                       strokeWidth="2.5">
+                                      <path d="M12 5v14M5 12l7 7 7-7"/>
+                                  </svg>
+                              </div>
+                              <div className="fun-match">
+                                  <div className="fun-mtop">
+                                      <span className="fun-role">Project Manager</span>
+                                      <span className="fun-score">96% fit</span>
+                                  </div>
+                                  <div className="fun-meta">Remote (EU) · €60–70k</div>
+                                  <div className="fun-tags">
+                                      <span>Agile </span><span>1+ years of experience</span>
+                                  </div>
+                              </div>
+                              <div className="fun-row" style={{['--o' as any]: '.55', animationDelay: '.25s'}}>
+                                  <span className="dot"/>
+                                  <span className="bar" style={{width: '54%'}}/>
+                                  <span className="bar b2" style={{width: '30%'}}/>
+                              </div>
+                              <div className="fun-row redact" style={{['--o' as any]: '.4', animationDelay: '.3s'}}>
+                                  <span className="dot"/>
+                                  <span className="bar" style={{width: '66%'}}/>
+                              </div>
+                          </div>
                       </div>
                   </div>
-          </div>
+              </div>
           </section>
+          {/* Brand-voice marquee — separates hero from the trust section */}
+          <div className="fun-strip" aria-hidden="true">
+              <div className="fun-marquee">
+                  <span>No Ads <em>/</em> No recruiter spam <em>/</em> No "10 jobs you might like" <em>/</em> No Ads <em>/</em> No recruiter spam <em>/</em> No "10 jobs you might like" <em>/</em> No Ads <em>/</em> No recruiter spam <em>/</em> No "10 jobs you might like" <em>/</em></span>
+                  <span>No Ads <em>/</em> No recruiter spam <em>/</em> No "10 jobs you might like" <em>/</em> No Ads <em>/</em> No recruiter spam <em>/</em> No "10 jobs you might like" <em>/</em> No Ads <em>/</em> No recruiter spam <em>/</em> No "10 jobs you might like" <em>/</em></span>
+              </div>
+          </div>
           {/* Trust before the ask: how it works + privacy */}
           <section id="how" className="relative max-w-6xl mx-auto px-6 pt-8 md:pt-16 pb-6 space-y-10">
               <div ref={stackRef} className="stack-wrapper">
@@ -434,29 +491,8 @@ export const JobSearchForm: React.FC = () => {
                           </div>
               </form>
                   </div>
-                  {/* Slim CTA divider section */}
-                  <div className="stack-cta mt-12" aria-label="Call to action">
-                          <div className="stack-cta-inner">
-                              <div className="stack-cta-left">
-                                  <h2 className="stack-cta-title">Opportunities matched to your profile.</h2>
-                                  <p className="stack-cta-sub">We monitor multiple sources and notify you only when
-                                      positions aligned with your skills and preferences are posted. Adjust or
-                                      unsubscribe
-                                      any time.</p>
-                              </div>
-                              <div className="stack-cta-right">
-                                  <button onClick={() => {
-                                      const el = document.getElementById('subscription-form');
-                                      if (el) el.scrollIntoView({behavior: 'smooth'});
-                                  }} className="stack-cta-primary" aria-label="Update your profile criteria">Update
-                                      profile criteria ↗
-                                  </button>
-                              </div>
-                          </div>
-                          <div className="stack-cta-divider"/>
-                      </div>
-                  </div>
               </div>
+          </div>
           <Footer/>
       </main>
   );

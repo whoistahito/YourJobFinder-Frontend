@@ -512,6 +512,236 @@
         text-align: center;
     }
 
+    /* ── Hero two-column: copy + noise funnel ─────────────────────────────── */
+    .hero-grid {
+        display: grid;
+        grid-template-columns: 1.05fr .95fr;
+        gap: clamp(2rem, 5vw, 4.5rem);
+        align-items: center;
+    }
+
+    @media (max-width: 920px) {
+        .hero-grid {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+    }
+
+    /* ── Signature: noise funnel ───────────────────────────────────────────────
+       N listings scanned → one match survives. Communicates the whole pitch
+       in one glance. Decorative; aria-hidden in markup. */
+    .funnel {
+        position: relative;
+    }
+
+    .funnel-cap {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 0.75rem;
+        font-family: 'Geist', system-ui, sans-serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.04em;
+        color: var(--clr-faint);
+    }
+
+    .funnel-cap .big {
+        font-family: 'Barlow Condensed', system-ui, sans-serif;
+        font-weight: 800;
+        font-size: 1.05rem;
+        color: var(--clr-text);
+        letter-spacing: 0;
+        margin-right: 0.15rem;
+    }
+
+    .fun-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    .fun-row {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        border: 2px solid var(--clr-border);
+        background: var(--clr-raised);
+        padding: 0.6rem 0.8rem;
+        opacity: 0.55;
+    }
+
+    .fun-row .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--clr-muted);
+        flex: none;
+    }
+
+    .fun-row .bar {
+        height: 7px;
+        background: var(--clr-muted);
+    }
+
+    .fun-row .bar.b2 {
+        opacity: 0.55;
+    }
+
+    .fun-row.redact {
+        opacity: 0.4;
+    }
+
+    .fun-row.redact .bar {
+        background: repeating-linear-gradient(90deg, var(--clr-muted), var(--clr-muted) 6px, transparent 6px, transparent 10px);
+    }
+
+    .fun-arrow {
+        display: flex;
+        justify-content: center;
+        color: var(--clr-amber);
+        margin: 0.1rem 0;
+    }
+
+    .fun-match {
+        position: relative;
+        z-index: 2;
+        border: 2px solid var(--clr-text);
+        background: var(--clr-base);
+        box-shadow: 4px 4px 0 var(--clr-amber);
+        padding: 0.95rem 1rem;
+        margin: 0.55rem 0;
+    }
+
+    .fun-mtop {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.6rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .fun-role {
+        font-family: 'Barlow Condensed', system-ui, sans-serif;
+        font-weight: 800;
+        font-size: 1.15rem;
+        letter-spacing: -0.01em;
+        line-height: 1;
+    }
+
+    .fun-score {
+        font-family: 'Geist', system-ui, sans-serif;
+        font-size: 0.66rem;
+        font-weight: 600;
+        background: var(--clr-amber);
+        color: var(--clr-base);
+        padding: 0.18rem 0.45rem;
+        letter-spacing: 0.04em;
+    }
+
+    .fun-meta {
+        font-size: 0.78rem;
+        color: var(--clr-sub);
+    }
+
+    .fun-tags {
+        display: flex;
+        gap: 0.35rem;
+        margin-top: 0.6rem;
+        flex-wrap: wrap;
+    }
+
+    .fun-tags span {
+        font-family: 'Geist', system-ui, sans-serif;
+        font-size: 0.62rem;
+        letter-spacing: 0.03em;
+        border: 1.5px solid var(--clr-text);
+        padding: 0.12rem 0.4rem;
+        color: var(--clr-text);
+    }
+
+    /* Entrance: rows ghost in, match lands. Pure CSS so it's cheap. */
+    .reveal-row .fun-row {
+        animation: funRowIn 0.5s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+    }
+
+    .reveal-row .fun-match {
+        animation: funMatchIn 0.55s 1.05s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+
+    @keyframes funRowIn {
+        from {
+            opacity: 0;
+            transform: translateX(-12px);
+        }
+        to {
+            opacity: var(--o, 0.55);
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes funMatchIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px) scale(0.97);
+        }
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    /* ── Marquee strip ────────────────────────────────────────────────────────── */
+    .fun-strip {
+        border-top: 2px solid var(--clr-text);
+        border-bottom: 2px solid var(--clr-text);
+        background: var(--clr-text);
+        color: var(--clr-base);
+        overflow: hidden;
+        padding: 0.7rem 0;
+    }
+
+    .fun-marquee {
+        display: flex;
+        gap: 3rem;
+        white-space: nowrap;
+        width: max-content;
+        animation: funScroll 26s linear infinite;
+        font-family: 'Barlow Condensed', system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 1.05rem;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+    }
+
+    .fun-marquee span {
+        display: flex;
+        align-items: center;
+        gap: 3rem;
+        color: var(--clr-base);
+    }
+
+    .fun-marquee em {
+        color: var(--clr-amber);
+        font-style: normal;
+    }
+
+    @keyframes funScroll {
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .fun-marquee {
+            animation: none;
+        }
+
+        .reveal-row .fun-row,
+        .reveal-row .fun-match {
+            animation: none;
+        }
+    }
+
     /* ── Misc utility ────────────────────────────────────────────────────── */
     .divider {
         height: 1px;
