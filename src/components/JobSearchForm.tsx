@@ -104,12 +104,13 @@ export const JobSearchForm: React.FC = () => {
           {/* Hero Section */}
           <section className="relative border-b border-gray-300/60 dot-grid-bg overflow-hidden">
               <div className="dot-cluster"/>
-              <div className="relative max-w-6xl mx-auto px-6 pt-24 pb-32 md:pb-40">
+              <div className="relative max-w-6xl mx-auto px-6 pt-16 pb-28 md:pt-24 md:pb-40">
                   <div className="max-w-4xl animate-fade-in-up">
                       <h1 className="heading-xl text-gray-900">Job Search on Autopilot</h1>
-                      <p className="mt-10 subcopy max-w-2xl">Tell us what you want: skills, role, location. We only send
+                      <p className="mt-6 md:mt-10 subcopy max-w-2xl">Tell us what you want: skills, role, location. We
+                          only send
                           one email when a job actually fits. No spam.</p>
-                      <div className="mt-12 flex flex-wrap gap-4">
+                      <div className="mt-8 md:mt-12 flex flex-wrap gap-4">
                           <button onClick={() => {
                               const el = document.getElementById('subscription-form');
                               if (el) el.scrollIntoView({behavior: 'smooth'});
@@ -125,9 +126,9 @@ export const JobSearchForm: React.FC = () => {
           </div>
           </section>
           {/* Form Section */}
-          <div className="relative w-full -mt-20 md:-mt-28 pb-20" id="subscription-form">
+          <div className="relative w-full -mt-16 md:-mt-28 pb-20" id="subscription-form">
               <div className="max-w-6xl mx-auto px-6">
-                  <div className="panel p-10 md:p-14">
+                  <div className="panel p-6 sm:p-10 md:p-14">
                       <form onSubmit={handleSubmit} className="form-grid">
                           {/* Role */}
                           <div className="md:col-span-1">
@@ -358,7 +359,7 @@ export const JobSearchForm: React.FC = () => {
                           </div>
               </form>
                   </div>
-                  <div id="how" className="mt-28 space-y-12">
+                  <div id="how" className="mt-16 md:mt-28 space-y-12">
                       {/* Scroll stack cards */}
                       <div ref={stackRef} className="stack-wrapper">
                           <div className="stack-spacer">

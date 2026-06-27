@@ -925,6 +925,25 @@
         margin-top: 3rem;
     }
 
+    /* Mobile: no sticky pile-up — cards differ in height and overlap badly.
+       Render as a normal vertical stack instead. */
+    @media (max-width: 767px) {
+        .stack-spacer {
+            height: auto !important;
+        }
+
+        .stack-card {
+            position: relative;
+            top: auto;
+            transform: none !important;
+            box-shadow: var(--card-shadow);
+        }
+
+        .stack-card + .stack-card {
+            margin-top: 1.5rem;
+        }
+    }
+
     /* ── Bg utilities ────────────────────────────────────────────────────── */
     .bg-dot-grid {
         background-image: radial-gradient(var(--clr-border) 1px, transparent 1px);
