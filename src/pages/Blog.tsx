@@ -199,24 +199,26 @@ export const Blog: React.FC = () => {
             <div className="relative w-full -mt-16 pb-24">
                 <div className="max-w-4xl mx-auto px-6">
                     <article className="panel p-8 md:p-12 lg:p-16 space-y-16" aria-labelledby="article-title">
-                        <header className="space-y-6 text-center">
+                        <header className="space-y-6">
                             <h2 id="article-title"
-                                className="font-outfit text-3xl md:text-5xl font-semibold tracking-tight leading-[1.05] text-gray-900">{c.articleTitle}</h2>
-                            <p className="text-base md:text-lg leading-relaxed text-gray-700 max-w-3xl mx-auto"
+                                className="section-heading"
+                                style={{fontSize: 'clamp(2rem, 5vw, 3rem)'}}>{c.articleTitle}</h2>
+                            <p className="subcopy"
                                dangerouslySetInnerHTML={{__html: c.intro}}/>
                         </header>
 
                         {/* Tips Section */}
                         <section className="space-y-10" aria-labelledby="sec-tipps">
                             <h3 id="sec-tipps"
-                                className="font-outfit text-2xl md:text-3xl font-semibold tracking-tight text-gray-900 border-b pb-4">{c.tipsHeading}</h3>
+                                className="section-heading" style={{fontSize: '2rem'}}>{c.tipsHeading}</h3>
                             <div className="space-y-8">
                                 {c.tips.map(item => (
-                                    <div key={item.t}>
-                                        <h4 className="text-lg font-semibold text-gray-800 mb-2">{item.t}</h4>
-                                        <div className="space-y-4 text-base leading-relaxed text-gray-700">
+                                    <div key={item.t} className="space-y-2">
+                                        <h4 className="section-heading" style={{fontSize: '1.15rem'}}>{item.t}</h4>
+                                        <div className="space-y-3 subcopy">
                                             <p dangerouslySetInnerHTML={{__html: item.b}}/>
-                                            <p className="text-sm text-gray-500 border-l-2 border-gray-200 pl-4">{item.f}</p>
+                                            <p className="border-l-2 border-[color:var(--clr-amber)] pl-4
+                                                       text-sm text-[color:var(--clr-sub)]">{item.f}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -226,48 +228,54 @@ export const Blog: React.FC = () => {
                         {/* Studies Section */}
                         <section className="space-y-8" aria-labelledby="sec-studies">
                             <h3 id="sec-studies"
-                                className="font-outfit text-2xl md:text-3xl font-semibold tracking-tight text-gray-900 border-b pb-4">{c.studiesHeading}</h3>
+                                className="section-heading" style={{fontSize: '2rem'}}>{c.studiesHeading}</h3>
                             <div className="space-y-6">
                                 {c.studies.map(s => (
                                     <blockquote key={s.t}
-                                                className="p-6 rounded-xl border border-gray-200/80 bg-gray-50/80">
-                                        <h4 className="text-base font-semibold text-gray-800 mb-2">{s.t}</h4>
-                                        <p className="text-base leading-relaxed text-gray-700"
+                                                className="border-2 border-[color:var(--clr-text)]
+                                                           bg-[color:var(--clr-base)] shadow-[4px_4px_0_var(--clr-text)]
+                                                           p-6 space-y-2">
+                                        <h4 className="section-heading" style={{fontSize: '1.15rem'}}>{s.t}</h4>
+                                        <p className="subcopy"
                                            dangerouslySetInnerHTML={{__html: s.d}}/>
                                     </blockquote>
                                 ))}
                             </div>
-                            <p className="text-base leading-relaxed text-gray-800 font-medium"
+                            <p className="subcopy font-medium"
                                dangerouslySetInnerHTML={{__html: c.studiesSummary}}/>
                         </section>
 
                         {/* Checklist Section */}
                         <section className="space-y-6" aria-labelledby="sec-checklist">
                             <h3 id="sec-checklist"
-                                className="font-outfit text-2xl md:text-3xl font-semibold tracking-tight text-gray-900 border-b pb-4">{c.checklistHeading}</h3>
+                                className="section-heading" style={{fontSize: '2rem'}}>{c.checklistHeading}</h3>
                             <ul className="grid md:grid-cols-2 gap-x-8 gap-y-3 list-none p-0 m-0">
                                 {c.checklist.map(item => (
                                     <li key={item}
-                                        className="flex items-center gap-3 text-base text-gray-900 px-2 py-2 rounded hover:bg-gray-50 focus:bg-gray-50"
+                                        className="flex items-center gap-3 subcopy px-2 py-2
+                                                   hover:bg-[color:var(--clr-float)] focus:bg-[color:var(--clr-float)]"
                                         tabIndex={0}>
-                                        <svg className="w-4 h-4 text-green-700 flex-shrink-0" aria-hidden="true"
+                                        <svg className="w-4 h-4 text-[color:var(--clr-amber)] flex-shrink-0"
+                                             aria-hidden="true"
                                              focusable="false" viewBox="0 0 20 20" fill="currentColor">
                                             <path fillRule="evenodd"
                                                   d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                                                   clipRule="evenodd"/>
                                         </svg>
-                                        <span className="text-gray-900">{item}</span>
+                                        <span>{item}</span>
                                     </li>
                                 ))}
                             </ul>
                         </section>
 
                         {/* Promotional Aside/Conclusion */}
-                        <aside className="mt-12 pt-10 border-t border-gray-200/70" aria-label="Automation note">
-                            <h3 className="font-outfit text-2xl md:text-3xl font-semibold tracking-tight text-gray-900">{c.asideTitle}</h3>
-                            <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-700">
+                        <aside className="mt-12 pt-10 border-t-2 border-[color:var(--clr-text)]"
+                               aria-label="Automation note">
+                            <h3 className="section-heading" style={{fontSize: '2rem'}}>{c.asideTitle}</h3>
+                            <div className="mt-4 space-y-4 subcopy">
                                 <p>{c.asideBody}</p>
-                                <p>{c.footerNote} <a href="/" className="underline hover:text-blue-600">{c.asideCTA}</a>.
+                                <p>{c.footerNote} <a href="/"
+                                                     className="underline decoration-dotted hover:text-[color:var(--clr-amber)]">{c.asideCTA}</a>.
                                 </p>
                             </div>
                         </aside>
