@@ -925,8 +925,8 @@
         margin-top: 3rem;
     }
 
-    /* Mobile: no sticky pile-up — cards differ in height and overlap badly.
-       Render as a normal vertical stack instead. */
+    /* Mobile: the sticky deck doesn't work with viewport-tall cards. Use a
+       plain vertical stack and reveal each card with a fade + slide on scroll. */
     @media (max-width: 767px) {
         .stack-spacer {
             height: auto !important;
@@ -935,12 +935,34 @@
         .stack-card {
             position: relative;
             top: auto;
-            transform: none !important;
+            transform: none;
             box-shadow: var(--card-shadow);
         }
 
         .stack-card + .stack-card {
             margin-top: 1.5rem;
+        }
+
+        /* No is-active on mobile — keep headings at full opacity. */
+        .stack-wrapper .stack-card h2,
+        .stack-wrapper .stack-card .jsf-card-heading {
+            opacity: 1;
+        }
+
+        /* Reveal enhancement: hidden only after JS confirms (no-JS shows all). */
+        .stack-wrapper.reveal-ready .stack-card {
+            opacity: 0;
+            transform: translateY(72px) scale(0.96);
+            filter: blur(6px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+            transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+            filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .stack-wrapper.reveal-ready .stack-card.revealed {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
         }
     }
 

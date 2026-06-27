@@ -54,36 +54,80 @@ export const JobSearchForm: React.FC = () => {
     const stackRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        if (!stackRef.current) return;
-        const cards = Array.from(stackRef.current.querySelectorAll('.stack-card')) as HTMLElement[];
+        const wrapper = stackRef.current;
+        if (!wrapper) return;
+        const cards = Array.from(wrapper.querySelectorAll('.stack-card')) as HTMLElement[];
+        if (!cards.length) return;
 
-        // Dynamic height calculation so last card releases before footer without huge spacer
-        const computeHeight = () => {
-            const vh = window.innerHeight;
-            if (!cards.length) return;
-            const totalCardsHeight = cards.reduce((sum, c) => sum + c.offsetHeight, 0);
-            const firstHeight = cards[0].offsetHeight;
-            // Allow first card to stick for one viewport, then scroll through remaining content
-            const target = firstHeight + (totalCardsHeight - firstHeight) + (vh - firstHeight * 0.6);
-            stackRef.current?.style.setProperty('--stack-height', `${target}px`);
+        const mql = window.matchMedia('(max-width: 767px)');
+
+        // Mobile: skip the sticky deck (cards are taller than the viewport and
+        // stack badly). Reveal each card with a fade + slide as it scrolls in.
+        const setupMobile = () => {
+            wrapper.classList.add('reveal-ready');
+            // ponytail: re-observe cards (reversible) instead of unobserve-once,
+            // so scrolling back up re-hides and re-animates on next entry.
+            const reveal = new IntersectionObserver((entries) => {
+                entries.forEach((e) => {
+                    e.target.classList.toggle('revealed', e.isIntersecting);
+                });
+            }, {threshold: 0, rootMargin: '-50% 0px -8% 0px'});
+            // Let the hidden (opacity:0) state paint before observing, otherwise
+            // the initial callback flips to revealed in the same frame and the
+            // transition never runs.
+            const raf = requestAnimationFrame(() =>
+                requestAnimationFrame(() => cards.forEach(c => reveal.observe(c)))
+            );
+            return () => {
+                cancelAnimationFrame(raf);
+                reveal.disconnect();
+            };
         };
-        computeHeight();
-        const ro = new ResizeObserver(computeHeight);
-        cards.forEach(c => ro.observe(c));
-        window.addEventListener('resize', computeHeight);
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                const el = entry.target as HTMLElement;
-                if (entry.isIntersecting) el.classList.add('is-active'); else el.classList.remove('is-active');
-            });
-        }, {threshold: 0.55, rootMargin: '0px 0px -10% 0px'});
-        cards.forEach(c => observer.observe(c));
+        // Desktop: sticky deck. Dynamic height so the last card releases before
+        // the footer without a huge spacer.
+        const setupDesktop = () => {
+            const computeHeight = () => {
+                const vh = window.innerHeight;
+                const totalCardsHeight = cards.reduce((sum, c) => sum + c.offsetHeight, 0);
+                const firstHeight = cards[0].offsetHeight;
+                const target = firstHeight + (totalCardsHeight - firstHeight) + (vh - firstHeight * 0.6);
+                wrapper.style.setProperty('--stack-height', `${target}px`);
+            };
+            computeHeight();
+            const ro = new ResizeObserver(computeHeight);
+            cards.forEach(c => ro.observe(c));
+            window.addEventListener('resize', computeHeight);
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    const el = entry.target as HTMLElement;
+                    if (entry.isIntersecting) el.classList.add('is-active'); else el.classList.remove('is-active');
+                });
+            }, {threshold: 0.55, rootMargin: '0px 0px -10% 0px'});
+            cards.forEach(c => observer.observe(c));
+
+            return () => {
+                observer.disconnect();
+                ro.disconnect();
+                window.removeEventListener('resize', computeHeight);
+                wrapper.style.removeProperty('--stack-height');
+                cards.forEach(c => c.classList.remove('is-active'));
+            };
+        };
+
+        // Wire up the matching mode, and re-wire when crossing the breakpoint
+        // (resize / DevTools device toggle) so it works without a reload.
+        let teardown = mql.matches ? setupMobile() : setupDesktop();
+        const onChange = () => {
+            teardown();
+            teardown = mql.matches ? setupMobile() : setupDesktop();
+        };
+        mql.addEventListener('change', onChange);
 
         return () => {
-            observer.disconnect();
-            ro.disconnect();
-            window.removeEventListener('resize', computeHeight);
+            mql.removeEventListener('change', onChange);
+            teardown();
         };
     }, []);
 
