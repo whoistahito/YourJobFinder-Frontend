@@ -481,6 +481,37 @@
         transform: translate(2px, -2px);
     }
 
+    /* Progressive-disclosure toggle for optional enrichment fields */
+    .boost-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--clr-text);
+        padding: 0.5rem 0.75rem;
+        border: 2px solid var(--clr-text);
+        background: var(--clr-base);
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .boost-toggle:hover {
+        background: var(--clr-amber-l);
+    }
+
+    .boost-toggle:active {
+        transform: translate(1px, 1px);
+    }
+
+    .boost-toggle-sign {
+        font-size: 1rem;
+        line-height: 1;
+        color: var(--clr-amber);
+        width: 1em;
+        text-align: center;
+    }
+
     /* ── Misc utility ────────────────────────────────────────────────────── */
     .divider {
         height: 1px;
@@ -952,16 +983,16 @@
         /* Reveal enhancement: hidden only after JS confirms (no-JS shows all). */
         .stack-wrapper.reveal-ready .stack-card {
             opacity: 0;
-            transform: translateY(72px) scale(0.96);
+            /* ponytail: no translateY here — a position-shifting transform on the
+               observed element feeds back through IntersectionObserver and
+               oscillates (flicker) when the card straddles the trigger band. */
             filter: blur(6px);
             transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-            transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
             filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .stack-wrapper.reveal-ready .stack-card.revealed {
             opacity: 1;
-            transform: translateY(0) scale(1);
             filter: blur(0);
         }
     }

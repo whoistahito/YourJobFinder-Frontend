@@ -50,6 +50,8 @@ export const JobSearchForm: React.FC = () => {
     const [showSkillExamples, setShowSkillExamples] = useState(false);
     const [showEducationExamples, setShowEducationExamples] = useState(false);
     const [showExperienceExamples, setShowExperienceExamples] = useState(false);
+    // Optional enrichments deferred behind a single toggle (progressive disclosure).
+    const [showBoost, setShowBoost] = useState(false);
 
     const stackRef = useRef<HTMLDivElement | null>(null);
 
@@ -148,7 +150,7 @@ export const JobSearchForm: React.FC = () => {
           {/* Hero Section */}
           <section className="relative border-b border-gray-300/60 dot-grid-bg overflow-hidden">
               <div className="dot-cluster"/>
-              <div className="relative max-w-6xl mx-auto px-6 pt-16 pb-28 md:pt-24 md:pb-40">
+              <div className="relative max-w-6xl mx-auto px-6 pt-16 pb-16 md:pt-24 md:pb-24">
                   <div className="max-w-4xl animate-fade-in-up">
                       <h1 className="heading-xl text-gray-900">Job Search on Autopilot</h1>
                       <p className="mt-6 md:mt-10 subcopy max-w-2xl">Tell us what you want: skills, role, location. We
@@ -169,8 +171,23 @@ export const JobSearchForm: React.FC = () => {
                   </div>
           </div>
           </section>
+          {/* Trust before the ask: how it works + privacy */}
+          <section id="how" className="relative max-w-6xl mx-auto px-6 pt-8 md:pt-16 pb-6 space-y-10">
+              <div ref={stackRef} className="stack-wrapper">
+                  <div className="stack-spacer">
+                      <article className="stack-card" style={{'--i': 1} as React.CSSProperties}>
+                          <h2>How it works</h2>
+                          <div className="stack-line"/>
+                          <MatchingFlow/>
+                      </article>
+                      <article className="stack-card" style={{'--i': 2} as React.CSSProperties}>
+                          <WhyUsManifesto/>
+                      </article>
+                  </div>
+              </div>
+          </section>
           {/* Form Section */}
-          <div className="relative w-full -mt-16 md:-mt-28 pb-20" id="subscription-form">
+          <div id="subscription-form" className="relative w-full pb-20">
               <div className="max-w-6xl mx-auto px-6">
                   <div className="panel p-6 sm:p-10 md:p-14">
                       <form onSubmit={handleSubmit} className="form-grid">
@@ -209,8 +226,20 @@ export const JobSearchForm: React.FC = () => {
                                      placeholder="you@domain.com" required
                                      error={touched.email ? formErrors.email : undefined}/>
                           </div>
+                          {/* Optional enrichments deferred behind a toggle (progressive disclosure) */}
+                          <div className="md:col-span-2">
+                              <button type="button" onClick={() => setShowBoost(s => !s)}
+                                      aria-expanded={showBoost}
+                                      aria-controls="boost-fields"
+                                      className="boost-toggle">
+                                  <span>Boost match quality (optional)</span>
+                                  <span className="boost-toggle-sign" aria-hidden="true">{showBoost ? '−' : '+'}</span>
+                              </button>
+                          </div>
+                          {showBoost && (
+                              <>
                           {/* Skills Token Field */}
-                          <div className="md:col-span-2 space-y-3">
+                                  <div id="boost-fields" className="md:col-span-2 space-y-3">
                               <div className="flex flex-col gap-1">
                                   <div className="flex items-center gap-3 flex-wrap">
                                       <label className="tag-meta font-semibold" htmlFor="skills-input">What are your key
@@ -364,6 +393,8 @@ export const JobSearchForm: React.FC = () => {
                                   </div>
                               )}
                           </div>
+                              </>
+                          )}
                           {/* Terms acceptance */}
                           <div className="md:col-span-2">
                               <label className="flex items-start gap-3 cursor-pointer select-none">
@@ -403,22 +434,8 @@ export const JobSearchForm: React.FC = () => {
                           </div>
               </form>
                   </div>
-                  <div id="how" className="mt-16 md:mt-28 space-y-12">
-                      {/* Scroll stack cards */}
-                      <div ref={stackRef} className="stack-wrapper">
-                          <div className="stack-spacer">
-                              <article className="stack-card" style={{'--i': 1} as React.CSSProperties}>
-                                  <h2>How it works</h2>
-                                  <div className="stack-line"/>
-                                  <MatchingFlow/>
-                              </article>
-                              <article className="stack-card" style={{'--i': 2} as React.CSSProperties}>
-                                  <WhyUsManifesto/>
-                              </article>
-                          </div>
-                      </div>
-                      {/* Slim CTA divider section */}
-                      <div className="stack-cta" aria-label="Call to action">
+                  {/* Slim CTA divider section */}
+                  <div className="stack-cta mt-12" aria-label="Call to action">
                           <div className="stack-cta-inner">
                               <div className="stack-cta-left">
                                   <h2 className="stack-cta-title">Opportunities matched to your profile.</h2>
@@ -440,7 +457,6 @@ export const JobSearchForm: React.FC = () => {
                       </div>
                   </div>
               </div>
-          </div>
           <Footer/>
       </main>
   );
