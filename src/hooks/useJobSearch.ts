@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import {API_BASE} from '../api';
 
 export interface FormData {
     position: string;
@@ -306,7 +307,7 @@ export const useJobSearch = () => {
         setShowErrorPopup(false);
 
         try {
-            const response = await fetch('https://api.yourjobfinder.website/user', {
+            const response = await fetch(`${API_BASE}/user`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

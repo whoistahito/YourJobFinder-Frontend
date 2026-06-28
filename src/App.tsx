@@ -13,6 +13,7 @@ import DesignSystem from './pages/DesignSystem';
 import WhyUsPreview from './pages/WhyUsPreview';
 import Imprint from './pages/Imprint';
 import Privacy from './pages/Privacy';
+import Dashboard from './pages/Dashboard';
 
 function App() {
     return (
@@ -33,6 +34,7 @@ function App() {
             <Route path="/poster" element={<Poster/>}/>
             <Route path="/design-system" element={<DesignSystem/>}/>
             <Route path="/why-us" element={<WhyUsPreview/>}/>
+            <Route path="/dashboard/:userId" element={<Dashboard/>}/>
         </Routes>
     );
 }
