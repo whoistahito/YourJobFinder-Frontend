@@ -11,6 +11,7 @@ import {useJobSearch} from '../hooks/useJobSearch';
 import {Footer} from './Footer';
 import {MatchingFlow} from './AiMatching';
 import {WhyUsManifesto} from './WhyUsVariants';
+import {NoiseBanner} from './NoiseBanner';
 
 export const JobSearchForm: React.FC = () => {
   const {
@@ -67,22 +68,23 @@ export const JobSearchForm: React.FC = () => {
         // stack badly). Reveal each card with a fade + slide as it scrolls in.
         const setupMobile = () => {
             wrapper.classList.add('reveal-ready');
-            // ponytail: re-observe cards (reversible) instead of unobserve-once,
-            // so scrolling back up re-hides and re-animates on next entry.
+            // Reveal once, then leave it alone — re-hiding on scroll-up left
+            // cards taller than the viewport sitting blurred while you read them.
+            // -35% puts the trigger at 65% of the screen: the card is a third of
+            // the way in when it animates, so the fade is actually watched rather
+            // than finishing off the bottom edge.
             const reveal = new IntersectionObserver((entries) => {
                 entries.forEach((e) => {
-                    e.target.classList.toggle('revealed', e.isIntersecting);
+                    if (!e.isIntersecting) return;
+                    e.target.classList.add('revealed');
+                    reveal.unobserve(e.target);
                 });
-            }, {threshold: 0, rootMargin: '-50% 0px -8% 0px'});
-            // Let the hidden (opacity:0) state paint before observing, otherwise
-            // the initial callback flips to revealed in the same frame and the
-            // transition never runs.
-            const raf = requestAnimationFrame(() =>
-                requestAnimationFrame(() => cards.forEach(c => reveal.observe(c)))
-            );
+            }, {threshold: 0, rootMargin: '0px 0px -35% 0px'});
+            cards.forEach(c => reveal.observe(c));
             return () => {
-                cancelAnimationFrame(raf);
                 reveal.disconnect();
+                wrapper.classList.remove('reveal-ready');
+                cards.forEach(c => c.classList.remove('revealed'));
             };
         };
 
@@ -221,15 +223,9 @@ export const JobSearchForm: React.FC = () => {
                   </div>
               </div>
           </section>
-          {/* Brand-voice marquee — separates hero from the trust section */}
-          <div className="fun-strip" aria-hidden="true">
-              <div className="fun-marquee">
-                  <span>No Ads <em>/</em> No recruiter spam <em>/</em> No "10 jobs you might like" <em>/</em> No Ads <em>/</em> No recruiter spam <em>/</em> No "10 jobs you might like" <em>/</em> No Ads <em>/</em> No recruiter spam <em>/</em> No "10 jobs you might like" <em>/</em></span>
-                  <span>No Ads <em>/</em> No recruiter spam <em>/</em> No "10 jobs you might like" <em>/</em> No Ads <em>/</em> No recruiter spam <em>/</em> No "10 jobs you might like" <em>/</em> No Ads <em>/</em> No recruiter spam <em>/</em> No "10 jobs you might like" <em>/</em></span>
-              </div>
-          </div>
+          <NoiseBanner/>
           {/* Trust before the ask: how it works + privacy */}
-          <section id="how" className="relative max-w-6xl mx-auto px-6 pt-8 md:pt-16 pb-6 space-y-10">
+          <section id="how" className="relative stack-wide mx-auto px-6 pt-8 md:pt-16 pb-6 space-y-10">
               <div ref={stackRef} className="stack-wrapper">
                   <div className="stack-spacer">
                       <article className="stack-card" style={{'--i': 1} as React.CSSProperties}>
