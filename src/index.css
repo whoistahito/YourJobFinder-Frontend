@@ -1458,14 +1458,14 @@
     border: 2px solid var(--clr-text);
     background: var(--clr-base);
     padding: 1.1rem 1.25rem;
-    box-shadow: 3px 3px 0 var(--clr-text);
+    box-shadow: 4px 4px 0 var(--clr-amber);
     transition: transform 0.14s, box-shadow 0.14s;
     animation: dashCardIn 0.45s cubic-bezier(0.2, 0.6, 0.2, 1) both;
 }
 
 .dash-card:hover {
     transform: translate(-2px, -2px);
-    box-shadow: 5px 5px 0 var(--clr-text);
+    box-shadow: 6px 6px 0 var(--clr-amber);
 }
 
 @keyframes dashCardIn {
