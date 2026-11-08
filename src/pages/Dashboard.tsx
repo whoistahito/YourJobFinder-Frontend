@@ -43,19 +43,44 @@ interface ApiMatch {
     created_at: string | null;
 }
 
+interface MatchesResponse {
+    user_id: string;
+    email: string | null;
+    matches: ApiMatch[];
+}
+
+// /users/:id/profile — what the user set up at signup (read-only).
+interface ProfileData {
+    user_id: string;
+    email: string | null;
+    position: string | null;
+    location: string | null;
+    job_type: string | null;
+    skills: string[];
+    experiences: string[];
+    educations: string[];
+}
+
 // Stable hue from the company name — backend has no brand color.
 const colorFor = (s: string) =>
     `oklch(55% 0.15 ${[...s].reduce((a, c) => a + c.charCodeAt(0), 0) % 360})`;
 
-// created_at is UTC but emitted without a 'Z'; treat a tz-less stamp as UTC.
+// created_at is UTC but emitted without a 'Z'; a tz-less stamp is treated as UTC.
+// Unparseable/missing stamps age to Infinity so they sort oldest-first.
 const parseUtc = (s: string) => Date.parse(/[zZ]|[+-]\d\d:?\d\d$/.test(s) ? s : s + 'Z');
+
+const ageHours = (iso: string | null): number => {
+    if (!iso) return Number.POSITIVE_INFINITY;
+    const ms = Date.now() - parseUtc(iso);
+    return Number.isFinite(ms) ? Math.max(0, Math.round(ms / 3.6e6)) : Number.POSITIVE_INFINITY;
+};
 
 const toJobMatch = (m: ApiMatch): JobMatch => ({
     id: m.id,
     title: m.title,
     company: m.company,
     location: m.location ?? '',
-    hoursAgo: m.created_at ? Math.max(0, Math.round((Date.now() - parseUtc(m.created_at)) / 3.6e6)) : 0,
+    hoursAgo: ageHours(m.created_at),
     score: m.score,
     status: 'new', // ponytail: backend has no saved/archived — Save/Dismiss stay local-only
     color: colorFor(m.company),
@@ -66,6 +91,7 @@ type Tab = 'new' | 'saved' | 'archived' | 'all';
 type Sort = 'fit' | 'new';
 
 const rel = (h: number) => {
+    if (!Number.isFinite(h)) return 'long ago';
     if (h < 1) return 'just now';
     if (h < 24) return `${h}h ago`;
     const d = Math.round(h / 24);
@@ -98,6 +124,9 @@ export const Dashboard: React.FC = () => {
     const [lastScan, setLastScan] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
     const [loadError, setLoadError] = useState<string | null>(null);
+    const [includeOlder, setIncludeOlder] = useState(false);
+    const [profile, setProfile] = useState<ProfileData | null>(null);
+    const [profOpen, setProfOpen] = useState(false);
     const [tab, setTab] = useState<Tab>('new');
     const [sort, setSort] = useState<Sort>('fit');
     const [query, setQuery] = useState('');
@@ -113,9 +142,11 @@ export const Dashboard: React.FC = () => {
             return;
         }
         setOverrides(loadStatuses(userId));
-        fetch(`${API_BASE}/users/${userId}/matches`)
+        // Backend defaults to the last 30 days; ?older=1 lifts the window.
+        const q = includeOlder ? '?older=1' : '';
+        fetch(`${API_BASE}/users/${userId}/matches${q}`)
             .then(r => (r.ok ? r.json() : Promise.reject(r.status)))
-            .then((d: { email: string | null; matches: ApiMatch[] }) => {
+            .then((d: MatchesResponse) => {
                 setUserEmail(d.email);
                 setRawJobs(d.matches.map(toJobMatch));
                 const newest = d.matches.reduce<string | null>(
@@ -127,6 +158,14 @@ export const Dashboard: React.FC = () => {
                 setLoadError('Could not load your matches.');
             })
             .finally(() => setLoading(false));
+    }, [userId, includeOlder]);
+
+    useEffect(() => {
+        if (!userId) return;
+        fetch(`${API_BASE}/users/${userId}/profile`)
+            .then(r => (r.ok ? r.json() : Promise.reject(r.status)))
+            .then((p: ProfileData) => setProfile(p))
+            .catch(() => setProfile(null));
     }, [userId]);
 
     // backend only knows 'new'; saved/archived live in overrides
@@ -209,9 +248,12 @@ export const Dashboard: React.FC = () => {
                     </button>
                     <div className="dash-divider"/>
                     <div className="nav-label">Account</div>
-                    <Link to="/" className="nav-item" onClick={() => setMenuOpen(false)}>
+                    <button className="nav-item" onClick={() => {
+                        setProfOpen(true);
+                        setMenuOpen(false);
+                    }}>
                         <User size={17}/> Profile
-                    </Link>
+                    </button>
                     <Link to="/" className="nav-item" onClick={() => setMenuOpen(false)}>
                         <SettingsIcon size={17}/> Settings
                     </Link>
@@ -263,6 +305,10 @@ export const Dashboard: React.FC = () => {
                         ))}
                     </div>
                     <div className="dash-sort">
+                        <button className={`older-chip ${includeOlder ? 'on' : ''}`}
+                                onClick={() => setIncludeOlder(v => !v)}>
+                            Include older
+                        </button>
                         Sort
                         <div className="seg">
                             <button className={sort === 'fit' ? 'on' : ''} onClick={() => setSort('fit')}>Best fit
@@ -334,6 +380,71 @@ export const Dashboard: React.FC = () => {
                     )}
                 </div>
             </div>
+
+            <div className={`dash-scrim ${profOpen ? 'show' : ''}`} onClick={() => setProfOpen(false)}/>
+            {/* PROFILE DRAWER — read-only view of the signup data */}
+            <aside className={`dash-profile ${profOpen ? 'open' : ''}`} aria-hidden={!profOpen}>
+                <div className="prof-head">
+                    <span className="mark"/> Your profile
+                    <button className="prof-close" onClick={() => setProfOpen(false)} aria-label="Close">
+                        <X size={16}/>
+                    </button>
+                </div>
+                <div className="prof-body">
+                    {!profile ? (
+                        <p className="prof-empty">Profile could not be loaded.</p>
+                    ) : (
+                        <>
+                            <div className="prof-grid">
+                                <div className="prof-cell">
+                                    <span className="lbl">Email</span>
+                                    <b>{profile.email ?? '—'}</b>
+                                </div>
+                                <div className="prof-cell">
+                                    <span className="lbl">Role</span>
+                                    <b>{profile.position ?? '—'}</b>
+                                </div>
+                                <div className="prof-cell">
+                                    <span className="lbl">Job type</span>
+                                    <b>{(profile.job_type ?? '—').replace(/-/g, ' ')}</b>
+                                </div>
+                                <div className="prof-cell">
+                                    <span className="lbl">Location</span>
+                                    <b>{profile.location ?? '—'}</b>
+                                </div>
+                            </div>
+                            <div className="prof-section">
+                                <span className="lbl">Skills</span>
+                                {profile.skills.length ? (
+                                    <div className="prof-chips">
+                                        {profile.skills.map(s => <span key={s} className="prof-chip">{s}</span>)}
+                                    </div>
+                                ) : <span className="prof-empty">Not provided</span>}
+                            </div>
+                            <div className="prof-section">
+                                <span className="lbl">Experience</span>
+                                {profile.experiences.length ? (
+                                    <ul className="prof-list">
+                                        {profile.experiences.map(s => <li key={s}>{s}</li>)}
+                                    </ul>
+                                ) : <span className="prof-empty">Not provided</span>}
+                            </div>
+                            <div className="prof-section">
+                                <span className="lbl">Education</span>
+                                {profile.educations.length ? (
+                                    <ul className="prof-list">
+                                        {profile.educations.map(s => <li key={s}>{s}</li>)}
+                                    </ul>
+                                ) : <span className="prof-empty">Not provided</span>}
+                            </div>
+                            <p className="prof-note">
+                                These are the inputs your matches are scored against. They come from the
+                                signup form and the daily scan.
+                            </p>
+                        </>
+                    )}
+                </div>
+            </aside>
         </main>
     );
 };
