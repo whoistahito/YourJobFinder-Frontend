@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import {SEO} from '../components/SEO';
 import {API_BASE} from '../api';
-import brandMark from '../assets/J-Puzzle-64.png';
+import brandMark from '../assets/J-Puzzle-180.png';
 
 type JobStatus = 'new' | 'saved' | 'archived';
 
