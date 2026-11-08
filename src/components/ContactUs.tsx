@@ -1,19 +1,19 @@
 import React from 'react';
-import {Mail, Megaphone, ShieldQuestion} from 'lucide-react';
+import {Envelope, Fingerprint, Megaphone} from '@phosphor-icons/react';
 import {Link} from 'react-router-dom';
 
 const Block: React.FC<{ title: string; children: React.ReactNode }> = ({title, children}) => (
     <section className="border-2 border-[color:var(--clr-text)] bg-[color:var(--clr-base)]
                         shadow-[4px_4px_0_var(--clr-text)] p-6 md:p-7 space-y-2">
-        <h2 className="section-heading" style={{fontSize: '1.35rem'}}>{title}</h2>
-        <div className="subcopy space-y-2" style={{fontSize: '0.92rem'}}>{children}</div>
+        <h2 className="section-heading section-heading--md">{title}</h2>
+        <div className="subcopy subcopy-sm space-y-2">{children}</div>
     </section>
 );
 
 export const ContactUs: React.FC = () => {
     const contacts = [
         {
-            icon: Mail,
+            icon: Envelope,
             label: 'General Inquiries',
             value: 'your.job.finder.app@gmail.com',
             href: 'mailto:your.job.finder.app@gmail.com?subject=General%20Inquiry',
@@ -27,7 +27,7 @@ export const ContactUs: React.FC = () => {
             desc: 'Media, collaboration or integration opportunities.'
         },
         {
-            icon: ShieldQuestion,
+            icon: Fingerprint,
             label: 'Privacy & Data',
             value: 'your.job.finder.app+privacy@gmail.com',
             href: 'mailto:your.job.finder.app+privacy@gmail.com?subject=Privacy%20Question',
@@ -36,11 +36,11 @@ export const ContactUs: React.FC = () => {
     ];
 
     return (
-        <main className="soft-ui min-h-screen">
+        <main id="main-content" className="soft-ui min-h-screen">
             <div className="max-w-3xl mx-auto px-6 py-16 space-y-10">
                 <header>
                     <Link to="/" className="link-quiet text-sm"><span className="arrow">←</span> Back to app</Link>
-                    <h1 className="heading-xl mt-6" style={{fontSize: 'clamp(2.5rem, 8vw, 5rem)'}}>Get in touch</h1>
+                    <h1 className="heading-xl mt-6">Get in touch</h1>
                     <p className="subcopy mt-3">We actually read everything. Pick the path that best fits why you're
                         reaching out — it helps us respond faster and with context. Average reply under 24 hours.</p>
                 </header>
@@ -52,11 +52,11 @@ export const ContactUs: React.FC = () => {
                                   transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5
                                   hover:shadow-[6px_6px_0_var(--clr-text)]">
                         <div className="flex items-center justify-between">
-                            <h2 className="section-heading" style={{fontSize: '1.15rem'}}>{label}</h2>
-                            <Icon className="w-5 h-5 text-[color:var(--clr-amber)]"/>
+                            <h2 className="section-heading section-heading--sm">{label}</h2>
+                            <Icon className="w-5 h-5 text-[color:var(--clr-amber)]" weight="bold"/>
                         </div>
-                        <p className="subcopy" style={{fontSize: '0.92rem'}}>{desc}</p>
-                        <p className="text-[13px] font-medium text-[color:var(--clr-text)]
+                        <p className="subcopy subcopy-sm">{desc}</p>
+                        <p className="text-xs font-medium text-[color:var(--clr-text)]
                                    underline decoration-dotted break-all">{value}</p>
                     </a>
                 ))}

@@ -28,7 +28,7 @@ const content = {
             },
             {
                 t: '4. Mehrere Kanäle parallel',
-                b: 'Nutze Jobbörsen, stelle Alerts ein, versende Initiativbewerbungen und teste ähnliche Jobtitel. Alerts helfen, früh zu reagieren — oft wichtiger als perfekte Passung. Nutze auch spezialisierte Suchdienste (z. B. <a href="https://www.linkedin.com/help/linkedin/answer/a511279/job-alerts-on-linkedin?lang=de" target="_blank" rel="noopener noreferrer">Jobbenachrichtigungen auf LinkedIn</a> oder <a href="https://yourjobfinder.website" target="_blank" rel="noopener noreferrer">yourjobfinder</a>), die Ergebnisse bündeln und dir nur passende Rollen anzeigen — das spart Zeit.',
+                b: 'Nutze Jobbörsen, stelle Alerts ein, versende Initiativbewerbungen und teste ähnliche Jobtitel. Alerts helfen, früh zu reagieren: oft wichtiger als perfekte Passung. Nutze auch spezialisierte Suchdienste (z. B. <a href="https://www.linkedin.com/help/linkedin/answer/a511279/job-alerts-on-linkedin?lang=de" target="_blank" rel="noopener noreferrer">Jobbenachrichtigungen auf LinkedIn</a> oder <a href="https://yourjobfinder.website" target="_blank" rel="noopener noreferrer">yourjobfinder</a>), die Ergebnisse bündeln und dir nur passende Rollen anzeigen; das spart Zeit.',
                 f: 'Tipp: Probiere verwandte Jobtitel, wenn nichts exakt passt, oder nutze einen Monitor, um Rauschen zu reduzieren.'
             },
             {
@@ -86,7 +86,7 @@ const content = {
         heroTitle: 'Find a Job Fast',
         heroLead: 'Pragmatic strategies backed by research – cut search time with quality, focus and automated monitoring instead of endless scrolling.',
         articleTitle: 'How to Find a Job Fast: Tips & Strategies',
-        intro: 'To land a role faster you need a <strong>structured, proactive approach</strong>. Average searches take 3–6 months—clear positioning, daily rhythm and intelligent automation can compress that sharply.',
+        intro: 'To land a role faster you need a <strong>structured, proactive approach</strong>. Average searches take 3–6 months; clear positioning, daily rhythm and intelligent automation can compress that sharply.',
         tipsHeading: 'Practical Tips & Tactics',
         tips: [
             {
@@ -96,7 +96,7 @@ const content = {
             },
             {
                 t: '2. Leverage Networking',
-                b: 'Reach out to past colleagues, alumni and people at target companies. Ask for 10–15 minute info chats and be specific about what you want—don’t send long, vague messages.',
+                b: 'Reach out to past colleagues, alumni and people at target companies. Ask for 10–15 minute info chats and be specific about what you want; don’t send long, vague messages.',
                 f: 'Tip: Keep outreach short and say exactly how you can help or why you fit.'
             },
             {
@@ -106,7 +106,7 @@ const content = {
             },
             {
                 t: '4. Search on Several Channels',
-                b: 'Set alerts, Apply early and test similar job titles. Alerts help you apply early—often that matters more than a perfect fit. Consider also using search engines (for example, <a href="https://www.linkedin.com/help/linkedin/answer/a511279/job-alerts-on-linkedin?lang=en" target="_blank" rel="noopener noreferrer">Job alerts on LinkedIn</a> or <a href="https://yourjobfinder.website" target="_blank" rel="noopener noreferrer">yourjobfinder</a>) that aggregate results and filter roles that match your criteria, this saves time daily.',
+                b: 'Set alerts, Apply early and test similar job titles. Alerts help you apply early; often that matters more than a perfect fit. Consider also using search engines (for example, <a href="https://www.linkedin.com/help/linkedin/answer/a511279/job-alerts-on-linkedin?lang=en" target="_blank" rel="noopener noreferrer">Job alerts on LinkedIn</a> or <a href="https://yourjobfinder.website" target="_blank" rel="noopener noreferrer">yourjobfinder</a>) that aggregate results and filter roles that match your criteria, this saves time daily.',
                 f: 'Tip: Try a couple of related job titles if nothing matches exactly, or use a focused monitor to reduce noise.'
             },
             {
@@ -134,7 +134,7 @@ const content = {
         studies: [
             {
                 t: 'Goal Orientation & Strategy',
-                d: 'A <strong>learning orientation</strong> encourages structured + exploratory tactics → more conversations, offers & better job quality. Chaotic “haphazard” patterns reduce odds. Self‑regulation amplifies positives—especially in tough markets.'
+                d: 'A <strong>learning orientation</strong> encourages structured + exploratory tactics → more conversations, offers & better job quality. Chaotic “haphazard” patterns reduce odds. Self‑regulation amplifies positives, especially in tough markets.'
             },
             {
                 t: 'Career Adaptability',
@@ -167,28 +167,28 @@ export const Blog: React.FC = () => {
     const [lang, setLang] = useState<'de' | 'en'>(autoLang);
     const c = content[lang];
     return (
-        <main className="soft-ui min-h-screen flex flex-col" lang={lang}>
+        <main id="main-content" className="soft-ui min-h-screen flex flex-col" lang={lang}>
             <SEO
-                title={lang === 'de' ? `${c.heroTitle} — Your Job Finder` : `${c.heroTitle} — Your Job Finder`}
+                title={`${c.heroTitle} · Your Job Finder`}
                 description={lang === 'de' ? c.heroLead : c.heroLead}
                 url={`https://yourjobfinder.website/blog`}
                 image={`https://yourjobfinder.website/src/assets/J-Puzzle-180.png`}
                 keywords={`job search, job tips, job finder, career, your job finder`}
             />
             {/* Hero */}
-            <section className="relative border-b border-gray-300/60 dot-grid-bg overflow-hidden">
+            <section className="relative border-b border-[color:var(--clr-border)] dot-grid-bg overflow-hidden">
                 <div className="relative max-w-6xl mx-auto px-6 pt-24 pb-24">
                     <div className="max-w-4xl animate-fade-in-up">
-                        <h1 className="heading-xl text-gray-900">{c.heroTitle}</h1>
+                        <h1 className="heading-xl heading-gradient">{c.heroTitle}</h1>
                         <p className="mt-8 subcopy max-w-2xl" dangerouslySetInnerHTML={{__html: c.heroLead}}/>
                         <div className="mt-10 flex flex-wrap gap-3">
-                            <a href="/" className="minimal-btn text-xs px-6 py-2">{c.ctaPrimary}</a>
-                            <div className="flex items-center gap-2 text-[11px] uppercase tracking-wide text-gray-500">
-                                <button onClick={() => setLang('de')}
-                                        className={`px-3 py-1 rounded-full border text-[11px] ${lang === 'de' ? 'bg-gray-900 text-white border-gray-900' : 'border-gray-400/60 hover:border-gray-600'}`}>DE
+                            <a href="/" className="minimal-btn">{c.ctaPrimary}</a>
+                            <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-[color:var(--clr-faint)]">
+                                <button onClick={() => setLang('de')} aria-pressed={lang === 'de'}
+                                        className={`px-3 py-1 border-2 text-xs font-semibold transition-colors duration-300 ${lang === 'de' ? 'bg-[color:var(--clr-text)] text-[color:var(--clr-base)] border-[color:var(--clr-text)]' : 'border-[color:var(--clr-border)] text-[color:var(--clr-sub)] hover:border-[color:var(--clr-text)]'}`}>DE
                                 </button>
-                                <button onClick={() => setLang('en')}
-                                        className={`px-3 py-1 rounded-full border text-[11px] ${lang === 'en' ? 'bg-gray-900 text-white border-gray-900' : 'border-gray-400/60 hover:border-gray-600'}`}>EN
+                                <button onClick={() => setLang('en')} aria-pressed={lang === 'en'}
+                                        className={`px-3 py-1 border-2 text-xs font-semibold transition-colors duration-300 ${lang === 'en' ? 'bg-[color:var(--clr-text)] text-[color:var(--clr-base)] border-[color:var(--clr-text)]' : 'border-[color:var(--clr-border)] text-[color:var(--clr-sub)] hover:border-[color:var(--clr-text)]'}`}>EN
                                 </button>
                             </div>
                         </div>
@@ -201,8 +201,7 @@ export const Blog: React.FC = () => {
                     <article className="panel p-8 md:p-12 lg:p-16 space-y-16" aria-labelledby="article-title">
                         <header className="space-y-6">
                             <h2 id="article-title"
-                                className="section-heading"
-                                style={{fontSize: 'clamp(2rem, 5vw, 3rem)'}}>{c.articleTitle}</h2>
+                                className="section-heading section-heading--xl">{c.articleTitle}</h2>
                             <p className="subcopy"
                                dangerouslySetInnerHTML={{__html: c.intro}}/>
                         </header>
@@ -210,11 +209,11 @@ export const Blog: React.FC = () => {
                         {/* Tips Section */}
                         <section className="space-y-10" aria-labelledby="sec-tipps">
                             <h3 id="sec-tipps"
-                                className="section-heading" style={{fontSize: '2rem'}}>{c.tipsHeading}</h3>
+                                className="section-heading section-heading--lg">{c.tipsHeading}</h3>
                             <div className="space-y-8">
                                 {c.tips.map(item => (
                                     <div key={item.t} className="space-y-2">
-                                        <h4 className="section-heading" style={{fontSize: '1.15rem'}}>{item.t}</h4>
+                                        <h4 className="section-heading section-heading--sm">{item.t}</h4>
                                         <div className="space-y-3 subcopy">
                                             <p dangerouslySetInnerHTML={{__html: item.b}}/>
                                             <p className="border-l-2 border-[color:var(--clr-amber)] pl-4
@@ -228,14 +227,14 @@ export const Blog: React.FC = () => {
                         {/* Studies Section */}
                         <section className="space-y-8" aria-labelledby="sec-studies">
                             <h3 id="sec-studies"
-                                className="section-heading" style={{fontSize: '2rem'}}>{c.studiesHeading}</h3>
+                                className="section-heading section-heading--lg">{c.studiesHeading}</h3>
                             <div className="space-y-6">
                                 {c.studies.map(s => (
                                     <blockquote key={s.t}
                                                 className="border-2 border-[color:var(--clr-text)]
                                                            bg-[color:var(--clr-base)] shadow-[4px_4px_0_var(--clr-text)]
                                                            p-6 space-y-2">
-                                        <h4 className="section-heading" style={{fontSize: '1.15rem'}}>{s.t}</h4>
+                                        <h4 className="section-heading section-heading--sm">{s.t}</h4>
                                         <p className="subcopy"
                                            dangerouslySetInnerHTML={{__html: s.d}}/>
                                     </blockquote>
@@ -248,7 +247,7 @@ export const Blog: React.FC = () => {
                         {/* Checklist Section */}
                         <section className="space-y-6" aria-labelledby="sec-checklist">
                             <h3 id="sec-checklist"
-                                className="section-heading" style={{fontSize: '2rem'}}>{c.checklistHeading}</h3>
+                                className="section-heading section-heading--lg">{c.checklistHeading}</h3>
                             <ul className="grid md:grid-cols-2 gap-x-8 gap-y-3 list-none p-0 m-0">
                                 {c.checklist.map(item => (
                                     <li key={item}
@@ -271,7 +270,7 @@ export const Blog: React.FC = () => {
                         {/* Promotional Aside/Conclusion */}
                         <aside className="mt-12 pt-10 border-t-2 border-[color:var(--clr-text)]"
                                aria-label="Automation note">
-                            <h3 className="section-heading" style={{fontSize: '2rem'}}>{c.asideTitle}</h3>
+                            <h3 className="section-heading section-heading--lg">{c.asideTitle}</h3>
                             <div className="mt-4 space-y-4 subcopy">
                                 <p>{c.asideBody}</p>
                                 <p>{c.footerNote} <a href="/"

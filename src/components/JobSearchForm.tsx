@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
-import {Check, User} from 'lucide-react';
+import {Check, User} from '@phosphor-icons/react';
 import {Input} from './ui/Input';
 import {Button} from './ui/Button';
 import {Select} from './ui/Select';
@@ -137,7 +137,7 @@ export const JobSearchForm: React.FC = () => {
     }, []);
 
   return (
-      <main className="min-h-screen flex flex-col soft-ui">
+      <main id="main-content" className="min-h-screen flex flex-col soft-ui">
         {/* Success Popup */}
         <SuccessPopup
             show={showSuccessPopup}
@@ -152,15 +152,15 @@ export const JobSearchForm: React.FC = () => {
             onContactSupport={() => navigate('/contact')}
         />
           {/* Hero Section */}
-          <section className="relative border-b border-gray-300/60 dot-grid-bg overflow-hidden">
+          <section className="relative border-b border-[color:var(--clr-border)] dot-grid-bg overflow-hidden">
               <div className="dot-cluster"/>
               <Link to="/login" className="signin-chip z-10">
-                  <User size={14}/> Sign in
+                  <User size={14} weight="bold"/> Sign in
               </Link>
               <div className="relative max-w-6xl mx-auto px-6 pt-16 pb-16 md:pt-24 md:pb-24">
                   <div className="hero-grid">
                       <div className="max-w-4xl animate-fade-in-up">
-                          <h1 className="heading-xl text-gray-900">Job Search on Autopilot</h1>
+                          <h1 className="heading-xl heading-gradient">Job Search on Autopilot</h1>
                           <p className="mt-6 md:mt-10 subcopy max-w-2xl">Tell us what you want: skills, role, location.
                               We
                               only send
@@ -185,18 +185,18 @@ export const JobSearchForm: React.FC = () => {
                               <span>→ 1 match</span>
                           </div>
                           <div className="fun-stack">
-                              <div className="fun-row redact" style={{['--o' as any]: '.42', animationDelay: '.05s'}}>
+                              <div className="fun-row redact [--o:.42] [animation-delay:50ms]">
                                   <span className="dot"/>
-                                  <span className="bar" style={{width: '62%'}}/>
+                                  <span className="bar w-[62%]"/>
                               </div>
-                              <div className="fun-row" style={{['--o' as any]: '.55', animationDelay: '.1s'}}>
+                              <div className="fun-row [--o:.55] [animation-delay:100ms]">
                                   <span className="dot"/>
-                                  <span className="bar" style={{width: '48%'}}/>
-                                  <span className="bar b2" style={{width: '22%'}}/>
+                                  <span className="bar w-[48%]"/>
+                                  <span className="bar b2 w-[22%]"/>
                               </div>
-                              <div className="fun-row redact" style={{['--o' as any]: '.4', animationDelay: '.15s'}}>
+                              <div className="fun-row redact [--o:.4] [animation-delay:150ms]">
                                   <span className="dot"/>
-                                  <span className="bar" style={{width: '70%'}}/>
+                                  <span className="bar w-[70%]"/>
                               </div>
                               <div className="fun-arrow">
                                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -214,14 +214,14 @@ export const JobSearchForm: React.FC = () => {
                                       <span>Agile </span><span>1+ years of experience</span>
                                   </div>
                               </div>
-                              <div className="fun-row" style={{['--o' as any]: '.55', animationDelay: '.25s'}}>
+                              <div className="fun-row [--o:.55] [animation-delay:250ms]">
                                   <span className="dot"/>
-                                  <span className="bar" style={{width: '54%'}}/>
-                                  <span className="bar b2" style={{width: '30%'}}/>
+                                  <span className="bar w-[54%]"/>
+                                  <span className="bar b2 w-[30%]"/>
                               </div>
-                              <div className="fun-row redact" style={{['--o' as any]: '.4', animationDelay: '.3s'}}>
+                              <div className="fun-row redact [--o:.4] [animation-delay:300ms]">
                                   <span className="dot"/>
-                                  <span className="bar" style={{width: '66%'}}/>
+                                  <span className="bar w-[66%]"/>
                               </div>
                           </div>
                       </div>
@@ -303,7 +303,7 @@ export const JobSearchForm: React.FC = () => {
                                       <label className="tag-meta font-semibold" htmlFor="skills-input">What are your key
                                           skills? (up to 10)</label>
                                       {formErrors.skills &&
-                                          <span className="text-[11px] text-red-500 ml-auto">{formErrors.skills}</span>}
+                                          <span className="text-xs text-[color:var(--clr-danger)] ml-auto">{formErrors.skills}</span>}
                                   </div>
                                   <p className="micro-hint" id="skills-hint">Add core technologies & tools (e.g. React,
                                       TypeScript, PostgreSQL). Avoid soft skills.</p>
@@ -355,7 +355,7 @@ export const JobSearchForm: React.FC = () => {
                                       <label className="tag-meta font-semibold" htmlFor="education-input">What education
                                           do you have? (max 3)</label>
                                       {formErrors.education && <span
-                                          className="text-[11px] text-red-500 ml-auto">{formErrors.education}</span>}
+                                          className="text-xs text-[color:var(--clr-danger)] ml-auto">{formErrors.education}</span>}
                                   </div>
                                   <p className="micro-hint" id="education-hint">Add your highest degree or relevant
                                       certifications (e.g. BSc Computer Science, AWS Certified). Keep it concise.</p>
@@ -406,7 +406,7 @@ export const JobSearchForm: React.FC = () => {
                                       <label className="tag-meta font-semibold" htmlFor="experience-input">What work
                                           experience do you have? (max 3)</label>
                                       {formErrors.experience && <span
-                                          className="text-[11px] text-red-500 ml-auto">{formErrors.experience}</span>}
+                                          className="text-xs text-[color:var(--clr-danger)] ml-auto">{formErrors.experience}</span>}
                                   </div>
                                   <p className="micro-hint" id="experience-hint">Add your key previous roles or years of
                                       experience (e.g. "3 years as Backend Developer", "Senior Product Manager"). Keep
@@ -467,19 +467,19 @@ export const JobSearchForm: React.FC = () => {
                                       />
                                       <Check
                                           className="pointer-events-none absolute inset-0 m-auto h-3.5 w-3.5 text-[color:var(--clr-base)] opacity-0 peer-checked:opacity-100"
-                                          strokeWidth={3}/>
+                                          weight="bold"/>
                                   </span>
-                                  <span className="text-sm text-gray-600 leading-snug">
+                                  <span className="text-sm text-[color:var(--clr-sub)] leading-snug">
                                       I have read and agree to the{' '}
                                       <Link to="/terms"
-                                            className="font-medium text-gray-900 underline decoration-dotted underline-offset-2">Terms of Use</Link>
+                                            className="font-medium text-[color:var(--clr-text)] underline decoration-dotted underline-offset-2">Terms of Use</Link>
                                       {' '}and the{' '}
                                       <Link to="/privacy"
-                                            className="font-medium text-gray-900 underline decoration-dotted underline-offset-2">Privacy Policy</Link>.
+                                            className="font-medium text-[color:var(--clr-text)] underline decoration-dotted underline-offset-2">Privacy Policy</Link>.
                                   </span>
                               </label>
                               {termsError &&
-                                  <p id="terms-error" className="text-[11px] text-red-500 mt-1.5">{termsError}</p>}
+                                  <p id="terms-error" className="text-xs text-[color:var(--clr-danger)] mt-1.5">{termsError}</p>}
                           </div>
                           {/* Submit */}
                           <div className="md:col-span-2 flex flex-col md:flex-row md:items-center gap-6 pt-4">
@@ -487,7 +487,7 @@ export const JobSearchForm: React.FC = () => {
                                       className="jsf-submit-btn">
                                   Start monitoring
                               </Button>
-                              <p className="text-xs text-gray-500">One email per day at most, only when a match
+                              <p className="text-xs text-[color:var(--clr-faint)]">One email per day at most, only when a match
                                   exists.</p>
                           </div>
               </form>

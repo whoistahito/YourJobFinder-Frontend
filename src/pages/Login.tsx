@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Link, useSearchParams} from 'react-router-dom';
-import {CheckCircle2} from 'lucide-react';
+import {CheckCircle} from '@phosphor-icons/react';
 import {API_BASE} from '../api';
 import {Button} from '../components/ui/Button';
 import {IconTile} from '../components/ui/IconTile';
@@ -33,14 +33,14 @@ export const Login: React.FC = () => {
                 body: JSON.stringify({email}),
             });
             if (r.status === 429) {
-                setError('Too many attempts — please wait a few minutes.');
+                setError('Too many attempts. Please wait a few minutes.');
             } else if (!r.ok) {
                 setError("The email couldn't be sent. Please try again.");
             } else {
                 setSent(true);
             }
         } catch {
-            setError('Network error — please try again.');
+            setError('Network error. Please try again.');
         } finally {
             setSending(false);
         }
@@ -51,14 +51,14 @@ export const Login: React.FC = () => {
     );
 
     return (
-        <main className="page-shell min-h-screen flex flex-col items-center justify-center px-4 py-16">
+        <main id="main-content" className="page-shell min-h-screen flex flex-col items-center justify-center px-4 py-16">
             <SEO title="Sign in — Your Job Finder"
                  description="Get a one-time sign-in link for your job-match dashboard."
                  url="https://yourjobfinder.website/login"/>
             <div className="w-full max-w-md">
                 {sent ? (
                     <div className="panel p-8 sm:p-10 text-center space-y-5">
-                        <IconTile icon={CheckCircle2} tone="success" className="mx-auto"/>
+                        <IconTile icon={CheckCircle} tone="success" className="mx-auto"/>
                         <div className="space-y-2">
                             <h2 className="popup-heading">Check your inbox</h2>
                             <p className="popup-copy">
@@ -84,7 +84,7 @@ export const Login: React.FC = () => {
                         <div className="space-y-2">
                             <h1 className="section-heading">Sign in</h1>
                             <p className="subcopy">
-                                No password needed — we email you a one-time link that opens your matches.
+                                No password needed. We email you a one-time link that opens your matches.
                             </p>
                         </div>
                         <form onSubmit={submit} className="space-y-5" noValidate>

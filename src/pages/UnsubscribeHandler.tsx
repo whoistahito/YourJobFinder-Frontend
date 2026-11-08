@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom';
-import {Bot, Loader} from 'lucide-react';
+import {CircleNotch} from '@phosphor-icons/react';
 
 export const UnsubscribeHandler: React.FC = () => {
     const [searchParams] = useSearchParams();
@@ -55,24 +55,17 @@ export const UnsubscribeHandler: React.FC = () => {
     }, [navigate, searchParams, error]);
 
     return (
-        <main className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-            <div className="w-full max-w-xl">
-                <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 text-center space-y-8">
-                    {/* Logo */}
-                    <div className="inline-flex items-center justify-center p-3 rounded-2xl bg-indigo-50 mb-2">
-                        <Bot className="w-8 h-8 text-indigo-600"/>
+        <main id="main-content" className="page-shell">
+            <div className="page-container max-w-xl">
+                <div className="flat-section text-center space-y-8">
+                    <div className="inline-block">
+                        <IconTileAccent/>
                     </div>
 
-                    {/* Loading State */}
                     <div className="space-y-4">
-                        <div className="flex justify-center">
-                            <Loader className="w-8 h-8 text-indigo-600 animate-spin"/>
-                        </div>
-                        <h1 className="section-heading">
-                            Processing Your Request
-                        </h1>
-                        <p className="text-gray-600">
-                            Please wait while we unsubscribe your email address...
+                        <h1 className="section-heading">Processing your request</h1>
+                        <p className="subcopy subcopy-sm">
+                            Removing your email from job alerts. This usually takes a few seconds.
                         </p>
                     </div>
                 </div>
@@ -80,3 +73,12 @@ export const UnsubscribeHandler: React.FC = () => {
         </main>
     );
 };
+
+// Inline accent tile with spinner — a bespoke loading state for this transient page.
+const IconTileAccent: React.FC = () => (
+    <span className="inline-flex items-center justify-center h-14 w-14 border-2 border-[color:var(--clr-text)]
+                     bg-[color:var(--clr-amber)] text-[color:var(--clr-base)]
+                     shadow-[3px_3px_0_var(--clr-text)]">
+        <CircleNotch className="h-7 w-7 animate-spin" weight="bold"/>
+    </span>
+);

@@ -8,6 +8,8 @@ type SEOProps = {
     keywords?: string;
     type?: string;
     locale?: string;
+    /** Keep utility/error/404 pages out of search indexes. */
+    noindex?: boolean;
 };
 
 // Lightweight runtime SEO helper for SPA pages (updates document head)
@@ -18,7 +20,8 @@ export const SEO: React.FC<SEOProps> = ({
                                             image,
                                             keywords,
                                             type = 'website',
-                                            locale = 'en_US'
+                                            locale = 'en_US',
+                                            noindex = false
                                         }) => {
     useEffect(() => {
         const prevTitle = document.title;
@@ -35,8 +38,9 @@ export const SEO: React.FC<SEOProps> = ({
             el.content = value;
         };
 
-        setMeta('description', description);
-        setMeta('keywords', keywords);
+        setMeta('description', noindex ? undefined : description);
+        setMeta('keywords', noindex ? undefined : keywords);
+        setMeta('robots', noindex ? 'noindex, nofollow' : undefined);
         setMeta('og:title', title, 'property');
         setMeta('og:description', description, 'property');
         setMeta('og:type', type, 'property');
@@ -52,7 +56,7 @@ export const SEO: React.FC<SEOProps> = ({
             // restore previous title on unmount
             document.title = prevTitle;
         };
-    }, [title, description, url, image, keywords, type, locale]);
+    }, [title, description, url, image, keywords, type, locale, noindex]);
 
     return null;
 };

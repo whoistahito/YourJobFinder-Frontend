@@ -1,5 +1,5 @@
 import React from 'react';
-import {MapPin} from 'lucide-react';
+import {MapPin} from '@phosphor-icons/react';
 import {Input} from './Input';
 import {Suggestion} from '../../hooks/useJobSearch';
 
@@ -43,20 +43,15 @@ export const LocationInput: React.FC<LocationInputProps> = ({
             {showSuggestions && suggestions.length > 0 && (
                 <div
                     ref={suggestionsRef}
-                    className={
-                        variant === 'minimal'
-                            ? 'absolute z-10 mt-2 w-full rounded-xl border border-gray-300 bg-white shadow-md overflow-hidden'
-                            : 'absolute z-10 w-full bg-white mt-1 rounded-lg shadow-lg border border-gray-200 max-h-60 overflow-y-auto'
-                    }
+                    className="absolute z-10 mt-2 w-full border-2 border-[color:var(--clr-text)]
+                               bg-[color:var(--clr-base)] shadow-[4px_4px_0_var(--clr-text)]
+                               max-h-60 overflow-y-auto"
                 >
                     {suggestions.map((suggestion) => (
                         <div
                             key={suggestion.id}
-                            className={
-                                variant === 'minimal'
-                                    ? 'px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer'
-                                    : 'px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm'
-                            }
+                            className="px-4 py-2 text-sm text-[color:var(--clr-text)]
+                                       hover:bg-[color:var(--clr-float)] cursor-pointer"
                             onClick={() => onSuggestionClick(suggestion)}
                         >
                             {suggestion.text}

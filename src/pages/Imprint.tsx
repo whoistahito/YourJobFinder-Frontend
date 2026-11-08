@@ -9,20 +9,20 @@ import {SEO} from '../components/SEO';
 const Block: React.FC<{ title: string; children: React.ReactNode }> = ({title, children}) => (
     <section className="border-2 border-[color:var(--clr-text)] bg-[color:var(--clr-base)]
                         shadow-[4px_4px_0_var(--clr-text)] p-6 md:p-7 space-y-2">
-        <h2 className="section-heading" style={{fontSize: '1.35rem'}}>{title}</h2>
-        <div className="subcopy space-y-2" style={{fontSize: '0.92rem'}}>{children}</div>
+        <h2 className="section-heading section-heading--md">{title}</h2>
+        <div className="subcopy subcopy-sm space-y-2">{children}</div>
     </section>
 );
 
 export const Imprint: React.FC = () => (
-    <main className="soft-ui min-h-screen">
+    <main id="main-content" className="soft-ui min-h-screen">
         <SEO title="Imprint / Impressum — Your Job Finder"
              description="Legal disclosure (Impressum) for Your Job Finder pursuant to § 5 DDG."
              url="https://yourjobfinder.website/imprint"/>
         <div className="max-w-3xl mx-auto px-6 py-16 space-y-10">
             <header>
                 <Link to="/" className="link-quiet text-sm"><span className="arrow">←</span> Back to app</Link>
-                <h1 className="heading-xl mt-6" style={{fontSize: 'clamp(2.5rem, 8vw, 5rem)'}}>Impressum</h1>
+                <h1 className="heading-xl mt-6">Impressum</h1>
                 <p className="subcopy mt-3">Legal disclosure under § 5 DDG (Digitale-Dienste-Gesetz).</p>
             </header>
 

@@ -11,20 +11,20 @@ import {SEO} from '../components/SEO';
 const Block: React.FC<{ title: string; children: React.ReactNode }> = ({title, children}) => (
     <section className="border-2 border-[color:var(--clr-text)] bg-[color:var(--clr-base)]
                         shadow-[4px_4px_0_var(--clr-text)] p-6 md:p-7 space-y-2">
-        <h2 className="section-heading" style={{fontSize: '1.35rem'}}>{title}</h2>
-        <div className="subcopy space-y-2" style={{fontSize: '0.92rem'}}>{children}</div>
+        <h2 className="section-heading section-heading--md">{title}</h2>
+        <div className="subcopy subcopy-sm space-y-2">{children}</div>
     </section>
 );
 
 export const Privacy: React.FC = () => (
-    <main className="soft-ui min-h-screen">
+    <main id="main-content" className="soft-ui min-h-screen">
         <SEO title="Privacy Policy / Datenschutzerklärung — Your Job Finder"
              description="How Your Job Finder processes personal data under the GDPR (DSGVO)."
              url="https://yourjobfinder.website/privacy"/>
         <div className="max-w-3xl mx-auto px-6 py-16 space-y-10">
             <header>
                 <Link to="/" className="link-quiet text-sm"><span className="arrow">←</span> Back to app</Link>
-                <h1 className="heading-xl mt-6" style={{fontSize: 'clamp(2.5rem, 8vw, 5rem)'}}>Datenschutz</h1>
+                <h1 className="heading-xl mt-6">Datenschutz</h1>
                 <p className="subcopy mt-3">How we handle your data under the GDPR (DSGVO). Plain version: we use your
                     details only to match you to jobs and to email you. We never sell or share them for advertising.</p>
             </header>

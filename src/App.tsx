@@ -1,3 +1,4 @@
+import {Fragment} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import {JobSearchForm} from './components/JobSearchForm';
 import {Unsubscribe} from "./pages/Unsubscribe.tsx";
@@ -7,6 +8,7 @@ import {ContactUs} from "./components/ContactUs.tsx";
 import {TermsOfUse} from "./components/TermsOfUse.tsx";
 import {EmailConfirm} from "./pages/EmailConfirm.tsx";
 import {EmailConfirmError} from "./pages/EmailConfirmError.tsx";
+import {NotFound} from './pages/NotFound';
 import Blog from './pages/Blog';
 import Poster from './pages/Poster';
 import DesignSystem from './pages/DesignSystem';
@@ -18,26 +20,32 @@ import Login from './pages/Login';
 
 function App() {
     return (
-        <Routes>
-            <Route path="/" element={<JobSearchForm/>}/>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/blog" element={<Blog/>}/>
-            <Route path="/confirm-email/success" element={<EmailConfirm/>}/>
-            <Route path="/confirm-email/error" element={<EmailConfirmError/>}/>
-            <Route path="/unsubscribe/process" element={<UnsubscribeHandler/>}/>
-            <Route path="/unsubscribe" element={<Unsubscribe/>}/>
-            <Route path="/unsubscribe/error" element={<UnsubscribeError/>}/>
-            <Route path="/terms" element={<TermsOfUse/>}/>
+        <Fragment>
+            {/* Skip to content for keyboard users; every page renders <main id="main-content"> */}
+            <a href="#main-content" className="skip-link">Skip to content</a>
+            <Routes>
+                <Route path="/" element={<JobSearchForm/>}/>
+                <Route path="/login" element={<Login/>}/>
+                <Route path="/blog" element={<Blog/>}/>
+                <Route path="/confirm-email/success" element={<EmailConfirm/>}/>
+                <Route path="/confirm-email/error" element={<EmailConfirmError/>}/>
+                <Route path="/unsubscribe/process" element={<UnsubscribeHandler/>}/>
+                <Route path="/unsubscribe" element={<Unsubscribe/>}/>
+                <Route path="/unsubscribe/error" element={<UnsubscribeError/>}/>
+                <Route path="/terms" element={<TermsOfUse/>}/>
                 <Route path="/imprint" element={<Imprint/>}/>
                 <Route path="/impressum" element={<Imprint/>}/>
                 <Route path="/privacy" element={<Privacy/>}/>
                 <Route path="/datenschutz" element={<Privacy/>}/>
-            <Route path="/contact" element={<ContactUs/>}/>
-            <Route path="/poster" element={<Poster/>}/>
-            <Route path="/design-system" element={<DesignSystem/>}/>
-            <Route path="/why-us" element={<WhyUsPreview/>}/>
-            <Route path="/dashboard/:userId" element={<Dashboard/>}/>
-        </Routes>
+                <Route path="/contact" element={<ContactUs/>}/>
+                <Route path="/poster" element={<Poster/>}/>
+                <Route path="/design-system" element={<DesignSystem/>}/>
+                <Route path="/why-us" element={<WhyUsPreview/>}/>
+                <Route path="/dashboard/:userId" element={<Dashboard/>}/>
+                {/* Branded 404 — any unknown URL lands here */}
+                <Route path="*" element={<NotFound/>}/>
+            </Routes>
+        </Fragment>
     );
 }
 

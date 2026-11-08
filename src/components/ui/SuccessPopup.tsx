@@ -1,5 +1,5 @@
 import React from 'react';
-import {Check, X} from 'lucide-react';
+import {Check, X} from '@phosphor-icons/react';
 import {Button} from './Button';
 import {Link} from 'react-router-dom';
 import {IconTile} from './IconTile';
@@ -23,7 +23,7 @@ export const SuccessPopup: React.FC<SuccessPopupProps> = ({show, onClose, dashbo
                             className="absolute top-3 right-3 inline-flex h-7 w-7 items-center justify-center
                                        border-2 border-[color:var(--clr-text)] text-[color:var(--clr-text)]
                                        hover:bg-[color:var(--clr-amber)] hover:text-[color:var(--clr-base)] transition-colors">
-                        <X size={15} strokeWidth={2.5}/>
+                        <X size={15} weight="bold"/>
                     </button>
                     <div className="text-center space-y-5">
                         <IconTile icon={Check} tone="accent" className="mx-auto"/>

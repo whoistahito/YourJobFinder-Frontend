@@ -16,23 +16,23 @@ colors:
   danger: "oklch(52% 0.22 25)"
 typography:
   display:
-    fontFamily: '"Barlow Condensed", system-ui, sans-serif'
-    fontSize: "clamp(4.5rem, 14vw, 10.5rem)"
-    fontWeight: 800
-    lineHeight: 0.88
-    letterSpacing: "-0.025em"
+    fontFamily: 'Geist, system-ui, sans-serif'
+    fontSize: "clamp(2.5rem, 7vw, 3.75rem)"
+    fontWeight: 700
+    lineHeight: 1.05
+    letterSpacing: "-0.02em"
   headline:
-    fontFamily: '"Barlow Condensed", system-ui, sans-serif'
-    fontSize: "clamp(3.5rem, 8vw, 6.5rem)"
-    fontWeight: 800
-    lineHeight: 0.9
+    fontFamily: 'Geist, system-ui, sans-serif'
+    fontSize: "clamp(2.5rem, 6vw, 4.5rem)"
+    fontWeight: 700
+    lineHeight: 1.05
     letterSpacing: "-0.02em"
   title:
-    fontFamily: '"Barlow Condensed", system-ui, sans-serif'
-    fontSize: "clamp(2.75rem, 6vw, 5rem)"
-    fontWeight: 800
-    lineHeight: 0.92
-    letterSpacing: "-0.01em"
+    fontFamily: 'Geist, system-ui, sans-serif'
+    fontSize: "clamp(2.25rem, 4.2vw, 3.75rem)"
+    fontWeight: 700
+    lineHeight: 1.05
+    letterSpacing: "-0.02em"
   body:
     fontFamily: "Geist, system-ui, sans-serif"
     fontSize: "clamp(0.9375rem, 1.8vw, 1.0625rem)"
@@ -41,7 +41,7 @@ typography:
     letterSpacing: "normal"
   label:
     fontFamily: "Geist, system-ui, sans-serif"
-    fontSize: "0.6875rem"
+    fontSize: "0.75rem"
     fontWeight: 600
     lineHeight: 1
     letterSpacing: "0.12em"
@@ -114,14 +114,13 @@ The brand accent (`--clr-amber` / `precision-blue`) is `oklch(52% 0.20 245)` —
 
 ## Typography Scale
 
-Two font families:
+Two font families → one:
 
-| Role              | Family           | Weight  | Notes                                         |
-|-------------------|------------------|---------|-----------------------------------------------|
-| Display / Heading | Barlow Condensed | 800     | All headings: `h1`–`h3` in hero + stack cards |
-| Body / UI         | Geist            | 400–700 | All body copy, labels, form fields            |
+| Role              | Family | Weight  | Notes                                          |
+|-------------------|--------|---------|------------------------------------------------|
+| Everything        | Geist  | 400–700 | Headings capped at bold (700); no body italics  |
 
-Scale classes: `.heading-xl` (hero h1), `.section-heading`, `.subcopy`, `.eyebrow`, `.tag-meta`, `.micro-hint`
+Scale classes: `.heading-xl` (hero h1), `.section-heading` (+ `--xl/--lg/--md/--sm` variants), `.subcopy` (+ `-sm`), `.eyebrow`, `.tag-meta`, `.micro-hint`
 
 ## Aesthetic
 
@@ -133,7 +132,7 @@ Scale classes: `.heading-xl` (hero h1), `.section-heading`, `.subcopy`, `.eyebro
 - Press-down interaction: shadow shrinks + element translates on hover/active
 - Thick 2px borders on forms and cards
 - Light surface (warm off-white base), not dark
-- Typography is condensed and heavy at large sizes; tight line-height (0.88–0.95)
+- Geist everywhere, bold (700) max at large sizes; line-heights paired to the type scale (1.0–1.05 display)
 
 ## Components
 
@@ -162,5 +161,5 @@ fill.
 | Use zero border-radius for interactive elements       | Use rounded corners on buttons, chips, or tag badges  |
 | Use hard offset shadows (no blur)                     | Use soft/blurred drop shadows on interactive elements |
 | Keep body copy ≤75ch                                  | Stretch paragraphs full-width                         |
-| Use Barlow Condensed 800 for headings                 | Mix heading fonts within a section                    |
+| Use Geist 700 for headings                            | Mix heading fonts within a section                    |
 | Keep surfaces warm off-white                          | Go dark or pure white                                 |

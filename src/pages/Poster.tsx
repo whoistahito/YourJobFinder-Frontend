@@ -19,13 +19,15 @@ export default function Poster() {
     const nodeRef = useRef<HTMLDivElement | null>(null);
     const [isExporting, setIsExporting] = useState(false);
     const [imgReady, setImgReady] = useState(false);
+    const [notice, setNotice] = useState<string | null>(null);
 
     const exportPng = async () => {
         if (!nodeRef.current) return;
         if (!imgReady) {
-            alert('Image is still loading. Please wait a moment and try again.');
+            setNotice('The image is still loading. Wait a moment, then try the export again.');
             return;
         }
+        setNotice(null);
         setIsExporting(true);
         try {
             const dataUrl = await toPng(nodeRef.current, {
@@ -55,26 +57,30 @@ export default function Poster() {
             a.click();
         } catch (e) {
             console.error('html-to-image export error:', e);
-            alert('Export failed. Try Social size first and ensure images are loaded. Check the console for details.');
+            setNotice('Export failed. Try the Social size first and make sure all images have loaded.');
         } finally {
             setIsExporting(false);
         }
     };
 
     return (
-        <main className="min-h-screen soft-ui px-6 py-10">
+        <main id="main-content" className="min-h-screen soft-ui px-6 py-10">
             <div className="max-w-6xl mx-auto">
                 <div className="flex items-end justify-between gap-6 flex-wrap">
                     <div>
                         <h1 className="text-3xl md:text-4xl section-heading">Poster
                             / Flyer</h1>
-                        <p className="text-sm text-gray-600 mt-2">Live preview on the left. Choose a size and export as
+                        <p className="text-sm text-[color:var(--clr-sub)] mt-2">Live preview on the left. Choose a size and export as
                             PNG.</p>
                     </div>
                     <div className="flex items-center gap-3">
-                        <label className="text-xs uppercase tracking-wide text-gray-500">Size</label>
+                        <label className="text-xs uppercase tracking-wide text-[color:var(--clr-faint)]"
+                               htmlFor="poster-size">Size</label>
                         <select
-                            className="border border-gray-300 rounded-full px-4 py-2 text-sm bg-white"
+                            id="poster-size"
+                            className="border-2 border-[color:var(--clr-text)] rounded-none px-4 py-2 text-sm
+                                       bg-[color:var(--clr-base)] text-[color:var(--clr-text)] focus:outline-none
+                                       focus:shadow-[3px_3px_0_var(--clr-amber)]"
                             value={sizeKey}
                             onChange={(e) => setSizeKey(e.target.value as any)}
                         >
@@ -83,15 +89,24 @@ export default function Poster() {
                             ))}
                         </select>
                         <button onClick={exportPng} disabled={isExporting || !imgReady}
-                                className="rounded-full bg-gray-900 text-white text-sm font-medium px-5 py-2.5 hover:bg-black disabled:opacity-60">
+                                className="rounded-none bg-[color:var(--clr-text)] text-[color:var(--clr-base)]
+                                           border-2 border-[color:var(--clr-text)] shadow-[3px_3px_0_var(--clr-amber)]
+                                           text-sm font-bold px-5 py-2.5 transition-all duration-200
+                                           hover:translate-x-px hover:translate-y-px hover:shadow-[2px_2px_0_var(--clr-amber)]
+                                           disabled:opacity-60 disabled:cursor-not-allowed">
                             {isExporting ? 'Exporting…' : (!imgReady ? 'Loading image…' : 'Export PNG')}
                         </button>
                     </div>
                 </div>
+                {notice && (
+                    <p className="notice notice--danger mt-4" role="alert">{notice}</p>
+                )}
 
                 <div className="mt-8 grid md:grid-cols-2 gap-8 items-start">
                     {/* Artboard preview */}
-                    <div className="w-full overflow-auto rounded-xl border border-gray-300/70 bg-white p-4">
+                    <div className="w-full overflow-auto rounded-none border-2 border-[color:var(--clr-text)]
+                                    bg-[color:var(--clr-base)] p-4
+                                    shadow-[4px_4px_0_var(--clr-text)]">
                         <div
                             ref={nodeRef}
                             style={{
@@ -101,20 +116,17 @@ export default function Poster() {
                             }}
                             className="relative mx-auto rounded-[28px] overflow-hidden"
                         >
-                            {/* Background layers (safe for html-to-image) */}
+                            {/* Background layers (safe for html-to-image): flat base + dot texture */}
                             <div
                                 className="absolute inset-0"
                                 style={{
                                     background: [
                                         // subtle dot pattern (no masking)
                                         'radial-gradient(rgba(169,166,181,0.35) 0.8px, transparent 0.8px)',
-                                        // brand soft glows
-                                        'radial-gradient(circle at 22% 18%, rgba(99,102,241,.22), transparent 62%)',
-                                        'radial-gradient(circle at 80% 70%, rgba(56,189,248,.18), transparent 70%)',
-                                        // base
-                                        'linear-gradient(180deg, #ffffff, #f7f7fb)'
+                                        // flat base
+                                        '#ffffff'
                                     ].join(', '),
-                                    backgroundSize: '14px 14px, auto, auto, auto',
+                                    backgroundSize: '14px 14px, auto',
                                 }}
                             />
 
@@ -224,7 +236,7 @@ export default function Poster() {
                                 {/* Footer strip */}
                                 <div className="mt-[clamp(14px,2vw,20px)]">
                                     <div
-                                        className="h-px w-full bg-gradient-to-r from-transparent via-gray-300 to-transparent"/>
+                                        className="h-px w-full bg-[color:var(--clr-border)]"/>
                                     <div className="pt-3 flex items-center justify-between text-[10px] text-gray-500">
                                         <span>© 2025 Your Job Finder</span>
                                         <span>Educational project</span>
@@ -237,8 +249,8 @@ export default function Poster() {
                     {/* Notes / tips */}
                     <div className="space-y-4">
                         <div className="panel p-5">
-                            <h3 className="text-sm font-medium text-gray-800">Tips</h3>
-                            <ul className="mt-2 list-disc pl-5 text-sm text-gray-600 space-y-1">
+                            <h3 className="text-sm font-medium text-[color:var(--clr-text)]">Tips</h3>
+                            <ul className="mt-2 list-disc pl-5 text-sm text-[color:var(--clr-sub)] space-y-1">
                                 <li>Use Social Portrait for Instagram; A4 for printing (export may take a few
                                     seconds).
                                 </li>
@@ -246,7 +258,7 @@ export default function Poster() {
                                 <li>Profile photo comes from src/assets/profile-pic.png.</li>
                             </ul>
                         </div>
-                        <div className="text-xs text-gray-500">© 2025 Your Job Finder – Educational project</div>
+                        <div className="text-xs text-[color:var(--clr-faint)]">© 2025 Your Job Finder – Educational project</div>
                     </div>
                 </div>
             </div>

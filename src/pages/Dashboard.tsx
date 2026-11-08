@@ -4,14 +4,14 @@ import {
     Archive,
     ArrowRight,
     Bookmark,
-    Inbox,
-    Mail,
-    Menu,
-    Search,
-    Settings as SettingsIcon,
+    Envelope,
+    List,
+    MagnifyingGlass,
+    SlidersHorizontal as SettingsIcon,
+    Tray as Inbox,
     User,
     X
-} from 'lucide-react';
+} from '@phosphor-icons/react';
 import {SEO} from '../components/SEO';
 import {API_BASE} from '../api';
 import brandMark from '../assets/J-Puzzle-180.png';
@@ -210,7 +210,7 @@ export const Dashboard: React.FC = () => {
                     : {h: 'No matches', p: 'Adjust your search or check back after the next scan.'};
 
     return (
-        <main className="dash-app">
+        <main id="main-content" className="dash-app">
             <SEO title="Your matches — Your Job Finder"
                  description="The job matches we found for your profile, sorted by fit."
                  url="https://yourjobfinder.website/dashboard"/>
@@ -227,7 +227,7 @@ export const Dashboard: React.FC = () => {
                                 setTab('new');
                                 setMenuOpen(false);
                             }}>
-                        <Mail size={17}/> Matches
+                        <Envelope size={17} weight="bold"/> Matches
                         <span className="badge">{counts.new}</span>
                     </button>
                     <button className={`nav-item ${tab === 'saved' ? 'on' : ''}`}
@@ -235,7 +235,7 @@ export const Dashboard: React.FC = () => {
                                 setTab('saved');
                                 setMenuOpen(false);
                             }}>
-                        <Bookmark size={17}/> Saved
+                        <Bookmark size={17} weight="bold"/> Saved
                         <span className="badge ink">{counts.saved}</span>
                     </button>
                     <button className={`nav-item ${tab === 'archived' ? 'on' : ''}`}
@@ -243,7 +243,7 @@ export const Dashboard: React.FC = () => {
                                 setTab('archived');
                                 setMenuOpen(false);
                             }}>
-                        <Archive size={17}/> Archived
+                        <Archive size={17} weight="bold"/> Archived
                     </button>
                     <div className="dash-divider"/>
                     <div className="nav-label">Account</div>
@@ -251,10 +251,10 @@ export const Dashboard: React.FC = () => {
                         setProfOpen(true);
                         setMenuOpen(false);
                     }}>
-                        <User size={17}/> Profile
+                        <User size={17} weight="bold"/> Profile
                     </button>
                     <Link to="/" className="nav-item" onClick={() => setMenuOpen(false)}>
-                        <SettingsIcon size={17}/> Settings
+                        <SettingsIcon size={17} weight="bold"/> Settings
                     </Link>
                 </nav>
                 <div className="dash-sidefoot">
@@ -275,7 +275,7 @@ export const Dashboard: React.FC = () => {
                     <div>
                         <div className="topbar-row">
                             <button className="menu-btn" onClick={() => setMenuOpen(true)} aria-label="Menu">
-                                <Menu size={18}/>
+                                <List size={18} weight="bold"/>
                             </button>
                             <h1>Your matches</h1>
                         </div>
@@ -284,7 +284,7 @@ export const Dashboard: React.FC = () => {
                         </div>
                     </div>
                     <div className="dash-search">
-                        <Search size={15}/>
+                        <MagnifyingGlass size={15} weight="bold"/>
                         <input type="text" placeholder="Search title, company, location"
                                value={query} onChange={e => setQuery(e.target.value)}/>
                     </div>
@@ -321,12 +321,12 @@ export const Dashboard: React.FC = () => {
                 <div className="dash-list">
                     {loading ? (
                         <div className="dash-empty">
-                            <Inbox size={28}/>
+                            <Inbox size={28} weight="bold"/>
                             <div className="big">Loading your matches…</div>
                         </div>
                     ) : visible.length === 0 ? (
                         <div className="dash-empty">
-                            <Inbox size={28}/>
+                            <Inbox size={28} weight="bold"/>
                             <div className="big">{loadError ? 'Something went wrong' : emptyMsg.h}</div>
                             <p>{loadError ?? emptyMsg.p}</p>
                         </div>
@@ -360,14 +360,14 @@ export const Dashboard: React.FC = () => {
                                                 <button className={`iconbtn ${j.status === 'saved' ? 'saved' : ''}`}
                                                         title={j.status === 'saved' ? 'Unsave' : 'Save'}
                                                         onClick={() => setStatus(j.id, j.status === 'saved' ? 'new' : 'saved')}>
-                                                    <Bookmark size={16}/>
+                                                    <Bookmark size={16} weight="bold"/>
                                                 </button>
                                                 <button className="iconbtn dismiss" title="Dismiss"
                                                         onClick={() => setStatus(j.id, 'archived')}>
-                                                    <X size={16}/>
+                                                    <X size={16} weight="bold"/>
                                                 </button>
                                                 <a className="viewbtn" href={j.url} target="_blank"
-                                                   rel="noopener noreferrer">View <ArrowRight size={13}/></a>
+                                                   rel="noopener noreferrer">View <ArrowRight size={13} weight="bold"/></a>
                                             </>
                                         )}
                                     </div>
@@ -384,7 +384,7 @@ export const Dashboard: React.FC = () => {
                 <div className="prof-head">
                     <img className="mark" src={brandMark} alt=""/> Your profile
                     <button className="prof-close" onClick={() => setProfOpen(false)} aria-label="Close">
-                        <X size={16}/>
+                        <X size={16} weight="bold"/>
                     </button>
                 </div>
                 <div className="prof-body">

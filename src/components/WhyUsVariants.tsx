@@ -77,8 +77,8 @@ export const WhyUsPromises: React.FC = () => (
                         <Badge tone={p.tone}>{p.tag}</Badge>
                     </div>
                     <div>
-                        <h3 className="text-[1.0625rem] font-medium text-[color:var(--clr-text)] leading-snug">{p.t}</h3>
-                        <p className="mt-1.5 max-w-md text-[0.8125rem] leading-relaxed text-[color:var(--clr-sub)]">{p.d}</p>
+                        <h3 className="text-base font-medium text-[color:var(--clr-text)] leading-snug">{p.t}</h3>
+                        <p className="mt-1.5 max-w-md text-xs leading-relaxed text-[color:var(--clr-sub)]">{p.d}</p>
                     </div>
                 </li>
             ))}
@@ -96,24 +96,23 @@ export const WhyUsPledge: React.FC = () => (
         <div className="stack-line"/>
         <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="space-y-5">
-                <p className="eyebrow" style={{color: 'var(--clr-amber)'}}>The privacy pledge</p>
-                <p className="text-[1.5rem] leading-tight font-semibold text-[color:var(--clr-text)]"
-                   style={{fontFamily: "'Barlow Condensed', sans-serif"}}>
+                <p className="eyebrow text-[color:var(--clr-amber)]">The privacy pledge</p>
+                <p className="text-2xl font-semibold text-[color:var(--clr-text)]">
                     Privacy is the default here, not a setting you have to find.
                 </p>
-                <p className="subcopy" style={{fontSize: '0.95rem'}}>
+                <p className="subcopy subcopy-sm">
                     We collect only what the match needs, and we use it for nothing else.
                 </p>
                 <div
                     className="grid grid-cols-2 gap-px bg-[color:var(--clr-border)] border-2 border-[color:var(--clr-text)]">
                     <div className="bg-[color:var(--clr-base)] p-4">
-                        <p className="eyebrow mb-2" style={{color: 'var(--clr-sub)'}}>What we use</p>
-                        <p className="text-[0.8125rem] leading-relaxed text-[color:var(--clr-text)]">Your role, skills,
+                        <p className="eyebrow mb-2 text-[color:var(--clr-sub)]">What we use</p>
+                        <p className="text-xs leading-relaxed text-[color:var(--clr-text)]">Your role, skills,
                             and email. To match and to notify.</p>
                     </div>
                     <div className="bg-[color:var(--clr-base)] p-4">
-                        <p className="eyebrow mb-2" style={{color: 'var(--clr-danger)'}}>What we never do</p>
-                        <p className="text-[0.8125rem] leading-relaxed text-[color:var(--clr-text)]">Sell it, share it
+                        <p className="eyebrow mb-2 text-[color:var(--clr-danger)]">What we never do</p>
+                        <p className="text-xs leading-relaxed text-[color:var(--clr-text)]">Sell it, share it
                             with recruiters, or run ads against it.</p>
                     </div>
                 </div>
@@ -123,8 +122,8 @@ export const WhyUsPledge: React.FC = () => (
                     <li key={s.t} className="flex gap-4 py-4 first:pt-0 last:pb-0">
                         <span className="stack-badge">{String(i + 1).padStart(2, '0')}</span>
                         <div>
-                            <h3 className="text-[1rem] font-medium text-[color:var(--clr-text)] leading-snug">{s.t}</h3>
-                            <p className="mt-1 text-[0.8125rem] leading-relaxed text-[color:var(--clr-sub)]">{s.d}</p>
+                            <h3 className="text-base font-medium text-[color:var(--clr-text)] leading-snug">{s.t}</h3>
+                            <p className="mt-1 text-xs leading-relaxed text-[color:var(--clr-sub)]">{s.d}</p>
                         </div>
                     </li>
                 ))}

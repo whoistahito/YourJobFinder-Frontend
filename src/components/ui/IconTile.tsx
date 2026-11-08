@@ -1,5 +1,5 @@
 import React from 'react';
-import {LucideIcon} from 'lucide-react';
+import {type Icon as PhosphorIcon} from '@phosphor-icons/react';
 import {cn} from '../../utils/cn';
 
 // Brutalist icon tile: square, 2px ink border, hard offset shadow, solid fill.
@@ -22,7 +22,7 @@ const sizes = {
 } as const;
 
 export const IconTile: React.FC<{
-    icon: LucideIcon;
+    icon: PhosphorIcon;
     tone?: Tone;
     size?: keyof typeof sizes;
     className?: string;
@@ -31,6 +31,6 @@ export const IconTile: React.FC<{
         'inline-flex items-center justify-center border-2 border-[color:var(--clr-text)] shadow-[3px_3px_0_var(--clr-text)]',
         sizes[size], tones[tone], className,
     )}>
-        <Icon className={size === 'sm' ? 'h-5 w-5' : 'h-7 w-7'} strokeWidth={2}/>
+        <Icon className={size === 'sm' ? 'h-5 w-5' : 'h-7 w-7'} weight="bold"/>
     </span>
 );

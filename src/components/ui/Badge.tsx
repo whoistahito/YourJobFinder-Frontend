@@ -15,7 +15,7 @@ export const Badge: React.FC<{ tone?: BadgeTone; className?: string; children: R
     ({tone = 'accent', className, children}) => (
         <span className={cn(
             'inline-flex items-center gap-1.5 border-2 border-[color:var(--clr-text)] px-2.5 py-0.5',
-            'text-[11px] font-semibold uppercase tracking-wide leading-tight',
+            'text-xs font-semibold uppercase tracking-wide leading-tight',
             tones[tone], className,
         )}>
             {children}

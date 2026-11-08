@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
-import {ArrowLeft, CheckCircle2, Mail, MapPin, Search, ShieldQuestion} from 'lucide-react';
+import {ArrowLeft, CheckCircle, Envelope, Fingerprint, MagnifyingGlass, MapPin} from '@phosphor-icons/react';
 import {Button} from '../components/ui/Button';
 import {Input} from '../components/ui/Input';
 import {Select} from '../components/ui/Select';
@@ -15,11 +15,6 @@ import {MatchingFlow} from '../components/AiMatching';
 // Living catalog of every UI element used in the project. Path: /design-system.
 // Add new shared elements here so the team has one place to copy from.
 
-// Hex map (not dynamic `bg-brand-${n}` — Tailwind JIT can't see runtime-built class names).
-const BRAND: [number, string][] = [
-    [50, '#eef2ff'], [100, '#e0e7ff'], [200, '#c7d2fe'], [300, '#a5b4fc'], [400, '#818cf8'],
-    [500, '#6366f1'], [600, '#4f46e5'], [700, '#4338ca'], [800, '#3730a3'], [900, '#312e81'],
-];
 const SURFACE_VARS = ['--clr-base', '--clr-raised', '--clr-float', '--clr-border', '--clr-muted'];
 const INK_VARS = ['--clr-text', '--clr-sub', '--clr-faint'];
 const ACCENT_VARS = ['--clr-amber', '--clr-amber-d', '--clr-amber-l'];
@@ -29,8 +24,8 @@ const DANGER_VARS = ['--clr-danger', '--clr-danger-l'];
 const Section: React.FC<{ title: string; note?: string; children: React.ReactNode }> = ({title, note, children}) => (
     <section className="space-y-5">
         <div>
-            <h2 className="section-heading" style={{fontSize: '1.75rem'}}>{title}</h2>
-            {note && <p className="subcopy mt-1" style={{fontSize: '0.9rem'}}>{note}</p>}
+            <h2 className="section-heading">{title}</h2>
+            {note && <p className="subcopy subcopy-sm mt-1">{note}</p>}
             <div className="mt-3 h-[3px] w-16 bg-[color:var(--clr-text)]"/>
         </div>
         {children}
@@ -44,7 +39,7 @@ const Spec: React.FC<{ label: string; children: React.ReactNode; className?: str
                                                                                               className
                                                                                           }) => (
     <div className="flex flex-col gap-2">
-        <span className="eyebrow" style={{color: 'var(--clr-faint)'}}>{label}</span>
+        <span className="eyebrow text-[color:var(--clr-faint)]">{label}</span>
         <div className={'flex flex-wrap items-center gap-3 ' + (className ?? '')}>{children}</div>
     </div>
 );
@@ -59,7 +54,7 @@ export const DesignSystem: React.FC = () => {
     const [showError, setShowError] = useState(false);
 
     return (
-        <main className="soft-ui min-h-screen">
+        <main id="main-content" className="soft-ui min-h-screen">
             <SuccessPopup show={showSuccess} onClose={() => setShowSuccess(false)}/>
             <ErrorPopup show={showError} onClose={() => setShowError(false)}
                         error="This is how an error looks." onContactSupport={() => setShowError(false)}/>
@@ -68,7 +63,7 @@ export const DesignSystem: React.FC = () => {
                 {/* Header */}
                 <header>
                     <Link to="/" className="link-quiet text-sm"><span className="arrow">←</span> Back to app</Link>
-                    <h1 className="heading-xl mt-6" style={{fontSize: 'clamp(3rem, 9vw, 6rem)'}}>Design System</h1>
+                    <h1 className="heading-xl mt-6">Design System</h1>
                     <p className="subcopy mt-4 max-w-2xl">
                         Every button, field, and UI element used across Job Finder, in one place. Copy from here so the
                         product stays consistent.
@@ -80,23 +75,23 @@ export const DesignSystem: React.FC = () => {
                          note="Neo-brutalism with restraint. Every element follows these rules — if it doesn't, it's a bug.">
                     <div className="grid md:grid-cols-2 gap-5">
                         <Panel>
-                            <p className="eyebrow mb-3" style={{color: 'var(--clr-amber)'}}>Always</p>
+                            <p className="eyebrow mb-3">Always</p>
                             <MarkerList marker="check" items={[
                                 'Zero border-radius on every interactive element',
                                 'Hard offset shadows (3px cards, 4px buttons) — never blurred',
                                 '2px ink borders; press-down (translate + shadow shrink) on hover/active',
                                 'One accent: precision-blue. Danger red only for errors',
-                                'Barlow Condensed for headings, Geist for body',
+                                'Geist everywhere; headings capped at bold (700)',
                             ]}/>
                         </Panel>
                         <div className="border-2 border-[color:var(--clr-danger)] bg-[color:var(--clr-base)]
                                         shadow-[4px_4px_0_var(--clr-danger)] p-6">
-                            <p className="eyebrow mb-3" style={{color: 'var(--clr-danger)'}}>Never</p>
+                            <p className="eyebrow mb-3 text-[color:var(--clr-danger)]">Never</p>
                             <MarkerList marker="arrow" items={[
                                 'Rounded corners or pill shapes on controls',
                                 'Soft / blurred drop shadows; glassmorphism (backdrop-blur)',
-                                'Gradient text or decorative gradients',
-                                'A second accent hue, or the legacy indigo brand-* scale',
+                                'Decorative gradients (the hero heading gradient is the one exception)',
+                                'A second accent hue',
                                 'Em dashes in copy — use commas, colons, or periods',
                             ]}/>
                         </div>
@@ -105,24 +100,15 @@ export const DesignSystem: React.FC = () => {
 
                 {/* Colors */}
                 <Section title="Color"
-                         note="Precision-blue accent on warm-tinted neutrals. The indigo brand-* scale below is legacy — do not use it for new work.">
-                    <Spec label="Brand scale (legacy — being retired)">
-                        {BRAND.map(([n, hex]) => (
-                            <div key={n} className="flex flex-col items-center gap-1 opacity-60">
-                                <div className="h-12 w-12 border-[length:2px] border-[color:var(--clr-text)]"
-                                     style={{background: hex}}/>
-                                <span className="text-[10px] text-gray-500">{n}</span>
-                            </div>
-                        ))}
-                    </Spec>
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 mt-2">
+                         note="Precision-blue accent on warm-tinted neutrals. One accent family; no legacy scales.">
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
                         {[['Surface', SURFACE_VARS], ['Ink', INK_VARS], ['Accent', ACCENT_VARS], ['Success', SUCCESS_VARS], ['Danger', DANGER_VARS]].map(([group, vars]) => (
                             <Spec key={group as string} label={group as string}>
                                 {(vars as string[]).map(v => (
                                     <div key={v} className="flex flex-col items-center gap-1">
                                         <div className="h-12 w-12 border-[length:2px] border-[color:var(--clr-text)]"
                                              style={{background: `var(${v})`}}/>
-                                        <span className="text-[9px] text-gray-500">{v.replace('--clr-', '')}</span>
+                                        <span className="text-xs text-[color:var(--clr-faint)]">{v.replace('--clr-', '')}</span>
                                     </div>
                                 ))}
                             </Spec>
@@ -131,12 +117,12 @@ export const DesignSystem: React.FC = () => {
                 </Section>
 
                 {/* Typography */}
-                <Section title="Typography" note="Barlow Condensed for display/headings, Geist for body and labels.">
+                <Section title="Typography" note="Geist for everything: body, labels, and headings. Bold (700) max.">
                     <Panel>
                         <div className="space-y-4">
-                            <p className="heading-xl" style={{fontSize: '3rem'}}>Heading XL</p>
+                            <p className="heading-xl">Heading XL</p>
                             <p className="display-heading">Display heading</p>
-                            <p className="section-heading" style={{fontSize: '1.75rem'}}>Section heading</p>
+                            <p className="section-heading">Section heading</p>
                             <p className="subcopy">Subcopy — the standard body paragraph used across the site for
                                 readable supporting text.</p>
                             <p className="eyebrow">Eyebrow label</p>
@@ -150,16 +136,16 @@ export const DesignSystem: React.FC = () => {
                          note="One button system (.btn). Exactly one primary per view; everything else is secondary or a quiet link.">
                     <div className="grid md:grid-cols-2 gap-6">
                         <Panel>
-                            <p className="eyebrow mb-1" style={{color: 'var(--clr-amber)'}}>Primary</p>
-                            <p className="subcopy mb-4" style={{fontSize: '0.85rem'}}>
+                            <p className="eyebrow mb-1">Primary</p>
+                            <p className="subcopy subcopy-sm mb-4">
                                 Accent fill. The single most important action on the view — Subscribe, Start monitoring.
                                 Use once.
                             </p>
                             <div className="w-48"><Button variant="primary">Start monitoring</Button></div>
                         </Panel>
                         <Panel>
-                            <p className="eyebrow mb-1" style={{color: 'var(--clr-sub)'}}>Secondary</p>
-                            <p className="subcopy mb-4" style={{fontSize: '0.85rem'}}>
+                            <p className="eyebrow mb-1 text-[color:var(--clr-sub)]">Secondary</p>
+                            <p className="subcopy subcopy-sm mb-4">
                                 Outline on surface. Supporting actions that sit beside the primary — Cancel, Back,
                                 Contact.
                             </p>
@@ -178,7 +164,7 @@ export const DesignSystem: React.FC = () => {
                     </Spec>
                     <Spec label="Inline / link CTAs (CSS classes)">
                         <button className="minimal-btn"><span className="text-xs">↗</span> minimal-btn</button>
-                        <a href="#" className="link-quiet"><span>link-quiet</span><span className="arrow">↗</span></a>
+                        <button type="button" className="link-quiet"><span>link-quiet</span><span className="arrow">↗</span></button>
                     </Spec>
                 </Section>
 
@@ -186,16 +172,16 @@ export const DesignSystem: React.FC = () => {
                 <Section title="Form fields">
                     <div className="grid md:grid-cols-2 gap-8">
                         <Spec label="Input — default" className="!block">
-                            <Input label="Email" icon={Mail} placeholder="you@domain.com"/>
+                            <Input label="Email" icon={Envelope} placeholder="you@domain.com"/>
                         </Spec>
                         <Spec label="Input — minimal" className="!block">
                             <Input label="Role" variant="minimal" placeholder="Frontend Developer"/>
                         </Spec>
                         <Spec label="Input — error" className="!block">
-                            <Input label="Email" icon={Mail} placeholder="you@domain.com" error="Enter a valid email."/>
+                            <Input label="Email" icon={Envelope} placeholder="you@domain.com" error="Enter a valid email."/>
                         </Spec>
                         <Spec label="Input with icon" className="!block">
-                            <Input label="Search" icon={Search} placeholder="Search…"/>
+                            <Input label="Search" icon={MagnifyingGlass} placeholder="Search…"/>
                         </Spec>
                         <Spec label="Select — default" className="!block">
                             <Select label="Job Type" options={[{value: '', label: 'Select job type'}, {
@@ -247,16 +233,16 @@ export const DesignSystem: React.FC = () => {
                 <Section title="Icon tiles"
                          note="Squared, ink-bordered, hard shadow. Accent for positive/brand, success for completion, danger for errors only.">
                     <Spec label="Tones (md)">
-                        <IconTile icon={CheckCircle2} tone="accent"/>
-                        <IconTile icon={CheckCircle2} tone="success"/>
-                        <IconTile icon={ShieldQuestion} tone="danger"/>
-                        <IconTile icon={Mail} tone="ink"/>
+                        <IconTile icon={CheckCircle} tone="accent"/>
+                        <IconTile icon={CheckCircle} tone="success"/>
+                        <IconTile icon={Fingerprint} tone="danger"/>
+                        <IconTile icon={Envelope} tone="ink"/>
                         <IconTile icon={MapPin} tone="surface"/>
                     </Spec>
                     <Spec label="Sizes">
-                        <IconTile icon={Mail} size="sm"/>
-                        <IconTile icon={Mail} size="md"/>
-                        <IconTile icon={Mail} size="lg"/>
+                        <IconTile icon={Envelope} size="sm"/>
+                        <IconTile icon={Envelope} size="md"/>
+                        <IconTile icon={Envelope} size="lg"/>
                     </Spec>
                 </Section>
 
@@ -282,13 +268,13 @@ export const DesignSystem: React.FC = () => {
                 <Section title="Surfaces & cards">
                     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
                         <div className="panel p-5"><p className="text-sm font-semibold">panel</p><p
-                            className="text-xs text-gray-500 mt-1">Default raised surface.</p></div>
+                            className="text-xs text-[color:var(--clr-faint)] mt-1">Default raised surface.</p></div>
                         <div className="surface-card p-5"><p className="text-sm font-semibold">surface-card</p><p
-                            className="text-xs text-gray-500 mt-1">Soft card with border.</p></div>
+                            className="text-xs text-[color:var(--clr-faint)] mt-1">Soft card with border.</p></div>
                         <div className="panel-muted p-5"><p className="text-sm font-semibold">panel-muted</p><p
-                            className="text-xs text-gray-500 mt-1">Muted background.</p></div>
+                            className="text-xs text-[color:var(--clr-faint)] mt-1">Muted background.</p></div>
                         <Panel><p className="text-sm font-semibold">brutalist card</p><p
-                            className="text-xs text-gray-500 mt-1">2px border + hard shadow.</p></Panel>
+                            className="text-xs text-[color:var(--clr-faint)] mt-1">2px border + hard shadow.</p></Panel>
                     </div>
                 </Section>
 
@@ -301,7 +287,7 @@ export const DesignSystem: React.FC = () => {
                     <Spec label="Popup typography" className="!block">
                         <div className="text-center space-y-2">
                             <h2 className="popup-heading">Popup heading</h2>
-                            <p className="popup-copy">Popup copy — 0.9rem supporting text inside modals.</p>
+                            <p className="popup-copy">Popup copy — text-sm supporting text inside modals.</p>
                         </div>
                     </Spec>
                 </Section>
@@ -312,6 +298,9 @@ export const DesignSystem: React.FC = () => {
                     <Spec label="notice — inline info/warn banner" className="!block">
                         <div className="max-w-sm"><p className="notice">Inline info notice used on login, confirm and
                             unsubscribe pages.</p></div>
+                    </Spec>
+                    <Spec label="skip-link — keyboard skip to content" className="!block">
+                        <p className="micro-hint">Renders on App root; press Tab on any page to see it. Target: #main-content.</p>
                     </Spec>
                     <Spec label="signin-chip — hero sign-in button">
                         <Link to="/login" className="signin-chip" onClick={e => e.preventDefault()}>Sign in</Link>

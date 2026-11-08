@@ -1,5 +1,5 @@
 import React from 'react';
-import {AlertTriangle, X} from 'lucide-react';
+import {Warning, X} from '@phosphor-icons/react';
 import {Button} from './Button';
 import {IconTile} from './IconTile';
 
@@ -23,10 +23,10 @@ export const ErrorPopup: React.FC<ErrorPopupProps> = ({show, onClose, error, onC
                             className="absolute top-3 right-3 inline-flex h-7 w-7 items-center justify-center
                                        border-2 border-[color:var(--clr-text)] text-[color:var(--clr-text)]
                                        hover:bg-[color:var(--clr-danger)] hover:text-[color:var(--clr-base)] transition-colors">
-                        <X size={15} strokeWidth={2.5}/>
+                        <X size={15} weight="bold"/>
                     </button>
                     <div className="text-center space-y-5">
-                        <IconTile icon={AlertTriangle} tone="danger" className="mx-auto"/>
+                        <IconTile icon={Warning} tone="danger" className="mx-auto"/>
                         <div className="space-y-2">
                             <h2 className="popup-heading">Submission failed</h2>
                             <p className="popup-copy">
