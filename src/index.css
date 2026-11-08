@@ -1831,10 +1831,8 @@
 }
 
 .dash-brand .mark {
-    width: 20px;
-    height: 20px;
-    background: var(--clr-amber);
-    box-shadow: 2px 2px 0 var(--clr-text);
+    width: 24px;
+    height: 24px;
     flex: none;
 }
 
@@ -1994,10 +1992,8 @@
 }
 
 .dash-profile .prof-head .mark {
-    width: 16px;
-    height: 16px;
-    background: var(--clr-amber);
-    box-shadow: 2px 2px 0 var(--clr-text);
+    width: 18px;
+    height: 18px;
     flex: none;
 }
 

@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import {SEO} from '../components/SEO';
 import {API_BASE} from '../api';
+import brandMark from '../assets/J-Puzzle-64.png';
 
 type JobStatus = 'new' | 'saved' | 'archived';
 
@@ -219,7 +220,7 @@ export const Dashboard: React.FC = () => {
             {/* SIDEBAR */}
             <aside className={`dash-aside ${menuOpen ? 'open' : ''}`}>
                 <div className="dash-brand">
-                    <span className="mark"/>Job Finder
+                    <img className="mark" src={brandMark} alt=""/>Job Finder
                 </div>
                 <nav className="dash-nav">
                     <div className="nav-label">Inbox</div>
@@ -385,7 +386,7 @@ export const Dashboard: React.FC = () => {
             {/* PROFILE DRAWER — read-only view of the signup data */}
             <aside className={`dash-profile ${profOpen ? 'open' : ''}`} aria-hidden={!profOpen}>
                 <div className="prof-head">
-                    <span className="mark"/> Your profile
+                    <img className="mark" src={brandMark} alt=""/> Your profile
                     <button className="prof-close" onClick={() => setProfOpen(false)} aria-label="Close">
                         <X size={16}/>
                     </button>
