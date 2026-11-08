@@ -23,6 +23,7 @@ const BRAND: [number, string][] = [
 const SURFACE_VARS = ['--clr-base', '--clr-raised', '--clr-float', '--clr-border', '--clr-muted'];
 const INK_VARS = ['--clr-text', '--clr-sub', '--clr-faint'];
 const ACCENT_VARS = ['--clr-amber', '--clr-amber-d', '--clr-amber-l'];
+const SUCCESS_VARS = ['--clr-success', '--clr-success-l'];
 const DANGER_VARS = ['--clr-danger', '--clr-danger-l'];
 
 const Section: React.FC<{ title: string; note?: string; children: React.ReactNode }> = ({title, note, children}) => (
@@ -114,8 +115,8 @@ export const DesignSystem: React.FC = () => {
                             </div>
                         ))}
                     </Spec>
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-2">
-                        {[['Surface', SURFACE_VARS], ['Ink', INK_VARS], ['Accent', ACCENT_VARS], ['Danger', DANGER_VARS]].map(([group, vars]) => (
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 mt-2">
+                        {[['Surface', SURFACE_VARS], ['Ink', INK_VARS], ['Accent', ACCENT_VARS], ['Success', SUCCESS_VARS], ['Danger', DANGER_VARS]].map(([group, vars]) => (
                             <Spec key={group as string} label={group as string}>
                                 {(vars as string[]).map(v => (
                                     <div key={v} className="flex flex-col items-center gap-1">
@@ -177,7 +178,6 @@ export const DesignSystem: React.FC = () => {
                     </Spec>
                     <Spec label="Inline / link CTAs (CSS classes)">
                         <button className="minimal-btn"><span className="text-xs">↗</span> minimal-btn</button>
-                        <button className="stack-cta-primary">stack-cta-primary ↗</button>
                         <a href="#" className="link-quiet"><span>link-quiet</span><span className="arrow">↗</span></a>
                     </Spec>
                 </Section>
@@ -245,9 +245,10 @@ export const DesignSystem: React.FC = () => {
 
                 {/* Icon tiles */}
                 <Section title="Icon tiles"
-                         note="Squared, ink-bordered, hard shadow. Accent for positive/brand, danger for errors only.">
+                         note="Squared, ink-bordered, hard shadow. Accent for positive/brand, success for completion, danger for errors only.">
                     <Spec label="Tones (md)">
                         <IconTile icon={CheckCircle2} tone="accent"/>
+                        <IconTile icon={CheckCircle2} tone="success"/>
                         <IconTile icon={ShieldQuestion} tone="danger"/>
                         <IconTile icon={Mail} tone="ink"/>
                         <IconTile icon={MapPin} tone="surface"/>
@@ -295,8 +296,34 @@ export const DesignSystem: React.FC = () => {
                 <Section title="Feedback / overlays" note="Modal popups for success and error states.">
                     <Spec label="Trigger popups">
                         <button className="minimal-btn" onClick={() => setShowSuccess(true)}>Show success popup</button>
-                        <button className="stack-cta-primary" onClick={() => setShowError(true)}>Show error popup
-                        </button>
+                        <button className="minimal-btn" onClick={() => setShowError(true)}>Show error popup</button>
+                    </Spec>
+                    <Spec label="Popup typography" className="!block">
+                        <div className="text-center space-y-2">
+                            <h2 className="popup-heading">Popup heading</h2>
+                            <p className="popup-copy">Popup copy — 0.9rem supporting text inside modals.</p>
+                        </div>
+                    </Spec>
+                </Section>
+
+                {/* App & auth primitives */}
+                <Section title="App & auth primitives"
+                         note="Standalone-page and application-shell pieces. The dashboard (.dash-*) shell is an application surface and keeps its own section in index.css.">
+                    <Spec label="notice — inline info/warn banner" className="!block">
+                        <div className="max-w-sm"><p className="notice">Inline info notice used on login, confirm and
+                            unsubscribe pages.</p></div>
+                    </Spec>
+                    <Spec label="signin-chip — hero sign-in button">
+                        <Link to="/login" className="signin-chip" onClick={e => e.preventDefault()}>Sign in</Link>
+                    </Spec>
+                    <Spec label="older-chip — dashboard history toggle">
+                        <button className="older-chip">Include older</button>
+                        <button className="older-chip on">Include older (on)</button>
+                    </Spec>
+                    <Spec label="prof-chip — profile drawer skill chips">
+                        <span className="prof-chip">React</span>
+                        <span className="prof-chip">TypeScript</span>
+                        <span className="prof-chip">PostgreSQL</span>
                     </Spec>
                 </Section>
 

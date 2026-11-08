@@ -3,11 +3,13 @@ import {LucideIcon} from 'lucide-react';
 import {cn} from '../../utils/cn';
 
 // Brutalist icon tile: square, 2px ink border, hard offset shadow, solid fill.
-// Single accent for positive/brand, danger for errors, ink/surface for neutral.
-type Tone = 'accent' | 'danger' | 'ink' | 'surface';
+// Single accent for positive/brand, success for completion, danger for errors,
+// ink/surface for neutral.
+type Tone = 'accent' | 'success' | 'danger' | 'ink' | 'surface';
 
 const tones: Record<Tone, string> = {
     accent: 'bg-[color:var(--clr-amber)] text-[color:var(--clr-base)]',
+    success: 'bg-[color:var(--clr-success-l)] text-[color:var(--clr-success)]',
     danger: 'bg-[color:var(--clr-danger)] text-[color:var(--clr-base)]',
     ink: 'bg-[color:var(--clr-text)] text-[color:var(--clr-base)]',
     surface: 'bg-[color:var(--clr-base)] text-[color:var(--clr-text)]',

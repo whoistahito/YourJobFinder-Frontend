@@ -66,7 +66,7 @@ export default function Poster() {
             <div className="max-w-6xl mx-auto">
                 <div className="flex items-end justify-between gap-6 flex-wrap">
                     <div>
-                        <h1 className="text-3xl md:text-4xl font-outfit font-semibold tracking-tight text-gray-900">Poster
+                        <h1 className="text-3xl md:text-4xl section-heading">Poster
                             / Flyer</h1>
                         <p className="text-sm text-gray-600 mt-2">Live preview on the left. Choose a size and export as
                             PNG.</p>

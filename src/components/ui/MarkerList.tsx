@@ -4,7 +4,7 @@ import React from 'react';
 type Marker = 'bullet' | 'arrow' | 'check';
 
 const markers: Record<Marker, { glyph: string; cls: string }> = {
-    bullet: {glyph: '•', cls: 'text-brand-500 mt-1'},
+    bullet: {glyph: '•', cls: 'text-[color:var(--clr-amber)] mt-1'},
     arrow: {glyph: '→', cls: 'text-gray-400'},
     check: {glyph: '✓', cls: 'text-emerald-600 mt-0.5'},
 };

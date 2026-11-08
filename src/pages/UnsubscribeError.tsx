@@ -19,7 +19,7 @@ export const UnsubscribeError: React.FC = () => {
                         </div>
                     </div>
                     <div className="space-y-4">
-                        <h1 className="font-outfit text-3xl font-semibold tracking-tight text-gray-900">Unsubscribe
+                        <h1 className="section-heading">Unsubscribe
                             Failed</h1>
                         <p className="text-gray-600 text-base leading-relaxed">We encountered an issue while processing
                             your request.</p>

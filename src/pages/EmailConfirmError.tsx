@@ -21,7 +21,7 @@ export const EmailConfirmError: React.FC = () => {
 
                     {/* Main Heading */}
                     <div className="space-y-4">
-                        <h1 className="font-outfit text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
+                        <h1 className="section-heading">
                             Something Went Wrong
                         </h1>
                         <p className="text-gray-600 text-base md:text-lg leading-relaxed max-w-md mx-auto">

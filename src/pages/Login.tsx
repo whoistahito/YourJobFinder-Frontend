@@ -3,6 +3,7 @@ import {Link, useSearchParams} from 'react-router-dom';
 import {CheckCircle2} from 'lucide-react';
 import {API_BASE} from '../api';
 import {Button} from '../components/ui/Button';
+import {IconTile} from '../components/ui/IconTile';
 import {Input} from '../components/ui/Input';
 import {SEO} from '../components/SEO';
 
@@ -46,10 +47,7 @@ export const Login: React.FC = () => {
     };
 
     const expiredBanner = (
-        <div className="border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800"
-             id="expired-banner">
-            This sign-in link expired or was already used. Request a new one below.
-        </div>
+        <p className="notice">This sign-in link expired or was already used. Request a new one below.</p>
     );
 
     return (
@@ -60,13 +58,13 @@ export const Login: React.FC = () => {
             <div className="w-full max-w-md">
                 {sent ? (
                     <div className="panel p-8 sm:p-10 text-center space-y-5">
-                        <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto animate-scale-in"/>
+                        <IconTile icon={CheckCircle2} tone="success" className="mx-auto"/>
                         <div className="space-y-2">
-                            <h1 className="section-heading">Check your inbox</h1>
-                            <p className="subcopy">
+                            <h2 className="popup-heading">Check your inbox</h2>
+                            <p className="popup-copy">
                                 We sent a one-time sign-in link to <b>{email}</b>. It expires in 30 minutes.
                             </p>
-                            <p className="text-xs text-gray-500">
+                            <p className="micro-hint">
                                 Not a subscriber yet? You&apos;ll get an email explaining how to set up alerts.
                             </p>
                         </div>
@@ -108,7 +106,7 @@ export const Login: React.FC = () => {
                                 Send login link
                             </Button>
                         </form>
-                        <p className="text-xs text-gray-500">
+                        <p className="micro-hint">
                             First time here?{' '}
                             <Link to="/" className="font-medium underline decoration-dotted underline-offset-2">
                                 Set up job alerts

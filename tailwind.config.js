@@ -18,8 +18,7 @@ export default {
                 }
             },
             fontFamily: {
-                outfit: ['Outfit', 'sans-serif'],
-                sans: ['Inter', 'Outfit', 'system-ui', 'sans-serif']
+                sans: ['Geist', 'Inter', 'system-ui', 'sans-serif']
             },
             keyframes: {
                 'fade-in-up': {

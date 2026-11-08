@@ -28,8 +28,8 @@ export const SuccessPopup: React.FC<SuccessPopupProps> = ({show, onClose, dashbo
                     <div className="text-center space-y-5">
                         <IconTile icon={Check} tone="accent" className="mx-auto"/>
                         <div className="space-y-2">
-                            <h2 className="section-heading" style={{fontSize: '1.6rem'}}>Subscription confirmed</h2>
-                            <p className="subcopy" style={{fontSize: '0.9rem'}}>
+                            <h2 className="popup-heading">Subscription confirmed</h2>
+                            <p className="popup-copy">
                                 Check your inbox to confirm your email — matches then show on your dashboard.
                             </p>
                         </div>

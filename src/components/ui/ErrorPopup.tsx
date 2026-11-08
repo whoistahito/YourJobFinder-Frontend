@@ -28,8 +28,8 @@ export const ErrorPopup: React.FC<ErrorPopupProps> = ({show, onClose, error, onC
                     <div className="text-center space-y-5">
                         <IconTile icon={AlertTriangle} tone="danger" className="mx-auto"/>
                         <div className="space-y-2">
-                            <h2 className="section-heading" style={{fontSize: '1.6rem'}}>Submission failed</h2>
-                            <p className="subcopy" style={{fontSize: '0.9rem'}}>
+                            <h2 className="popup-heading">Submission failed</h2>
+                            <p className="popup-copy">
                                 {error || 'An unexpected error occurred. Please try again.'}
                             </p>
                         </div>

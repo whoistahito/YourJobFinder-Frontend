@@ -68,7 +68,7 @@ export const UnsubscribeHandler: React.FC = () => {
                         <div className="flex justify-center">
                             <Loader className="w-8 h-8 text-indigo-600 animate-spin"/>
                         </div>
-                        <h1 className="font-outfit text-2xl font-bold text-gray-900">
+                        <h1 className="section-heading">
                             Processing Your Request
                         </h1>
                         <p className="text-gray-600">
