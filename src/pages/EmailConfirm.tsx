@@ -1,8 +1,12 @@
 import React from 'react';
 import {ArrowLeft, CheckCircle2, Mail, Sparkles} from 'lucide-react';
 import {Button} from '../components/ui/Button';
+import {useSearchParams} from 'react-router-dom';
 
 export const EmailConfirm: React.FC = () => {
+    const [params] = useSearchParams();
+    const uid = params.get('uid');
+
     return (
         <main className="page-shell">
             <div className="page-container max-w-2xl">
@@ -79,6 +83,15 @@ export const EmailConfirm: React.FC = () => {
 
                     {/* CTA Section */}
                     <div className="pt-4 space-y-4">
+                        {uid && (
+                            <Button
+                                variant="primary"
+                                onClick={() => window.location.href = `/dashboard/${uid}`}
+                                className="!w-auto mx-auto px-8"
+                            >
+                                <span>Open your matches</span>
+                            </Button>
+                        )}
                         <Button
                             variant="primary"
                             onClick={() => window.location.href = '/'}

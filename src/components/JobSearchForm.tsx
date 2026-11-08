@@ -26,6 +26,7 @@ export const JobSearchForm: React.FC = () => {
     suggestions,
     showSuggestions,
     suggestionsRef,
+    userId,
     navigate,
     handleLocationInput,
     handleSuggestionClick,
@@ -141,6 +142,7 @@ export const JobSearchForm: React.FC = () => {
         <SuccessPopup
             show={showSuccessPopup}
             onClose={() => setShowSuccessPopup(false)}
+            dashboardUrl={userId ? `/dashboard/${userId}` : undefined}
         />
         {/* Error Popup */}
         <ErrorPopup

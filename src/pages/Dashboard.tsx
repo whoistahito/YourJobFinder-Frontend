@@ -72,9 +72,31 @@ const rel = (h: number) => {
     return d === 1 ? 'yesterday' : `${d}d ago`;
 };
 
+type StatusMap = Record<number, JobStatus>;
+
+const readUid = (): string | undefined => localStorage.getItem('jmf:uid') ?? undefined;
+
+const loadStatuses = (uid: string | undefined): StatusMap => {
+    if (!uid) return {};
+    try {
+        return JSON.parse(localStorage.getItem(`jmf:status:${uid}`) ?? '{}') as StatusMap;
+    } catch {
+        return {};
+    }
+};
+
+// "last scan" ≈ the newest match we ever wrote for this user
+const fmtClock = (ms: number) => new Intl.DateTimeFormat('en-GB', {hour: '2-digit', minute: '2-digit'}).format(ms);
+
 export const Dashboard: React.FC = () => {
-    const {userId} = useParams<{ userId: string }>();
-    const [jobs, setJobs] = useState<JobMatch[]>([]);
+    const params = useParams<{ userId: string }>();
+    // Bookmarked /dashboard without an id falls back to the last signed-up id.
+    const userId: string | undefined = params.userId ?? readUid();
+    const [rawJobs, setRawJobs] = useState<JobMatch[]>([]);
+    const [overrides, setOverrides] = useState<StatusMap>(() => loadStatuses(userId));
+    const [userEmail, setUserEmail] = useState<string | null>(null);
+    const [lastScan, setLastScan] = useState<string | null>(null);
+    const [loading, setLoading] = useState(true);
     const [loadError, setLoadError] = useState<string | null>(null);
     const [tab, setTab] = useState<Tab>('new');
     const [sort, setSort] = useState<Sort>('fit');
@@ -82,15 +104,37 @@ export const Dashboard: React.FC = () => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     useEffect(() => {
-        if (!userId) return;
+        if (params.userId) localStorage.setItem('jmf:uid', params.userId);
+    }, [params.userId]);
+
+    useEffect(() => {
+        if (!userId) {
+            setLoading(false);
+            return;
+        }
+        setOverrides(loadStatuses(userId));
         fetch(`${API_BASE}/users/${userId}/matches`)
             .then(r => (r.ok ? r.json() : Promise.reject(r.status)))
-            .then((d: { matches: ApiMatch[] }) => setJobs(d.matches.map(toJobMatch)))
+            .then((d: { email: string | null; matches: ApiMatch[] }) => {
+                setUserEmail(d.email);
+                setRawJobs(d.matches.map(toJobMatch));
+                const newest = d.matches.reduce<string | null>(
+                    (a, m) => (m.created_at && (!a || m.created_at > a) ? m.created_at : a), null);
+                setLastScan(newest ? fmtClock(parseUtc(newest)) : null);
+            })
             .catch(e => {
                 console.error('matches fetch failed', e);
                 setLoadError('Could not load your matches.');
-            });
+            })
+            .finally(() => setLoading(false));
     }, [userId]);
+
+    // backend only knows 'new'; saved/archived live in overrides
+    const jobs = useMemo(() => rawJobs.map(j => ({...j, status: overrides[j.id] ?? j.status})), [rawJobs, overrides]);
+
+    useEffect(() => {
+        if (userId) localStorage.setItem(`jmf:status:${userId}`, JSON.stringify(overrides));
+    }, [overrides, userId]);
 
     const counts = useMemo(() => {
         const c = {new: 0, saved: 0, archived: 0, all: 0};
@@ -114,11 +158,12 @@ export const Dashboard: React.FC = () => {
     }, [jobs, tab, sort, query]);
 
     const setStatus = (id: number, status: JobStatus) => {
-        setJobs(prev => prev.map(j => (j.id === id ? {...j, status} : j)));
+        setOverrides(prev => ({...prev, [id]: status}));
     };
 
     const emptyMsg =
-        tab === 'new'
+        !userId ? {h: 'No matches yet', p: 'Sign up and your matches will collect here.'}
+            : tab === 'new'
             ? {h: 'Inbox zero', p: "Nothing new cleared the bar. That's the filter working."}
             : tab === 'saved'
                 ? {h: 'No saved roles', p: 'Save a match to keep it here.'}
@@ -173,12 +218,12 @@ export const Dashboard: React.FC = () => {
                 </nav>
                 <div className="dash-sidefoot">
                     <div className="scan">
-                        <span className="live"/> Live · last scan 07:00
+                        <span className="live"/> Live{lastScan ? ` · last scan ${lastScan}` : ''}
                     </div>
-                    <div>247 listings scanned today</div>
+                    <div>{counts.all === 0 ? 'No matches yet' : `${counts.all} matches · ${counts.new} new`}</div>
                     <div className="side-user">
-                        <span className="av">T</span>
-                        <span>tahito@work.email</span>
+                        <span className="av">{(userEmail?.trim()?.[0] ?? 'U').toUpperCase()}</span>
+                        <span>{userEmail ?? 'your account'}</span>
                     </div>
                 </div>
             </aside>
@@ -194,7 +239,7 @@ export const Dashboard: React.FC = () => {
                             <h1>Your matches</h1>
                         </div>
                         <div className="dash-meta">
-                            <b>{counts.new} new</b> today · cleared from 247 listings · last scan 7:00 AM
+                            <b>{counts.new} new</b> · {counts.all} matches{lastScan ? ` · last scan ${lastScan}` : ''}
                         </div>
                     </div>
                     <div className="dash-search">
@@ -229,7 +274,12 @@ export const Dashboard: React.FC = () => {
                 </div>
 
                 <div className="dash-list">
-                    {visible.length === 0 ? (
+                    {loading ? (
+                        <div className="dash-empty">
+                            <Inbox size={28}/>
+                            <div className="big">Loading your matches…</div>
+                        </div>
+                    ) : visible.length === 0 ? (
                         <div className="dash-empty">
                             <Inbox size={28}/>
                             <div className="big">{loadError ? 'Something went wrong' : emptyMsg.h}</div>

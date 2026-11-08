@@ -1,14 +1,16 @@
 import React from 'react';
 import {Check, X} from 'lucide-react';
 import {Button} from './Button';
+import {Link} from 'react-router-dom';
 import {IconTile} from './IconTile';
 
 interface SuccessPopupProps {
     show: boolean;
     onClose: () => void;
+    dashboardUrl?: string;
 }
 
-export const SuccessPopup: React.FC<SuccessPopupProps> = ({show, onClose}) => {
+export const SuccessPopup: React.FC<SuccessPopupProps> = ({show, onClose, dashboardUrl}) => {
     if (!show) return null;
 
     return (
@@ -28,10 +30,18 @@ export const SuccessPopup: React.FC<SuccessPopupProps> = ({show, onClose}) => {
                         <div className="space-y-2">
                             <h2 className="section-heading" style={{fontSize: '1.6rem'}}>Subscription confirmed</h2>
                             <p className="subcopy" style={{fontSize: '0.9rem'}}>
-                                We will start sending curated matches. Unsubscribe any time.
+                                Check your inbox to confirm your email — matches then show on your dashboard.
                             </p>
                         </div>
-                        <Button variant="dark" onClick={onClose}>Got it</Button>
+                        <div className="space-y-3">
+                            <Button variant="dark" onClick={onClose}>Got it</Button>
+                            {dashboardUrl && (
+                                <Link to={dashboardUrl} className="block text-sm font-medium underline
+                                            decoration-dotted underline-offset-2 mt-1">
+                                    Open your matches →
+                                </Link>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

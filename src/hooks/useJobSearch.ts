@@ -56,6 +56,7 @@ export const useJobSearch = () => {
     const [success, setSuccess] = useState<string | null>(null);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const [showErrorPopup, setShowErrorPopup] = useState(false);
+    const [userId, setUserId] = useState<string | null>(null);
     const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
     const suggestionsRef = useRef<HTMLDivElement>(null);
@@ -323,6 +324,10 @@ export const useJobSearch = () => {
                 throw new Error('Failed to submit job search, please try again.');
             }
 
+            // Backend hands over the id so the popup can link to /dashboard/:userId.
+            const body: { user_id?: string | null } | null = await response.json().catch(() => null);
+            setUserId(body?.user_id ?? null);
+
             setSuccess('Thank you! We will start searching for jobs matching your criteria.');
             setShowSuccessPopup(true);
 
@@ -477,6 +482,7 @@ export const useJobSearch = () => {
         isSubmitting,
         error,
         success,
+        userId,
         showSuccessPopup,
         setShowSuccessPopup,
         showErrorPopup,
