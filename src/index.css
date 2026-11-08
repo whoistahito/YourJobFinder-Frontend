@@ -481,6 +481,30 @@
         transform: translate(2px, -2px);
     }
 
+    /* Sign-in chip in the hero — same brutalist mini-button language */
+    .signin-chip {
+        position: absolute;
+        top: 1.25rem;
+        right: 1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--clr-text);
+        background: var(--clr-base);
+        border: 2px solid var(--clr-text);
+        padding: 0.45rem 0.85rem;
+        box-shadow: 3px 3px 0 var(--clr-amber);
+        cursor: pointer;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .signin-chip:hover {
+        transform: translate(-1px, -1px);
+        box-shadow: 4px 4px 0 var(--clr-amber);
+    }
+
     /* Progressive-disclosure toggle for optional enrichment fields */
     .boost-toggle {
         display: inline-flex;

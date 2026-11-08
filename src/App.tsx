@@ -14,11 +14,13 @@ import WhyUsPreview from './pages/WhyUsPreview';
 import Imprint from './pages/Imprint';
 import Privacy from './pages/Privacy';
 import Dashboard from './pages/Dashboard';
+import Login from './pages/Login';
 
 function App() {
     return (
         <Routes>
             <Route path="/" element={<JobSearchForm/>}/>
+            <Route path="/login" element={<Login/>}/>
             <Route path="/blog" element={<Blog/>}/>
             <Route path="/confirm-email/success" element={<EmailConfirm/>}/>
             <Route path="/confirm-email/error" element={<EmailConfirmError/>}/>

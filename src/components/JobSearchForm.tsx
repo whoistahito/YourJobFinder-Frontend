@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
-import {Check} from 'lucide-react';
+import {Check, User} from 'lucide-react';
 import {Input} from './ui/Input';
 import {Button} from './ui/Button';
 import {Select} from './ui/Select';
@@ -154,6 +154,9 @@ export const JobSearchForm: React.FC = () => {
           {/* Hero Section */}
           <section className="relative border-b border-gray-300/60 dot-grid-bg overflow-hidden">
               <div className="dot-cluster"/>
+              <Link to="/login" className="signin-chip z-10">
+                  <User size={14}/> Sign in
+              </Link>
               <div className="relative max-w-6xl mx-auto px-6 pt-16 pb-16 md:pt-24 md:pb-24">
                   <div className="hero-grid">
                       <div className="max-w-4xl animate-fade-in-up">
