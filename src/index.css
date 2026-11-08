@@ -1452,7 +1452,7 @@
 
 .dash-card {
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     gap: 1.1rem;
     align-items: center;
     border: 2px solid var(--clr-text);
@@ -1511,6 +1511,7 @@
     line-height: 1;
     letter-spacing: -0.01em;
     color: var(--clr-text);
+    overflow-wrap: anywhere;
 }
 
 .dash-card .newdot {
@@ -1536,6 +1537,7 @@
 .dash-card .metarow .co {
     font-weight: 600;
     color: var(--clr-text);
+    overflow-wrap: anywhere;
 }
 
 .dash-card .metarow .sep {
@@ -1732,7 +1734,7 @@
     }
 
     .dash-card {
-        grid-template-columns: auto 1fr;
+        grid-template-columns: auto minmax(0, 1fr);
         gap: 0.9rem;
     }
 
@@ -1746,6 +1748,7 @@
 
     .dash-card .title {
         font-size: 1.2rem;
+        overflow-wrap: anywhere;
     }
 }
 
