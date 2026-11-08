@@ -4,10 +4,8 @@ import {
     Archive,
     ArrowRight,
     Bookmark,
-    Clock,
     Inbox,
     Mail,
-    MapPin,
     Menu,
     Search,
     Settings as SettingsIcon,
@@ -340,27 +338,25 @@ export const Dashboard: React.FC = () => {
                                     <div className="titleline">
                                         <span className="title">{j.title}</span>
                                         {j.status === 'new' && j.hoursAgo <= 12 && <span className="newdot">NEW</span>}
+                                        <span className={`score-badge ${j.score == null ? 'none' : ''}`}>
+                                            {j.score == null ? 'unscored' : `${j.score}% fit`}
+                                        </span>
                                     </div>
                                     <div className="metarow">
                                         <span className="co">{j.company}</span>
                                         <span className="sep">·</span>
-                                        <span className="loc"><MapPin size={13}/>{j.location}</span>
+                                        <span className="loc">{j.location || 'any location'}</span>
                                         <span className="sep">·</span>
                                         <span className={`posted ${j.hoursAgo <= 12 ? 'fresh' : ''}`}>
-                                            <Clock size={13}/>{rel(j.hoursAgo)}
+                                            {rel(j.hoursAgo)}
                                         </span>
                                     </div>
-                                </div>
-                                <div className="right">
-                                    <div className={`score ${(j.score ?? 0) >= 90 ? 'hi' : ''}`}>
-                                        {j.score ?? '—'}<small>% fit</small>
-                                    </div>
-                                    {j.status === 'archived' ? (
-                                        <button className="restore"
-                                                onClick={() => setStatus(j.id, 'new')}>Restore</button>
-                                    ) : (
-                                        <>
-                                            <div className="actions">
+                                    <div className="foot">
+                                        {j.status === 'archived' ? (
+                                            <button className="restore"
+                                                    onClick={() => setStatus(j.id, 'new')}>Restore</button>
+                                        ) : (
+                                            <>
                                                 <button className={`iconbtn ${j.status === 'saved' ? 'saved' : ''}`}
                                                         title={j.status === 'saved' ? 'Unsave' : 'Save'}
                                                         onClick={() => setStatus(j.id, j.status === 'saved' ? 'new' : 'saved')}>
@@ -370,11 +366,11 @@ export const Dashboard: React.FC = () => {
                                                         onClick={() => setStatus(j.id, 'archived')}>
                                                     <X size={16}/>
                                                 </button>
-                                            </div>
-                                            <a className="viewbtn" href={j.url} target="_blank"
-                                               rel="noopener noreferrer">View <ArrowRight size={13}/></a>
-                                        </>
-                                    )}
+                                                <a className="viewbtn" href={j.url} target="_blank"
+                                                   rel="noopener noreferrer">View <ArrowRight size={13}/></a>
+                                            </>
+                                        )}
+                                    </div>
                                 </div>
                             </article>
                         ))

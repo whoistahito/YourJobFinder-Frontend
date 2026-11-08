@@ -1452,9 +1452,9 @@
 
 .dash-card {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns: auto minmax(0, 1fr);
     gap: 1.1rem;
-    align-items: center;
+    align-items: start;
     border: 2px solid var(--clr-text);
     background: var(--clr-base);
     padding: 1.1rem 1.25rem;
@@ -1555,38 +1555,35 @@
     color: var(--clr-amber);
 }
 
-.dash-card .right {
+.dash-card .score-badge {
+    margin-left: auto;
+    flex: none;
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    background: var(--clr-amber);
+    color: var(--clr-base);
+    padding: 0.32rem 0.55rem;
+}
+
+.dash-card .score-badge.none {
+    background: var(--clr-raised);
+    color: var(--clr-sub);
+    border: 1.5px solid var(--clr-border);
+}
+
+.dash-card .foot {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.45rem;
+    margin-top: 0.85rem;
+    border-top: 1.5px solid var(--clr-border);
+    padding-top: 0.75rem;
 }
 
-.dash-card .score {
-    font-family: 'Barlow Condensed', system-ui, sans-serif;
-    font-weight: 800;
-    font-size: 1.55rem;
-    line-height: 1;
-    color: var(--clr-text);
-    text-align: right;
-}
-
-.dash-card .score small {
-    display: block;
-    font-family: 'Geist Mono', ui-monospace, monospace;
-    font-weight: 600;
-    font-size: 0.56rem;
-    letter-spacing: 0.1em;
-    color: var(--clr-faint);
-    text-transform: uppercase;
-}
-
-.dash-card .score.hi {
-    color: var(--clr-amber);
-}
-
-.dash-card .actions {
-    display: flex;
-    gap: 0.4rem;
+.dash-card .foot .viewbtn {
+    margin-left: auto;
 }
 
 .dash-card .iconbtn {
@@ -1736,14 +1733,6 @@
     .dash-card {
         grid-template-columns: auto minmax(0, 1fr);
         gap: 0.9rem;
-    }
-
-    .dash-card .right {
-        grid-column: 1 / -1;
-        justify-content: space-between;
-        border-top: 1.5px solid var(--clr-border);
-        padding-top: 0.85rem;
-        margin-top: 0.2rem;
     }
 
     .dash-card .title {
