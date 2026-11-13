@@ -15,25 +15,27 @@ export const Input: React.FC<InputProps> = ({
                                                 error,
   className,
                                                 variant = 'default',
+                                                id,
                                                 ...props
 }) => {
+    const inputId = id ?? React.useId();
     const baseDefault = [
         'w-full px-3 py-2.5 rounded-none border-2 border-[color:var(--clr-text)] bg-[color:var(--clr-float)]',
-        'text-sm placeholder:text-[color:var(--clr-faint)]', 'transition-shadow duration-300',
+        'text-sm placeholder:text-[color:var(--clr-sub)]', 'transition-shadow duration-300',
         'focus:outline-none focus:shadow-[3px_3px_0_var(--clr-amber)]'
     ];
     const baseMinimal = [
-        'w-full bg-transparent px-0 py-2 text-base', 'border-0 border-b border-[color:var(--clr-border)] rounded-none',
-        'placeholder:text-[color:var(--clr-faint)]', 'focus:outline-none focus:ring-0 focus:border-[color:var(--clr-text)]', 'hover:border-[color:var(--clr-muted)]'
+        'w-full bg-transparent px-0 py-3 md:py-2 text-base', 'border-0 border-b border-[color:var(--clr-border)] rounded-none',
+        'placeholder:text-[color:var(--clr-sub)]', 'focus:outline-none focus:ring-0 focus:border-[color:var(--clr-text)]', 'hover:border-[color:var(--clr-muted)]'
     ];
     const errorClasses = variant === 'minimal'
         ? 'border-b-[color:var(--clr-danger)] focus:border-[color:var(--clr-danger)]'
         : 'border-[color:var(--clr-danger)] focus:shadow-[3px_3px_0_var(--clr-danger)]';
 
   return (
-      <div className={variant === 'minimal' ? 'minimal-field space-y-1.5' : 'space-y-1.5'}>
-          <label className={variant === 'minimal'
-              ? 'block text-xs font-medium tracking-wide text-[color:var(--clr-faint)] uppercase'
+      <div className={variant === 'minimal' ? 'minimal-field space-y-2' : 'space-y-1.5'}>
+          <label htmlFor={inputId} className={variant === 'minimal'
+              ? 'block text-xs font-medium tracking-wide text-[color:var(--clr-sub)] uppercase'
               : 'block text-xs font-medium tracking-wide text-[color:var(--clr-sub)] uppercase'}>
         {label}
       </label>
@@ -45,6 +47,7 @@ export const Input: React.FC<InputProps> = ({
                   </div>
         )}
         <input
+          id={inputId}
           className={cn(
               variant === 'default' ? baseDefault : baseMinimal,
               Icon && variant === 'default' && 'pl-10',

@@ -1,5 +1,5 @@
 import React from 'react';
-import {ArrowLeft, Bot, ChatCircle, Envelope, WarningCircle} from '@phosphor-icons/react';
+import {ArrowLeft, ChatCircle, Envelope, WarningCircle} from '@phosphor-icons/react';
 import {Button} from '../components/ui/Button.tsx';
 import {IconTile} from '../components/ui/IconTile';
 import {Link} from 'react-router-dom';

@@ -20,7 +20,7 @@ const Arrow: React.FC<{ note: string }> = ({note}) => (
             <span className="text-xl font-bold text-[color:var(--clr-text)]">
                 <span className="hidden sm:inline">→</span><span className="sm:hidden">↓</span>
             </span>
-        <span className="eyebrow whitespace-nowrap text-[color:var(--clr-faint)]">{note}</span>
+        <span className="eyebrow whitespace-nowrap text-[color:var(--clr-sub)]">{note}</span>
     </div>
 );
 

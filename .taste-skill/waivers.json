@@ -1,0 +1,27 @@
+[
+  {
+    "check": "nav",
+    "target": "the page",
+    "reason": "Intentional: the product sells calm, anti-noise job search. A persistent nav contradicts the brand; only a lone 'Sign in' chip sits in the hero, plus a visible skip link."
+  },
+  {
+    "check": "scroll-reveal",
+    "target": "the page",
+    "reason": "This is a client-rendered React SPA (no JS = no page at all, so progressive-enhancement concerns are moot). Content lives in the DOM; reveals are IntersectionObserver class toggles per the existing design system."
+  },
+  {
+    "check": "button-styles",
+    "target": "the page",
+    "reason": "The design system deliberately defines four consistent control families (primary with hard shadow, ghost text link, small chip, checkbox toggle), all sharing the same flat neo-brutalist language, border and shadow tokens."
+  },
+  {
+    "check": "heading-scale",
+    "target": "the page",
+    "reason": "DESIGN.md defines a three-role type scale (display / section heading / eyebrow). The checker sees two close clamps; they are distinct roles in the documented scale."
+  },
+  {
+    "check": "empty-area",
+    "target": "section#how",
+    "reason": "The 'empty' region is the scroll-length spacer that drives the sticky card stack; content is full opacity and readable while its card is active during real scrolling. The checker samples the static full-page capture."
+  }
+]

@@ -24,11 +24,13 @@ export const Select: React.FC<SelectProps> = ({
                                                   className,
                                                   onBlur,
                                                   variant = 'default',
+                                                  id,
                                                   ...props
                                               }) => {
+    const selectId = id ?? React.useId();
     const baseDefault = [
         'w-full px-3 py-2.5 rounded-none border-2 border-[color:var(--clr-text)] bg-[color:var(--clr-float)]',
-        'text-sm text-[color:var(--clr-text)] placeholder:text-[color:var(--clr-faint)]', 'transition-shadow duration-300',
+        'text-sm text-[color:var(--clr-text)] placeholder:text-[color:var(--clr-sub)]', 'transition-shadow duration-300',
         'focus:outline-none focus:shadow-[3px_3px_0_var(--clr-amber)]'
     ];
     const baseMinimal = [
@@ -41,8 +43,8 @@ export const Select: React.FC<SelectProps> = ({
         : 'border-[color:var(--clr-danger)] focus:shadow-[3px_3px_0_var(--clr-danger)]';
     return (
         <div className={variant === 'minimal' ? 'minimal-field space-y-1.5' : 'space-y-1.5'}>
-            <label className={variant === 'minimal'
-                ? 'block text-xs font-medium tracking-wide text-[color:var(--clr-faint)] uppercase'
+            <label htmlFor={selectId} className={variant === 'minimal'
+                ? 'block text-xs font-medium tracking-wide text-[color:var(--clr-sub)] uppercase'
                 : 'block text-xs font-medium tracking-wide text-[color:var(--clr-sub)] uppercase'}>
                 {label}
             </label>
@@ -54,6 +56,7 @@ export const Select: React.FC<SelectProps> = ({
                     </div>
                 )}
                 <select
+                    id={selectId}
                     className={cn(
                         variant === 'default' ? baseDefault : baseMinimal,
                         Icon && variant === 'default' && 'pl-10',

@@ -12,7 +12,7 @@
     --clr-muted: oklch(78% 0.008 65);
     /* Text */
     --clr-text: oklch(18% 0.006 55);
-    --clr-sub: oklch(42% 0.007 55);
+    --clr-sub: oklch(34% 0.008 55);
     --clr-faint: oklch(62% 0.007 55);
     /* Steel blue accent (variable name kept as amber for legacy compat) */
     --clr-amber: oklch(52% 0.20 245);
@@ -226,6 +226,15 @@
         color: var(--clr-amber);
     }
 
+    /* Single page container — matches the Tailwind trio (max-w-6xl mx-auto px-6)
+       so every section shares one content frame. */
+    .wrap {
+        width: 100%;
+        max-width: 72rem;
+        margin-inline: auto;
+        padding-inline: 1.5rem;
+    }
+
     .minimal-btn {
         display: inline-flex;
         align-items: center;
@@ -378,6 +387,13 @@
         box-shadow: 4px 4px 0 var(--clr-amber);
     }
 
+    /* Phones need a 44px tap target; the chip is only 36px at desktop padding */
+    @media (max-width: 767px) {
+        .signin-chip {
+            padding: 0.7rem 1.1rem;
+        }
+    }
+
     /* Progressive-disclosure toggle for optional enrichment fields */
     .boost-toggle {
         display: inline-flex;
@@ -391,6 +407,22 @@
         background: var(--clr-base);
         cursor: pointer;
         transition: background 0.3s cubic-bezier(0.22, 1, 0.36, 1), transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Phones need a 44px tap target */
+    @media (max-width: 767px) {
+        .boost-toggle {
+            min-height: 44px;
+        }
+    }
+
+    /* Footer links read as running text on desktop; on a phone they are taps */
+    @media (max-width: 767px) {
+        .footer-nav a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+        }
     }
 
     .boost-toggle:hover {
@@ -760,14 +792,14 @@
         border: none;
         border-bottom: 2px solid oklch(18% 0.006 55 / 0.2);
         border-radius: 0;
-        padding: 0.5rem 0;
-        font-size: 0.875rem;
+        padding: 0.875rem 0;
+        font-size: 0.9375rem;
         color: var(--clr-text);
         transition: border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .minimal-field input::placeholder {
-        color: var(--clr-faint);
+        color: var(--clr-sub);
     }
 
     .minimal-field input:focus,
@@ -788,7 +820,7 @@
         font-weight: 600;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: var(--clr-faint);
+        color: var(--clr-sub);
         margin-bottom: 0.5rem;
     }
 
@@ -1790,32 +1822,90 @@
     }
 }
 
-/* ── Anti-noise statement — replaces the old scrolling marquee. ──────────── */
+/* ── Anti-noise statement — junk you recognise, struck out one by one.
+   Light band per the design system (the old dark band fought it). The strike
+   is the message: it draws once when the section scrolls in, static under
+   reduced motion. */
 .noise-statement {
     border-top: 2px solid var(--clr-text);
     border-bottom: 2px solid var(--clr-text);
-    background: #181818;
-    padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 6vw, 4rem);
+    background: var(--clr-raised);
+    padding-block: clamp(2.5rem, 6vw, 4.5rem);
 }
 
 .noise-statement .eyebrow {
     color: var(--clr-amber);
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
 }
 
-.noise-statement p:last-child {
+.noise-list {
+    max-width: 56rem;
+}
+
+.noise-line {
     display: flex;
-    flex-direction: column;
+    align-items: baseline;
+    gap: 0.5rem 1.25rem;
+    flex-wrap: wrap;
+    padding: 0.3rem 0;
+}
+
+.noise-quote {
+    position: relative;
     font-weight: 700;
-    font-size: clamp(1.875rem, 6vw, 3.75rem);
+    font-size: clamp(1.5rem, 4.5vw, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--clr-sub);
+    transition: color 0.4s ease;
+}
+
+.noise-quote::after {
+    content: "";
+    position: absolute;
+    left: -0.12em;
+    right: -0.12em;
+    top: 52%;
+    height: 0.085em;
+    background: var(--clr-text);
+    transform: scaleX(0);
+    transform-origin: left center;
+}
+
+.noise-struck .noise-quote {
+    /* Dimmed, but held at 3:1+ against the raised surface (large text minimum) */
+    color: oklch(50% 0.008 55);
+}
+
+.noise-struck .noise-quote::after {
+    transform: scaleX(1);
+    transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+    transition-delay: calc(var(--i, 0) * 0.35s + 0.15s);
+}
+
+.noise-struck .noise-quote {
+    transition-delay: calc(var(--i, 0) * 0.35s + 0.15s);
+}
+
+.noise-tag {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--clr-sub);
+    white-space: nowrap;
+}
+
+.noise-verdict {
+    max-width: 56rem;
+    margin-top: 2.25rem;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 4.5vw, 2.75rem);
     line-height: 1.05;
     letter-spacing: -0.02em;
-    color: var(--clr-base);
+    color: var(--clr-text);
     text-wrap: balance;
-}
-
-.noise-statement p:last-child span:last-child {
-    color: var(--clr-muted);
 }
 
 

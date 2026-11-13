@@ -151,13 +151,13 @@ export const JobSearchForm: React.FC = () => {
             error={error}
             onContactSupport={() => navigate('/contact')}
         />
-          {/* Hero Section */}
-          <section className="relative border-b border-[color:var(--clr-border)] dot-grid-bg overflow-hidden">
+          {/* Hero Section — owns the first screen */}
+          <section className="relative border-b border-[color:var(--clr-border)] dot-grid-bg overflow-hidden min-h-[100svh] flex flex-col justify-center">
               <div className="dot-cluster"/>
               <Link to="/login" className="signin-chip z-10">
                   <User size={14} weight="bold"/> Sign in
               </Link>
-              <div className="relative max-w-6xl mx-auto px-6 pt-16 pb-16 md:pt-24 md:pb-24">
+              <div className="wrap relative py-16 md:py-24">
                   <div className="hero-grid">
                       <div className="max-w-4xl animate-fade-in-up">
                           <h1 className="heading-xl heading-gradient">Job Search on Autopilot</h1>
@@ -236,7 +236,12 @@ export const JobSearchForm: React.FC = () => {
                       <article className="stack-card" style={{'--i': 1} as React.CSSProperties}>
                           <h2>How it works</h2>
                           <div className="stack-line"/>
-                          <MatchingFlow/>
+                          <div className="max-w-2xl">
+                              <p className="subcopy mb-10">You set the bar once. Every morning we read the new
+                                  listings against your profile and send the one that clears it. The rest you
+                                  never see.</p>
+                              <MatchingFlow/>
+                          </div>
                       </article>
                       <article className="stack-card" style={{'--i': 2} as React.CSSProperties}>
                           <WhyUsManifesto/>
@@ -245,8 +250,8 @@ export const JobSearchForm: React.FC = () => {
               </div>
           </section>
           {/* Form Section */}
-          <div id="subscription-form" className="relative w-full pb-20">
-              <div className="max-w-6xl mx-auto px-6">
+          <div id="subscription-form" className="relative w-full pt-12 md:pt-20 pb-20">
+              <div className="wrap">
                   <div className="panel p-6 sm:p-10 md:p-14">
                       <form onSubmit={handleSubmit} className="form-grid">
                           {/* Role */}
@@ -463,10 +468,10 @@ export const JobSearchForm: React.FC = () => {
                                           onChange={e => handleTermsChange(e.target.checked)}
                                           aria-invalid={!!termsError}
                                           aria-describedby="terms-error"
-                                          className="peer h-5 w-5 appearance-none border-2 border-[color:var(--clr-text)] bg-[color:var(--clr-base)] checked:bg-[color:var(--clr-amber)] cursor-pointer focus:outline-none focus-visible:shadow-[3px_3px_0_var(--clr-amber)]"
+                                          className="peer h-6 w-6 appearance-none border-2 border-[color:var(--clr-text)] bg-[color:var(--clr-base)] checked:bg-[color:var(--clr-amber)] cursor-pointer focus:outline-none focus-visible:shadow-[3px_3px_0_var(--clr-amber)]"
                                       />
                                       <Check
-                                          className="pointer-events-none absolute inset-0 m-auto h-3.5 w-3.5 text-[color:var(--clr-base)] opacity-0 peer-checked:opacity-100"
+                                          className="pointer-events-none absolute inset-0 m-auto h-4 w-4 text-[color:var(--clr-base)] opacity-0 peer-checked:opacity-100"
                                           weight="bold"/>
                                   </span>
                                   <span className="text-sm text-[color:var(--clr-sub)] leading-snug">
@@ -487,9 +492,14 @@ export const JobSearchForm: React.FC = () => {
                                       className="jsf-submit-btn">
                                   Start monitoring
                               </Button>
-                              <p className="text-xs text-[color:var(--clr-faint)]">One email per day at most, only when a match
+                              <p className="text-xs text-[color:var(--clr-sub)]">One email per day at most, only when a match
                                   exists.</p>
                           </div>
+                          {/* Submit state for screen readers: sending / sent / errors */}
+                          <p role="status" aria-live="polite"
+                             className="sr-only">
+                              {isSubmitting ? 'Sending your subscription…' : error ? `Subscription failed: ${error}` : showSuccessPopup ? 'Subscription confirmed.' : ''}
+                          </p>
               </form>
                   </div>
               </div>

@@ -91,3 +91,8 @@ dist-ssr
 /.claude/skills/impeccable/scripts/pin.mjs
 /.claude/skills/impeccable/SKILL.md
 /.claude/
+
+# taste-skill artifacts
+shots/
+.taste-skill/*
+!.taste-skill/waivers.json
