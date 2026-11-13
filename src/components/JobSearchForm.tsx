@@ -11,7 +11,6 @@ import {useJobSearch} from '../hooks/useJobSearch';
 import {Footer} from './Footer';
 import {MatchingFlow} from './AiMatching';
 import {WhyUsManifesto} from './WhyUsVariants';
-import {NoiseBanner} from './NoiseBanner';
 
 export const JobSearchForm: React.FC = () => {
   const {
@@ -228,7 +227,6 @@ export const JobSearchForm: React.FC = () => {
                   </div>
               </div>
           </section>
-          <NoiseBanner/>
           {/* Trust before the ask: how it works + privacy */}
           <section id="how" className="relative stack-wide mx-auto px-6 pt-8 md:pt-16 pb-6 space-y-10">
               <div ref={stackRef} className="stack-wrapper">
