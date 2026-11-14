@@ -4,7 +4,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Geist', 'system-ui', 'sans-serif']
+                sans: ['Geist', 'system-ui', 'sans-serif'],
+                mono: ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
             },
             keyframes: {
                 'fade-in-up': {

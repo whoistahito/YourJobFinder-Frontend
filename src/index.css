@@ -1847,6 +1847,9 @@
     .stack-wide .stack-card > h2 {
         grid-column: 1;
         grid-row: 1 / -1;
+        /* Centre the heading against the body so the card reads as a spread,
+           not a heading with a long empty column under it. */
+        align-self: center;
         /* The full display size only worked across the whole card width. */
         font-size: clamp(2.25rem, 4.2vw, 3.75rem);
     }
