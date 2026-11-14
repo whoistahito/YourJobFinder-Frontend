@@ -1864,3 +1864,21 @@
         grid-column: 2;
     }
 }
+
+/* ── Review lab V4: full-width three-card version ───────────────────────────
+   The logo-per-step pattern needs the whole card, not the narrow body column.
+   On desktop the card returns to one column, with the heading above the cards. */
+.hiw-full-card h2 {
+    font-size: clamp(2.25rem, 4.2vw, 3.75rem);
+}
+
+@media (min-width: 1024px) {
+    .stack-wide .stack-card.hiw-full-card {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        min-height: min(68vh, 640px);
+        padding: clamp(3rem, 4vw, 4.5rem);
+    }
+}

@@ -1,5 +1,6 @@
 import type React from 'react';
 import {InboxVersion} from './InboxVersion';
+import {LogosVersion} from './LogosVersion';
 import {ReportVersion} from './ReportVersion';
 import {StepsVersion} from './StepsVersion';
 
@@ -8,6 +9,8 @@ export interface HowItWorksVariant {
     name: string;
     blurb: string;
     Component: React.FC;
+    /** `full` drops the split heading shell for a full-width card (V4). */
+    layout?: 'split' | 'full';
 }
 
 // Review lab directions for the "How it works" graphic. Route: /lab/how-it-works.
@@ -30,5 +33,12 @@ export const HOW_IT_WORKS_VARIANTS: HowItWorksVariant[] = [
         name: 'The numbered process',
         blurb: 'Typography-led steps: scan, check, send. The calmest of the three and the closest to a classic "how it works" section.',
         Component: StepsVersion,
+    },
+    {
+        key: '4',
+        name: 'The logo steps',
+        blurb: 'One bold mark per step, like the Third League reference: three cards across the full width, a number and one line of copy. Adapted to ink, paper and blue.',
+        Component: LogosVersion,
+        layout: 'full',
     },
 ];

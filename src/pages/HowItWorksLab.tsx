@@ -39,7 +39,7 @@ export const HowItWorksLab: React.FC = () => {
                     </Link>
                     <span
                         className="hidden font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--clr-sub)] md:block">
-                        How it works · three directions
+                        How it works · design directions
                     </span>
                     <nav aria-label="Design directions" className="flex items-center gap-1.5">
                         <Link
@@ -75,6 +75,7 @@ export const HowItWorksLab: React.FC = () => {
             <div className="stack-wide mx-auto space-y-14 px-6 py-12 md:py-16">
                 {shown.map(variant => {
                     const Version = variant.Component;
+                    const full = variant.layout === 'full';
                     return (
                         <section key={variant.key} id={`v${variant.key}`} className="space-y-4">
                             <div
@@ -89,9 +90,15 @@ export const HowItWorksLab: React.FC = () => {
                                     </Link>
                                 )}
                             </div>
-                            <CardShell>
-                                <Version/>
-                            </CardShell>
+                            {full ? (
+                                <article className="stack-card stack-card--static is-active hiw-full-card">
+                                    <Version/>
+                                </article>
+                            ) : (
+                                <CardShell>
+                                    <Version/>
+                                </CardShell>
+                            )}
                         </section>
                     );
                 })}
