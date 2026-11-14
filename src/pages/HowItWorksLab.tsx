@@ -1,9 +1,8 @@
 import React, {useEffect} from 'react';
 import {Link, useParams} from 'react-router-dom';
-import {cn} from '../utils/cn';
 import {HOW_IT_WORKS_VARIANTS} from '../components/howitworks/variants';
 
-// The real section shell, rendered outside the sticky stack so each direction
+// The real section shell, rendered outside the sticky stack so the direction
 // can be judged in context: heading left, subcopy + graphic right.
 const CardShell: React.FC<{ children: React.ReactNode }> = ({children}) => (
     <article className="stack-card stack-card--static is-active">
@@ -39,43 +38,14 @@ export const HowItWorksLab: React.FC = () => {
                     </Link>
                     <span
                         className="hidden font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--clr-sub)] md:block">
-                        How it works · design directions
+                        How it works · direction 3
                     </span>
-                    <nav aria-label="Design directions" className="flex items-center gap-1.5">
-                        <Link
-                            to="/lab/how-it-works"
-                            className={cn(
-                                'border-[length:2px] border-[color:var(--clr-text)] px-2.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.1em]',
-                                !active
-                                    ? 'bg-[color:var(--clr-text)] text-[color:var(--clr-base)]'
-                                    : 'bg-transparent text-[color:var(--clr-text)]',
-                            )}
-                        >
-                            All
-                        </Link>
-                        {HOW_IT_WORKS_VARIANTS.map(variant => (
-                            <Link
-                                key={variant.key}
-                                to={`/lab/how-it-works/${variant.key}`}
-                                aria-current={variant.key === active?.key ? 'page' : undefined}
-                                className={cn(
-                                    'border-[length:2px] border-[color:var(--clr-text)] px-2.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.1em]',
-                                    variant.key === active?.key
-                                        ? 'bg-[color:var(--clr-text)] text-[color:var(--clr-base)]'
-                                        : 'bg-transparent text-[color:var(--clr-text)]',
-                                )}
-                            >
-                                V{variant.key}
-                            </Link>
-                        ))}
-                    </nav>
                 </div>
             </header>
 
             <div className="stack-wide mx-auto space-y-14 px-6 py-12 md:py-16">
                 {shown.map(variant => {
                     const Version = variant.Component;
-                    const full = variant.layout === 'full';
                     return (
                         <section key={variant.key} id={`v${variant.key}`} className="space-y-4">
                             <div
@@ -90,15 +60,9 @@ export const HowItWorksLab: React.FC = () => {
                                     </Link>
                                 )}
                             </div>
-                            {full ? (
-                                <article className="stack-card stack-card--static is-active hiw-full-card">
-                                    <Version/>
-                                </article>
-                            ) : (
-                                <CardShell>
-                                    <Version/>
-                                </CardShell>
-                            )}
+                            <CardShell>
+                                <Version/>
+                            </CardShell>
                         </section>
                     );
                 })}

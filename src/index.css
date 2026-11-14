@@ -1847,9 +1847,6 @@
     .stack-wide .stack-card > h2 {
         grid-column: 1;
         grid-row: 1 / -1;
-        /* Centre the heading against the body so the card reads as a spread,
-           not a heading with a long empty column under it. */
-        align-self: center;
         /* The full display size only worked across the whole card width. */
         font-size: clamp(2.25rem, 4.2vw, 3.75rem);
     }
@@ -1862,23 +1859,5 @@
 
     .stack-wide .stack-card > *:not(h2):not(.stack-line) {
         grid-column: 2;
-    }
-}
-
-/* ── Review lab V4: full-width three-card version ───────────────────────────
-   The logo-per-step pattern needs the whole card, not the narrow body column.
-   On desktop the card returns to one column, with the heading above the cards. */
-.hiw-full-card h2 {
-    font-size: clamp(2.25rem, 4.2vw, 3.75rem);
-}
-
-@media (min-width: 1024px) {
-    .stack-wide .stack-card.hiw-full-card {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-        min-height: min(68vh, 640px);
-        padding: clamp(3rem, 4vw, 4.5rem);
     }
 }

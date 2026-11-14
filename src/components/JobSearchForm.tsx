@@ -9,7 +9,7 @@ import {ErrorPopup} from './ui/ErrorPopup';
 import {LocationInput} from './ui/LocationInput';
 import {useJobSearch} from '../hooks/useJobSearch';
 import {Footer} from './Footer';
-import {LogosVersion} from './howitworks/LogosVersion';
+import {MatchingFlow} from './AiMatching';
 import {WhyUsManifesto} from './WhyUsVariants';
 
 export const JobSearchForm: React.FC = () => {
@@ -231,8 +231,15 @@ export const JobSearchForm: React.FC = () => {
           <section id="how" className="relative stack-wide mx-auto px-6 pt-8 md:pt-16 pb-6 space-y-10">
               <div ref={stackRef} className="stack-wrapper">
                   <div className="stack-spacer">
-                      <article className="stack-card hiw-full-card" style={{'--i': 1} as React.CSSProperties}>
-                          <LogosVersion/>
+                      <article className="stack-card" style={{'--i': 1} as React.CSSProperties}>
+                          <h2>How it works</h2>
+                          <div className="stack-line"/>
+                          <div className="max-w-2xl">
+                              <p className="subcopy mb-10">You set the bar once. Every morning we read the new
+                                  listings against your profile and send the one that clears it. The rest you
+                                  never see.</p>
+                              <MatchingFlow/>
+                          </div>
                       </article>
                       <article className="stack-card" style={{'--i': 2} as React.CSSProperties}>
                           <WhyUsManifesto/>
