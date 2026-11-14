@@ -1,8 +1,9 @@
 import React from 'react';
 
-// V3 — "The numbered process": typography does the work. Three steps with
-// oversized mono numbers, one line of plain copy each, and a single blue
-// payoff chip after the third. No mocks, no motion.
+// Direction 3 — "The numbered process": typography does the work. Three steps
+// with oversized mono numbers, one line of plain copy each, and a single blue
+// payoff chip after the third. Kept from the review lab; not currently wired
+// into the landing page. No mocks, no motion.
 const steps = [
     {
         n: '01',

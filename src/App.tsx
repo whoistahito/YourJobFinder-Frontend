@@ -13,7 +13,6 @@ import Blog from './pages/Blog';
 import Poster from './pages/Poster';
 import DesignSystem from './pages/DesignSystem';
 import WhyUsPreview from './pages/WhyUsPreview';
-import HowItWorksLab from './pages/HowItWorksLab';
 import Imprint from './pages/Imprint';
 import Privacy from './pages/Privacy';
 import Dashboard from './pages/Dashboard';
@@ -42,8 +41,6 @@ function App() {
                 <Route path="/poster" element={<Poster/>}/>
                 <Route path="/design-system" element={<DesignSystem/>}/>
                 <Route path="/why-us" element={<WhyUsPreview/>}/>
-                <Route path="/lab/how-it-works" element={<HowItWorksLab/>}/>
-                <Route path="/lab/how-it-works/:version" element={<HowItWorksLab/>}/>
                 <Route path="/dashboard/:userId" element={<Dashboard/>}/>
                 {/* Branded 404 — any unknown URL lands here */}
                 <Route path="*" element={<NotFound/>}/>
